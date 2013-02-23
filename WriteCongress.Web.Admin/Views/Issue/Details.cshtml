@@ -1,4 +1,4 @@
-﻿@model WriteCongress.Core.Model.Issue
+﻿@model WriteCongress.Core.Issue
 
 @{
     ViewBag.Title = "Details";
@@ -24,10 +24,17 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreateDate)
+         @Html.DisplayNameFor(model => model.ImageUrl)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CreateDate)
+        @Html.DisplayFor(model => model.ImageUrl)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
     </div>
 
     <div class="display-label">
@@ -38,6 +45,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.IssueID }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.IssueId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

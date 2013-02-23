@@ -173,6 +173,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201302232100422_InitialCreate.cs" />
+    <Compile Include="Migrations\201302232100422_InitialCreate.Designer.cs">
+      <DependentUpon>201302232100422_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201302232110088_UpdateIssueObj.cs" />
+    <Compile Include="Migrations\201302232110088_UpdateIssueObj.Designer.cs">
+      <DependentUpon>201302232110088_UpdateIssueObj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201302232112073_UpdateIssueObj1.cs" />
+    <Compile Include="Migrations\201302232112073_UpdateIssueObj1.Designer.cs">
+      <DependentUpon>201302232112073_UpdateIssueObj1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -309,6 +322,17 @@
       <Project>{f60af5cf-4cbc-4e25-80d0-94ee36d52d10}</Project>
       <Name>WriteCongress.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201302232100422_InitialCreate.resx">
+      <DependentUpon>201302232100422_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201302232110088_UpdateIssueObj.resx">
+      <DependentUpon>201302232110088_UpdateIssueObj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201302232112073_UpdateIssueObj1.resx">
+      <DependentUpon>201302232112073_UpdateIssueObj1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

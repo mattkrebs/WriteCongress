@@ -1,4 +1,4 @@
-﻿@model WriteCongress.Core.Model.Letter
+﻿@model WriteCongress.Core.Letter
 
 @{
     ViewBag.Title = "Delete";
@@ -25,13 +25,6 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ImagePath)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ImagePath)
-    </div>
-
-    <div class="display-label">
          @Html.DisplayNameFor(model => model.Body)
     </div>
     <div class="display-field">
@@ -50,6 +43,20 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Issue.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Issue.Name)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

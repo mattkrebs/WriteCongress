@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WriteCongressModelStoreContainer">
+          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.Store.FK_Letter_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="Letter" EntitySet="Letter" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="IssueId" />
+          </Key>
+          <Property Name="IssueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Letter">
+          <Key>
+            <PropertyRef Name="LetterId" />
+          </Key>
+          <Property Name="LetterId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Against" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IssueId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Letter_Issue">
+          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
+          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="IssueId" />
+            </Principal>
+            <Dependent Role="Letter">
+              <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WriteCongressModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WriteCongressEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Issues" EntityType="WriteCongressModel.Issue" />
+          <EntitySet Name="Letters" EntityType="WriteCongressModel.Letter" />
+          <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.FK_Letter_Issue">
+            <End Role="Issue" EntitySet="Issues" />
+            <End Role="Letter" EntitySet="Letters" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="IssueId" />
+          </Key>
+          <Property Name="IssueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Letters" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Issue" ToRole="Letter" />
+        </EntityType>
+        <EntityType Name="Letter">
+          <Key>
+            <PropertyRef Name="LetterId" />
+          </Key>
+          <Property Name="LetterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Against" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IssueId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Letter" ToRole="Issue" />
+        </EntityType>
+        <Association Name="FK_Letter_Issue">
+          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="1" />
+          <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="IssueId" />
+            </Principal>
+            <Dependent Role="Letter">
+              <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WriteCongressModelStoreContainer" CdmEntityContainer="WriteCongressEntities">
+          <EntitySetMapping Name="Issues">
+            <EntityTypeMapping TypeName="WriteCongressModel.Issue">
+              <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Letters">
+            <EntityTypeMapping TypeName="WriteCongressModel.Letter">
+              <MappingFragment StoreEntitySet="Letter">
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Against" ColumnName="Against" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

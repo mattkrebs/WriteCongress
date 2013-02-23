@@ -46,13 +46,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Issue.cs" />
-    <Compile Include="Model\Letter.cs" />
+    <Compile Include="Issue.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Letter.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WriteCongressContext.cs" />
+    <Compile Include="WriteCongressDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WriteCongressDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WriteCongressDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WriteCongressDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WriteCongressDataModel.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="WriteCongressDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WriteCongressDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="WriteCongressDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WriteCongressDataModel.edmx</DependentUpon>
+      <LastGenOutput>WriteCongressDataModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="WriteCongressDataModel.edmx.diagram">
+      <DependentUpon>WriteCongressDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="WriteCongressDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WriteCongressDataModel.edmx</DependentUpon>
+      <LastGenOutput>WriteCongressDataModel.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

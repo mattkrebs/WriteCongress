@@ -5,21 +5,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WriteCongress.Core.Model;
 using WriteCongress.Core;
 
 namespace WriteCongress.Web.Admin.Controllers
 {
     public class LetterController : Controller
     {
-        private WriteCongressContext db = new WriteCongressContext();
+        private WriteCongressEntities db = new WriteCongressEntities();
 
         //
         // GET: /Letter/
 
         public ActionResult Index()
         {
-            return View(db.Letters.ToList());
+            var letters = db.Letters.Include(l => l.Issue);
+            return View(letters.ToList());
         }
 
         //
@@ -40,6 +40,7 @@ namespace WriteCongress.Web.Admin.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name");
             return View();
         }
 
@@ -56,6 +57,7 @@ namespace WriteCongress.Web.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.IssueId);
             return View(letter);
         }
 
@@ -69,6 +71,7 @@ namespace WriteCongress.Web.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.IssueId);
             return View(letter);
         }
 
@@ -84,6 +87,7 @@ namespace WriteCongress.Web.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.IssueId);
             return View(letter);
         }
 

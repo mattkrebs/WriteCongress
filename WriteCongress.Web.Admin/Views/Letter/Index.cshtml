@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WriteCongress.Core.Model.Letter>
+﻿@model IEnumerable<WriteCongress.Core.Letter>
 
 @{
     ViewBag.Title = "Index";
@@ -18,9 +18,6 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Body)
         </th>
         <th>
@@ -28,6 +25,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Issue.Name)
         </th>
         <th></th>
     </tr>
@@ -41,9 +44,6 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Body)
         </td>
         <td>
@@ -51,6 +51,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Issue.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.LetterId }) |

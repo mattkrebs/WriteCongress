@@ -5,14 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WriteCongress.Core.Model;
 using WriteCongress.Core;
 
 namespace WriteCongress.Web.Admin.Controllers
 {
     public class IssueController : Controller
     {
-        private WriteCongressContext db = new WriteCongressContext();
+        private WriteCongressEntities db = new WriteCongressEntities();
 
         //
         // GET: /Issue/
