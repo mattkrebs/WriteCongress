@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteCongress.Web", "WriteC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteCongress.Core", "WriteCongress.Core\WriteCongress.Core.csproj", "{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteCongress.Web.Admin", "WriteCongress.Web.Admin\WriteCongress.Web.Admin.csproj", "{6F2E0BFD-36C9-4620-821F-78E9B62B50C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F2E0BFD-36C9-4620-821F-78E9B62B50C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2E0BFD-36C9-4620-821F-78E9B62B50C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2E0BFD-36C9-4620-821F-78E9B62B50C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2E0BFD-36C9-4620-821F-78E9B62B50C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

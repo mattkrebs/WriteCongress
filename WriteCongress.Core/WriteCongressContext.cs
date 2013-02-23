@@ -9,6 +9,12 @@ namespace WriteCongress.Core
 {
     public class WriteCongressContext : DbContext
     {
+
+        public WriteCongressContext()
+            : base("Name=DefaultConnection")
+        {
+        }
+
         public DbSet<Letter> Letters { get; set; }
         public DbSet<Issue> Issues { get; set; }
 

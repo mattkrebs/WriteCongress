@@ -12,6 +12,7 @@ namespace WriteCongress.Core.Model
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
         public Boolean Active { get; set; }
+        public virtual List<Letter> Letters { get; set; }
         
     }
 }
