@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Campaign HTML Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--&lt;if lt IE 8&gt;><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><!&lt;endif&gt;-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:10px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h3 class="center alt">&ldquo;Campaign HTML Theme&rdquo; Documentation by Jake Caputo v1.1</h3>
+		<hr>
+		<h1 class="center">&ldquo;Campaign HTML Theme&rdquo;</h1>
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+						Created: 3/12/2012<br>
+						Modified: 11/02/2012
+						By: Jake Caputo<br>
+						Support: <a href="http://support.designcrumbs.com">http://support.designcrumbs.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my theme. I provide support for all of my themes at <a href="http://support.designcrumbs.com">http://support.designcrumbs.com</a>, but please make sure you read this help file in it's entirety first. Thank you so much!
+				</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		<hr>
+		<div style="text-align:center; padding:10px; background-color: #FFFFDA; border:1px solid #F1E6B2; margin:20px 0;">Please remember to rate my theme! To do so, go to your downloads page and click on the star rating! Thanks! <a href="How-to-Rate-Template.jpg" target="_blank">See This Image.</a></div>
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#disclaimer">Disclaimer</a></li>
+			<li><a href="#htmlphp">HTML vs PHP</a></li>
+			<li><a href="#general">General Markup Info, Structure, & Customizations</a></li>
+			<li><a href="#footer">The Footer &amp; Social Networks</a></li>
+			<li><a href="#contact">Contact Form</a></li>
+			<li><a href="#extras">Extras</a></li>
+			<li><a href="#sticky">Sticky Header</a></li>
+		</ol>
+		<hr>
+		<h3 id="disclaimer"><strong>A) Disclaimer</strong> - <a href="#toc">top</a></h3>
+		<p>I offer limited support for my customers. I only provide support for my themes and their core features and functionality.  I cannot guarantee my themes will function with all third party components, plugins, web browsers, and server environments. If you plan on adding numerous plugins or scripts to this theme, please note I can not facilitate support of any conflicts they might cause with the default Campaign functionality. The Campaign HTML theme is presented as is.
+		</p>
+		<hr>
+		<h3 id="htmlphp"><strong>B) HTML vs PHP</strong> - <a href="#toc">top</a></h3>
+		<p>I've included both a fully HTML version of this template as well as a PHP version, located in the folders _html and _php. You can use either one of these, although I highly suggest using the PHP version as it will make everything much easier on you. The HTML version is included solely for users whose servers do not support PHP.</p>
+		<p>The PHP version has an includes folder that contains the header, footer, and sidebar of the site. This way, you only need to make edits to those areas once rather than on every single page as you have to do with the HTML version of the template.</p>
+		<p>&nbsp; </p>
+		<hr>
+		<h3 id="general"><strong>C) General Markup Info & Structure</strong> - <a href="#toc">top</a></h3>
+		<p>The PHP version of Campaign uses basic PHP functionality. This should make things easier for you because in the includes folder there is a <strong>header.php</strong>, <strong>footer.php</strong>, and <strong>sidebar.php</strong>. These files are pulled on to every page so you only need to make changes that show up on every page once.
+		</p>
+		<p>The HTML version users will need to edit each file individually. The following applies to both versions of this template.</p>
+		<p>There are a few classes and stylesheets that you need to know of in order to customize Campaign HTML.</p>
+		<ol>
+			<li><p><strong>Fonts</strong></p>
+				<ul>
+				<li><p>In includes/header.php (<em>or in the header of each file if you're using the fully HTML version of this template</em>), line 16 you should see <pre>&lt;link rel="stylesheet" type="text/css" href="fonts/style-nevis.css" media="screen" /&gt;</pre></p>
+				<p>This is the line that sets your heading font. You can change <strong>style-bitter.css</strong> to any of the following: <strong>bitter, droidsans, droidserif, franchise, museo, nevis, or rokkitt</strong>.</p></li>
+				</ul>
+			</li>
+			<li><p><strong>Body Classes</strong></p>
+				<p>On line 23 of includes/header.php (<em>or in the header of each file if you're using the fully HTML version of this template</em>), you'll see <pre>&lt;body class="content_left bg_linen body_boxed scheme_blue"&gt;</pre></p>
+				<p>Each of those classes can be changed to change the style of the site. I'll break them down:</p>
+				<ul>
+				<li>The first class can be either <strong>content_left or content_right</strong>. These set which side of the screen the content will be on. The sidebar will be on the opposite.</li>
+				<li>The second class sets the background pattern. This only works with the <strong>body_boxed</strong> class (which is the next class that's set). The options for the background patterns are <strong>bg_linen, bg_freckles, bg_cork, bg_fabric, bg_pinstripes, bg_none</strong>.</li>
+				<li>The third class sets the body style, either <strong>body_boxed</strong> which is a 'boxed in style' with a ribbon for the menu, or the <strong>body_span</strong> which is a full body width layout. <em>Note: if you want to use the sticky header (which we'll get to later), it will only work with the <strong>body_span</strong> style.</em></li>
+				<li>The last sets the colors for the color scheme in the header. The options are <strong>scheme_blue, scheme_red, scheme_green, scheme_yellow</strong>.</li>
+				</ul>
+			</li>
+		</ol>
+		<hr>
+		<h3 id="footer"><strong>D) The Footer </strong>- <a href="#toc">top</a></h3>
+		<p>The footer, located in <strong>includes/footer.php</strong> (<em>or in the bottom of each file if you're using the fully HTML version of this template</em>) has a slogan area that you can place your slogan into. Below that there are 4 'widget' areas. I've included a few different styles.</p>
+		<p>Below the widgets are the social network icons. Go ahead and put the links to your accounts in there, or remove the ones you're not using.</p>
+		<p>On the bottom is the 'Paid For Disclaimer' box and the copyright info. <span style="color:red;">The disclaimer this is required in the USA by the FEC for political committees</span>. You can <a href="http://www.fec.gov/pages/brochures/notices.shtml#disclaimers">learn more about that here</a>.</p>
+		<p style="clear:both;"> </p>
+		<hr>
+		<h3 id="contact"><strong>E) Contact Form </strong>- <a href="#toc">top</a></h3>
+		<p><strong>Note that the working contact form DOES NOT work in the HTML version, only the the PHP version of this template.</strong></p>
+		<p>The contact form is on <strong>page-contact.php</strong>. Open up that file and put your website's name and your email on lines 31 and 32, respectively. Other than that, the only other thing you may need to change is the <strong>action="page-contact.php"</strong> on line 58. If you change the name of the actual <strong>page-contact.php</strong> file, you must change it here too, otherwise your site will 404 when somebody fills out the contact form.
+		</p>
+		<p style="clear:both;"> </p>
+		<hr>
+		<h3 id="extras"><strong>F) Extras</strong> - <a href="#toc">top</a></h3>
+		<p>There are six extra little classes you may want to use in Campaign: Half Width, Quarter Width, Three Quarters Width, an Alert Box, a Warning Box, and a Button. To use them, simply drop the follow code in:
+		</p>
+		<ul>
+			<li>&lt;div class="half_wide"&gt; This will be half the page width &lt;/div&gt;</li>
+			<li>&lt;div class="quarter_wide"&gt; This will be one fourth the page width &lt;/div&gt;</li>
+			<li>&lt;div class="threequarter_wide"&gt; This will be three fourths the page width &lt;/div&gt;</li>
+			<li>&lt;div class="alert"&gt; This will be a yellow alert box &lt;/div&gt;</li>
+			<li>&lt;div class="warning"&gt; This will be a red warning box &lt;/div&gt;</li>
+			<li>&lt;a class="button"&gt; This will create a button &lt;/a&gt;</li>
+		</ul>
+		<hr>
+		<h3 id="sticky"><strong>G) Sticky Header</strong> - <a href="#toc">top</a></h3>
+		<p>This template also has the option of a sticky header. This keeps the header at the top of the site at all time, but it will only work with the <strong>body class of body_span, not body_boxed</strong>.
+		</p>
+		<p>To enable the sticky header, you must <em>uncomment</em> two pieces of javascript. The first is the 4th line from the bottom of the footer.</p>
+		<pre>&lt;!--  &lt;script type="text/javascript" src="includes/js/jquery.sticky.js"&gt;&lt;/script&gt; // uncomment this to use the sticky header --&gt;</pre>
+		The second is in <strong>includes/js/campaign.js</strong> on <strong>lines 33 to 35</strong>.
+		<pre>/* uncomment this to turn on the sticky header. This only works properly with the body class "body_span"
+	J("#header").sticky({topSpacing:0});
+*/</pre>
+		<p>Remove those comments and <em>presto</em>, instant sticky header.</p>
+		<hr>
+		<p>Thank you again for purchasing this template. If you have any problems, questions, or require some custom work please don't hesitate to contact me and I'll do my best to assist you.
+		</p>
+		<p class="append-bottom alt large"><strong>Jake Caputo</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
