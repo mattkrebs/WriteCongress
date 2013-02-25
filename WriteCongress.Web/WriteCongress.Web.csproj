@@ -167,6 +167,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,6 +175,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +302,49 @@
     <Content Include="Content\fonts\Rokkitt-webfont.eot" />
     <Content Include="Content\fonts\Rokkitt-webfont.ttf" />
     <Content Include="Content\fonts\Rokkitt-webfont.woff" />
+    <None Include="Properties\PublishProfiles\writecongress - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\writecongress - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\writecongress - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\writecongress - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\2cl.png" />
+    <Content Include="Images\2cr.png" />
+    <Content Include="Images\bg_cork.png" />
+    <Content Include="Images\bg_fabric.png" />
+    <Content Include="Images\bg_freckles.png" />
+    <Content Include="Images\bg_linen.png" />
+    <Content Include="Images\bg_pinstripes.png" />
+    <Content Include="Images\bg_sidebar_left.png" />
+    <Content Include="Images\bg_sidebar_right.png" />
+    <Content Include="Images\campaignlogo.png" />
+    <Content Include="Images\favicon.png" />
+    <Content Include="Images\latest_fallback.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\ribbon_menu.png" />
+    <Content Include="Images\sliderbuttons.png" />
+    <Content Include="Images\socnets\facebook.png" />
+    <Content Include="Images\socnets\flickr.png" />
+    <Content Include="Images\socnets\google.png" />
+    <Content Include="Images\socnets\index.php" />
+    <Content Include="Images\socnets\share_facebook.png" />
+    <Content Include="Images\socnets\share_google.png" />
+    <Content Include="Images\socnets\share_twitter.png" />
+    <Content Include="Images\socnets\tumblr.png" />
+    <Content Include="Images\socnets\twitter.png" />
+    <Content Include="Images\socnets\vimeo.png" />
+    <Content Include="Images\socnets\youtube.png" />
+    <Content Include="Images\stars.png" />
+    <Content Include="Images\stars_wide.png" />
+    <Content Include="Images\testimonial_back.png" />
+    <Content Include="Images\testimonial_back_cap.png" />
+    <Content Include="Images\testimonial_close.png" />
+    <Content Include="Images\testimonial_open.png" />
+    <Content Include="Images\trans_dark.png" />
+    <Content Include="Images\_demo\htmlslide1.png" />
+    <Content Include="Images\_demo\htmlslide2.png" />
+    <Content Include="Images\_demo\jakecaputo-workspace-590x400.jpg" />
+    <Content Include="Images\_demo\jakecaputo-workspace.jpg" />
+    <Content Include="Images\_demo\office-300x300.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\campaign.js" />
@@ -351,19 +395,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
-    <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Shared\_TopNav.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Prices\Index.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Shared\_TopIssues.cshtml" />
+    <Content Include="Views\Issues\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

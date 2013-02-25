@@ -13,10 +13,10 @@ namespace WriteCongress.Core
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WriteCongressEntities : DbContext
+    public partial class WriteCongressConnection : DbContext
     {
-        public WriteCongressEntities()
-            : base("name=WriteCongressEntities")
+        public WriteCongressConnection()
+            : base("name=WriteCongressConnection")
         {
         }
     

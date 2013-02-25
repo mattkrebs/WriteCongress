@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WriteCongress.Web.Models.HomeModel
+@{
     ViewBag.Title = "Write Congress, Send Your Message to Local and National Representatives";
 }
 <div class="wrapper" id="content"> <!-- #content ends in footer.html -->
@@ -83,37 +84,7 @@
 							</div>
 							<div class="clear"></div>
 						</div>
-						<div id="home_latest_posts">
-							<h4 class="entry-title" id="latest-posts-title">Latest Posts</h4>
-							<div class="single_latest left">
-								<a href="blog-single.html" title="Single Post" class="single_latest_img_link">
-									<img width="170" height="120" src="images/latest_fallback.png" alt="Image" />
-								</a>
-								<h5><a href="blog-single.html" title="Single Post">Single Post</a></h5>
-								<div class="meta">
-									Posted on February 21, 2012
-								</div>
-							</div>
-							<div class="single_latest left">
-								<a href="blog-single.html" title="Single Post" class="single_latest_img_link">
-									<img width="170" height="120" src="images/latest_fallback.png" alt="Image" />
-								</a>
-								<h5><a href="blog-single.html" title="Single Post">Single Post</a></h5>
-								<div class="meta">
-									Posted on February 21, 2012
-								</div>
-							</div>
-							<div class="single_latest left">
-								<a href="blog-single.html" title="Single Post" class="single_latest_img_link">
-									<img width="170" height="120" src="images/latest_fallback.png" alt="Image" />
-								</a>
-								<h5><a href="blog-single.html" title="Single Post">Single Post</a></h5>
-								<div class="meta">
-									Posted on February 21, 2012
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div>
+						@Html.Partial("_TopIssues", Model.TopIssues);
 					</div>
 					<div id="sidebar">
 						<div class="widget"><h4 class="widgettitle">Upcoming Events</h4>

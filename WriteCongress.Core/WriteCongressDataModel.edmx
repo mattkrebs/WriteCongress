@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="WriteCongressModelStoreContainer">
           <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
@@ -49,11 +49,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WriteCongressModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="WriteCongressEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WriteCongressConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Issues" EntityType="WriteCongressModel.Issue" />
           <EntitySet Name="Letters" EntityType="WriteCongressModel.Letter" />
           <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.FK_Letter_Issue">
@@ -88,8 +89,8 @@
           <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Letter" ToRole="Issue" />
         </EntityType>
         <Association Name="FK_Letter_Issue">
-          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="1" />
-          <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="*" />
+          <End Role="Issue" Type="WriteCongressModel.Issue" Multiplicity="1" />
+          <End Role="Letter" Type="WriteCongressModel.Letter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Issue">
               <PropertyRef Name="IssueId" />
@@ -104,7 +105,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WriteCongressModelStoreContainer" CdmEntityContainer="WriteCongressEntities">
+        <EntityContainerMapping StorageEntityContainer="WriteCongressModelStoreContainer" CdmEntityContainer="WriteCongressConnection">
           <EntitySetMapping Name="Issues">
             <EntityTypeMapping TypeName="WriteCongressModel.Issue">
               <MappingFragment StoreEntitySet="Issue">

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d3ce254d16724bebb5ef388cf899e93e" Name="Diagram1">
-        <EntityTypeShape EntityType="WriteCongressModel.Issue" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="WriteCongressModel.FK_Letter_Issue" />
+      <Diagram DiagramId="0d3dd18203344a3fa7dba47c43f857ec" Name="Diagram1">
+        <EntityTypeShape EntityType="WriteCongressModel.Issue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="WriteCongressModel.FK_Letter_Issue" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

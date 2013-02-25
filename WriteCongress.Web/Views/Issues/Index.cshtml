@@ -1,0 +1,24 @@
+﻿@model List<WriteCongress.Core.Issue>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="wrapper" id="content"> <!-- #content ends in footer.html -->
+				<div class="container">
+					<div class="posts-wrap" id="page">
+						<h2 class="post_title">Issues</h2>
+                        @foreach (var issue in Model)
+                        {
+                            <div class="third_wide"><strong>@issue.Name</strong>
+                           <p>@issue.Description</p>
+                            <a class="button buttonleft button_gray" href="/Issues/@issue.IssueId">Send Letter</a>						
+						</div>
+                        }    
+						<div class="clear"></div>
+					</div><!-- end .posts-wrap -->
+					
+				    @Html.Partial("_SideBar")
+				</div><!-- end div.container, begins in header.html -->
+			</div><!-- end div.wrapper, begins in header.html -->
+

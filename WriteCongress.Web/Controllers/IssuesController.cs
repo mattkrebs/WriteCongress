@@ -4,23 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WriteCongress.Core;
-using WriteCongress.Web.Models;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class HomeController : Controller
+    public class IssuesController : Controller
     {
         //
-        // GET: /Content/
+        // GET: /Issues/
         WriteCongressConnection db = new WriteCongressConnection();
         public ActionResult Index()
         {
-            HomeModel model = new HomeModel();
-            model.TopIssues = db.Issues.Take(3).ToList();
-            return View(model);
+            return View(db.Issues.ToList());
         }
 
-
-    
     }
 }

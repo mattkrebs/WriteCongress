@@ -11,7 +11,7 @@ namespace WriteCongress.Web.Admin.Controllers
 {
     public class IssueController : Controller
     {
-        private WriteCongressEntities db = new WriteCongressEntities();
+        private WriteCongressConnection db = new WriteCongressConnection();
 
         //
         // GET: /Issue/
