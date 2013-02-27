@@ -1,0 +1,29 @@
+﻿@model WriteCongress.Core.Issue
+
+@{
+    ViewBag.Title = "Issue";
+}
+<div class="wrapper" id="content">
+    <!-- #content ends in footer.html -->
+    <div class="container">
+        <div class="posts-wrap" id="page">
+            <h2 class="post_title">@Model.Name</h2>
+            <div>
+                <p>
+                    @Model.Description
+                </p>
+            </div>
+            <div>
+                <a class="button buttonleft" href="#">​In Favor​</a>​
+                <a class="button buttonleft button_red" href="#">​Opposed​</a>​
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- end .posts-wrap -->
+
+        @Html.Partial("_SideBar")
+    </div>
+    <!-- end div.container, begins in header.html -->
+</div>
+<!-- end div.wrapper, begins in header.html -->
+

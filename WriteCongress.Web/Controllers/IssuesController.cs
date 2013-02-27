@@ -17,5 +17,10 @@ namespace WriteCongress.Web.Controllers
             return View(db.Issues.ToList());
         }
 
+        public ActionResult Issue(int id)
+        {
+            return View(db.Issues.Find(id));
+        }
+
     }
 }

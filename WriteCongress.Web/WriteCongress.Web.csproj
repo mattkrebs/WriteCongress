@@ -168,6 +168,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Controllers\LetterController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -401,6 +402,7 @@
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Shared\_TopIssues.cshtml" />
     <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Issue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

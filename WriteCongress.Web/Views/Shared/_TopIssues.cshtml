@@ -8,14 +8,11 @@
 								<a href="/Issues" title="Single Issue" class="single_latest_img_link">
 									<img width="170" height="120" src="@Html.Raw(issue.ImageUrl)" alt="Image" />
 								</a>
-								<h5><a href="/Issues/@issue.IssueId" title="Single Post">@issue.Name</a></h5>
+								<h5><a href="/Issues/Issue/@issue.IssueId" title="Single Post">@issue.Name</a></h5>
 								<div class="meta">
 									Posted on @issue.CreatedDate
 								</div>
 							</div>
 }
-
-							
-							
 							<div class="clear"></div>
 						</div>
