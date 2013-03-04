@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="/content/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 		
 		<!-- The Favicon -->
-		<link rel="shortcut icon" href="/images/favicon.png" />
+	    <link rel="shortcut icon" href="/images/favicon.png" />
 	</head>
 
  <body class="content_left bg_linen body_boxed scheme_blue ">
@@ -40,16 +40,23 @@
 		</div><!-- end div#main_wrap, begins in header.html -->
 		@Html.Partial("_Footer")
 		<!-- jQuery We Need -->
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="/scripts/jquery.slabtext.min.js"></script>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     @RenderSection("Scripts",false)
+		@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>*@
+@*		<script type="text/javascript" src="/scripts/jquery.slabtext.min.js"></script>
 		<script type="text/javascript" src="/scripts/jquery.easing.1.3.js"></script>
 		<script type="text/javascript" src="/content/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 		<script type="text/javascript" src="/content/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-		<script type="text/javascript" src="/scripts/slides.jquery.js"></script>
+		<script type="text/javascript" src="/scripts/slides.jquery.js"></script>*@
 		<!--  <script type="text/javascript" src="includes/js/jquery.sticky.js"></script> // uncomment this to use the sticky header -->
-		<script type="text/javascript" src="/scripts/campaign.js"></script>
-	</body>
+     @*<script type="text/javascript" src="/scripts/campaign.js"></script>*@
+     <script type="text/javascript">
+         $(function () {
+             @RenderSection("AdHocScripts", false)
+         });
+     </script>
+     
+ </body>
 
 
 
