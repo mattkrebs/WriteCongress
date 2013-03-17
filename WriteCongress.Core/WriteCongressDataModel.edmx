@@ -33,10 +33,6 @@
             <End Role="Letter" EntitySet="Letter" />
             <End Role="IssueLetter" EntitySet="IssueLetter" />
           </AssociationSet>
-          <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.Store.FK_Letter_Issue">
-            <End Role="Issue" EntitySet="Issue" />
-            <End Role="Letter" EntitySet="Letter" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Bill">
           <Key>
@@ -90,13 +86,12 @@
             <PropertyRef Name="LetterId" />
           </Key>
           <Property Name="LetterId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Against" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="IssueId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -196,29 +191,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Letter_Issue">
-          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
-          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Issue">
-              <PropertyRef Name="IssueId" />
-            </Principal>
-            <Dependent Role="Letter">
-              <PropertyRef Name="IssueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WriteCongressModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="WriteCongressConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Issues" EntityType="WriteCongressModel.Issue" />
-          <EntitySet Name="Letters" EntityType="WriteCongressModel.Letter" />
-          <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.FK_Letter_Issue">
-            <End Role="Issue" EntitySet="Issues" />
-            <End Role="Letter" EntitySet="Letters" />
-          </AssociationSet>
           <EntitySet Name="Bills" EntityType="WriteCongressModel.Bill" />
           <EntitySet Name="IssueLetters" EntityType="WriteCongressModel.IssueLetter" />
           <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
@@ -231,13 +209,14 @@
             <End Role="Issue" EntitySet="Issues" />
             <End Role="IssueLetter" EntitySet="IssueLetters" />
           </AssociationSet>
-          <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.FK_IssueLetter_Letter">
-            <End Role="Letter" EntitySet="Letters" />
-            <End Role="IssueLetter" EntitySet="IssueLetters" />
-          </AssociationSet>
           <AssociationSet Name="BillIssue" Association="WriteCongressModel.BillIssue">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="Issue" EntitySet="Issues" />
+          </AssociationSet>
+          <EntitySet Name="Letters" EntityType="WriteCongressModel.Letter" />
+          <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.FK_IssueLetter_Letter">
+            <End Role="Letter" EntitySet="Letters" />
+            <End Role="IssueLetter" EntitySet="IssueLetters" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Issue">
@@ -250,38 +229,10 @@
           <Property Name="ImageUrl" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Letters" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Issue" ToRole="Letter" />
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="Issue" ToRole="IssueLetter" />
           <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillIssue" FromRole="Issue" ToRole="Bill" />
           <Property Type="String" Name="Slug" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Letter">
-          <Key>
-            <PropertyRef Name="LetterId" />
-          </Key>
-          <Property Name="LetterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Against" Type="Boolean" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IssueId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Letter" ToRole="Issue" />
-          <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
-        </EntityType>
-        <Association Name="FK_Letter_Issue">
-          <End Role="Issue" Type="WriteCongressModel.Issue" Multiplicity="1" />
-          <End Role="Letter" Type="WriteCongressModel.Letter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Issue">
-              <PropertyRef Name="IssueId" />
-            </Principal>
-            <Dependent Role="Letter">
-              <PropertyRef Name="IssueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="BillId" />
@@ -376,6 +327,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="BillIssue">
+          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
+          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Letter">
+          <Key>
+            <PropertyRef Name="LetterId" />
+          </Key>
+          <Property Type="Int32" Name="LetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Against" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
+        </EntityType>
         <Association Name="FK_IssueLetter_Letter">
           <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="1" />
           <End Type="WriteCongressModel.IssueLetter" Role="IssueLetter" Multiplicity="*" />
@@ -387,10 +355,6 @@
               <PropertyRef Name="LetterId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="BillIssue">
-          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
-          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -408,20 +372,6 @@
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Letters">
-            <EntityTypeMapping TypeName="WriteCongressModel.Letter">
-              <MappingFragment StoreEntitySet="Letter">
-                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="Against" ColumnName="Against" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IssueId" ColumnName="IssueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -502,6 +452,19 @@
               <ScalarProperty Name="BillId" ColumnName="BillId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Letters">
+            <EntityTypeMapping TypeName="WriteCongressModel.Letter">
+              <MappingFragment StoreEntitySet="Letter">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Against" ColumnName="Against" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
