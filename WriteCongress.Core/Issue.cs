@@ -27,6 +27,7 @@ namespace WriteCongress.Core
         public string ImageUrl { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public bool Active { get; set; }
+        public string Slug { get; set; }
     
         public virtual ICollection<Letter> Letters { get; set; }
         public virtual ICollection<IssueLetter> IssueLetters { get; set; }

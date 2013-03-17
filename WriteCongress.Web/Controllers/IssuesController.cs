@@ -12,14 +12,13 @@ namespace WriteCongress.Web.Controllers
         //
         // GET: /Issues/
         WriteCongressConnection db = new WriteCongressConnection();
-        public ActionResult Index()
-        {
-            return View(db.Issues.ToList());
-        }
-
-        public ActionResult Issue(int id)
-        {
-            return View(db.Issues.Find(id));
+        public ActionResult Index(string id) {
+            var issue = db.Issues.SingleOrDefault(i => i.Slug == id);
+            if (issue == null)
+            {
+                return View("CreateIssue");//TODO: create a view to let people create an issue?
+            }
+            return View("Issue",issue);
         }
 
     }

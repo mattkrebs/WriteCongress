@@ -75,6 +75,7 @@
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="300" />
         </EntityType>
         <EntityType Name="IssueLetter">
           <Key>
@@ -252,6 +253,7 @@
           <NavigationProperty Name="Letters" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Issue" ToRole="Letter" />
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="Issue" ToRole="IssueLetter" />
           <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillIssue" FromRole="Issue" ToRole="Bill" />
+          <Property Type="String" Name="Slug" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Letter">
           <Key>
@@ -399,6 +401,7 @@
           <EntitySetMapping Name="Issues">
             <EntityTypeMapping TypeName="WriteCongressModel.Issue">
               <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
                 <ScalarProperty Name="IssueId" ColumnName="IssueId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
