@@ -4,15 +4,67 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="WriteCongressModelStoreContainer">
+          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.Store.FK_Bill_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillIssue_Bill" Association="WriteCongressModel.Store.FK_BillIssue_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillIssue" EntitySet="BillIssue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillIssue_Issue" Association="WriteCongressModel.Store.FK_BillIssue_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="BillIssue" EntitySet="BillIssue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Issue" Association="WriteCongressModel.Store.FK_IssueLetter_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="IssueLetter" EntitySet="IssueLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.Store.FK_IssueLetter_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="IssueLetter" EntitySet="IssueLetter" />
+          </AssociationSet>
           <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.Store.FK_Letter_Issue">
             <End Role="Issue" EntitySet="Issue" />
             <End Role="Letter" EntitySet="Letter" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Name="BillId" Type="int" Nullable="false" />
+          <Property Name="BillType" Type="nvarchar(max)" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="SponsorId" Type="int" Nullable="false" />
+          <Property Name="PermaLink" Type="nvarchar(max)" />
+          <Property Name="LastActionDate" Type="datetime" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Session" Type="int" Nullable="false" />
+          <Property Name="PageViewCount" Type="int" Nullable="false" />
+          <Property Name="Ident" Type="nvarchar(max)" />
+          <Property Name="TypeNumber" Type="nvarchar(max)" />
+          <Property Name="TitleCommon" Type="nvarchar(max)" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BillIssue">
+          <Key>
+            <PropertyRef Name="BillId" />
+            <PropertyRef Name="IssueId" />
+          </Key>
+          <Property Name="BillId" Type="int" Nullable="false" />
+          <Property Name="IssueId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Issue">
           <Key>
             <PropertyRef Name="IssueId" />
@@ -23,6 +75,14 @@
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IssueLetter">
+          <Key>
+            <PropertyRef Name="IssueLetterId" />
+          </Key>
+          <Property Name="IssueLetterId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IssueId" Type="int" Nullable="false" />
+          <Property Name="LetterId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Letter">
           <Key>
@@ -37,6 +97,104 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="IssueId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleInital" Type="nvarchar" MaxLength="2" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="TotalVotes" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" />
+          <Property Name="CongressOffice" Type="varchar" MaxLength="250" />
+          <Property Name="UserApproval" Type="float" />
+          <Property Name="YoutubeId" Type="varchar" MaxLength="50" />
+          <Property Name="URL" Type="varchar" MaxLength="500" />
+          <Property Name="VotesRepublican" Type="int" />
+          <Property Name="VotesDemocratic" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Session" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Identity" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="CreatedDateUtc" Type="datetime" />
+          <Property Name="Email" Type="varchar" MaxLength="80" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressOne" Type="varchar" MaxLength="50" />
+          <Property Name="AddressTwo" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Bill_Person">
+          <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
+          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="SponsorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillIssue_Bill">
+          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="1" />
+          <End Role="BillIssue" Type="WriteCongressModel.Store.BillIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
+            </Principal>
+            <Dependent Role="BillIssue">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillIssue_Issue">
+          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
+          <End Role="BillIssue" Type="WriteCongressModel.Store.BillIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="IssueId" />
+            </Principal>
+            <Dependent Role="BillIssue">
+              <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IssueLetter_Issue">
+          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
+          <End Role="IssueLetter" Type="WriteCongressModel.Store.IssueLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="IssueId" />
+            </Principal>
+            <Dependent Role="IssueLetter">
+              <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IssueLetter_Letter">
+          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="1" />
+          <End Role="IssueLetter" Type="WriteCongressModel.Store.IssueLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letter">
+              <PropertyRef Name="LetterId" />
+            </Principal>
+            <Dependent Role="IssueLetter">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Letter_Issue">
           <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
           <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="*" />
@@ -49,8 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WriteCongressModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -60,6 +217,26 @@
           <AssociationSet Name="FK_Letter_Issue" Association="WriteCongressModel.FK_Letter_Issue">
             <End Role="Issue" EntitySet="Issues" />
             <End Role="Letter" EntitySet="Letters" />
+          </AssociationSet>
+          <EntitySet Name="Bills" EntityType="WriteCongressModel.Bill" />
+          <EntitySet Name="IssueLetters" EntityType="WriteCongressModel.IssueLetter" />
+          <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
+          <EntitySet Name="Users" EntityType="WriteCongressModel.User" />
+          <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.FK_Bill_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Issue" Association="WriteCongressModel.FK_IssueLetter_Issue">
+            <End Role="Issue" EntitySet="Issues" />
+            <End Role="IssueLetter" EntitySet="IssueLetters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.FK_IssueLetter_Letter">
+            <End Role="Letter" EntitySet="Letters" />
+            <End Role="IssueLetter" EntitySet="IssueLetters" />
+          </AssociationSet>
+          <AssociationSet Name="BillIssue" Association="WriteCongressModel.BillIssue">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Issue" EntitySet="Issues" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Issue">
@@ -73,6 +250,8 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Letters" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Issue" ToRole="Letter" />
+          <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="Issue" ToRole="IssueLetter" />
+          <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillIssue" FromRole="Issue" ToRole="Bill" />
         </EntityType>
         <EntityType Name="Letter">
           <Key>
@@ -87,6 +266,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IssueId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_Letter_Issue" FromRole="Letter" ToRole="Issue" />
+          <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
         </EntityType>
         <Association Name="FK_Letter_Issue">
           <End Role="Issue" Type="WriteCongressModel.Issue" Multiplicity="1" />
@@ -99,6 +279,116 @@
               <PropertyRef Name="IssueId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Type="Int32" Name="BillId" Nullable="false" />
+          <Property Type="String" Name="BillType" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="Int32" Name="SponsorId" Nullable="false" />
+          <Property Type="String" Name="PermaLink" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastActionDate" Precision="3" />
+          <Property Type="String" Name="Title" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Session" Nullable="false" />
+          <Property Type="Int32" Name="PageViewCount" Nullable="false" />
+          <Property Type="String" Name="Ident" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TypeNumber" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TitleCommon" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+          <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_Bill_Person" FromRole="Bill" ToRole="Person" />
+          <NavigationProperty Name="Issues" Relationship="WriteCongressModel.BillIssue" FromRole="Bill" ToRole="Issue" />
+        </EntityType>
+        <EntityType Name="IssueLetter">
+          <Key>
+            <PropertyRef Name="IssueLetterId" />
+          </Key>
+          <Property Type="Int32" Name="IssueLetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IssueId" Nullable="false" />
+          <Property Type="Int32" Name="LetterId" Nullable="false" />
+          <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="IssueLetter" ToRole="Issue" />
+          <NavigationProperty Name="Letter" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="IssueLetter" ToRole="Letter" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MiddleInital" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="BirthDate" Precision="3" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TotalVotes" />
+          <Property Type="String" Name="Gender" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CongressOffice" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="UserApproval" />
+          <Property Type="String" Name="YoutubeId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="URL" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="VotesRepublican" />
+          <Property Type="Int32" Name="VotesDemocratic" />
+          <Property Type="String" Name="Email" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Session" />
+          <Property Type="Boolean" Name="Active" />
+          <NavigationProperty Name="Bills" Relationship="WriteCongressModel.FK_Bill_Person" FromRole="Person" ToRole="Bill" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Identity" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
+          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AddressOne" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AddressTwo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ZipCode" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Bill_Person">
+          <End Type="WriteCongressModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="SponsorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IssueLetter_Issue">
+          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="1" />
+          <End Type="WriteCongressModel.IssueLetter" Role="IssueLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="IssueId" />
+            </Principal>
+            <Dependent Role="IssueLetter">
+              <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IssueLetter_Letter">
+          <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="1" />
+          <End Type="WriteCongressModel.IssueLetter" Role="IssueLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letter">
+              <PropertyRef Name="LetterId" />
+            </Principal>
+            <Dependent Role="IssueLetter">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BillIssue">
+          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
+          <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -132,6 +422,83 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="WriteCongressModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="TitleCommon" ColumnName="TitleCommon" />
+                <ScalarProperty Name="TypeNumber" ColumnName="TypeNumber" />
+                <ScalarProperty Name="Ident" ColumnName="Ident" />
+                <ScalarProperty Name="PageViewCount" ColumnName="PageViewCount" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LastActionDate" ColumnName="LastActionDate" />
+                <ScalarProperty Name="PermaLink" ColumnName="PermaLink" />
+                <ScalarProperty Name="SponsorId" ColumnName="SponsorId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IssueLetters">
+            <EntityTypeMapping TypeName="WriteCongressModel.IssueLetter">
+              <MappingFragment StoreEntitySet="IssueLetter">
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+                <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+                <ScalarProperty Name="IssueLetterId" ColumnName="IssueLetterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="WriteCongressModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="VotesDemocratic" ColumnName="VotesDemocratic" />
+                <ScalarProperty Name="VotesRepublican" ColumnName="VotesRepublican" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="YoutubeId" ColumnName="YoutubeId" />
+                <ScalarProperty Name="UserApproval" ColumnName="UserApproval" />
+                <ScalarProperty Name="CongressOffice" ColumnName="CongressOffice" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="TotalVotes" ColumnName="TotalVotes" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInital" ColumnName="MiddleInital" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="WriteCongressModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressTwo" ColumnName="AddressTwo" />
+                <ScalarProperty Name="AddressOne" ColumnName="AddressOne" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
+                <ScalarProperty Name="Identity" ColumnName="Identity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BillIssue" TypeName="WriteCongressModel.BillIssue" StoreEntitySet="BillIssue">
+            <EndProperty Name="Issue">
+              <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+            </EndProperty>
+            <EndProperty Name="Bill">
+              <ScalarProperty Name="BillId" ColumnName="BillId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,6 +14,11 @@ namespace WriteCongress.Core
     
     public partial class Letter
     {
+        public Letter()
+        {
+            this.IssueLetters = new HashSet<IssueLetter>();
+        }
+    
         public int LetterId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,5 +29,6 @@ namespace WriteCongress.Core
         public int IssueId { get; set; }
     
         public virtual Issue Issue { get; set; }
+        public virtual ICollection<IssueLetter> IssueLetters { get; set; }
     }
 }
