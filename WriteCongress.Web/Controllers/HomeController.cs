@@ -20,7 +20,10 @@ namespace WriteCongress.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Signup() {
+            return View();
+        }
 
-    
+
     }
 }

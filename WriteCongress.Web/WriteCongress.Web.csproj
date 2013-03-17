@@ -175,8 +175,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -337,14 +336,16 @@
     <Content Include="Views\Prices\Index.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Shared\_TopIssues.cshtml" />
-    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Listing.cshtml" />
     <Content Include="Views\Issues\Issue.cshtml" />
     <Content Include="Views\Authentication\FacebookLogin.cshtml" />
     <Content Include="Views\Authentication\FacebookChannel.cshtml" />
+    <Content Include="Views\Home\Signup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
