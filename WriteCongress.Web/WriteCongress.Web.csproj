@@ -341,6 +341,9 @@
     <Content Include="Views\Authentication\FacebookLogin.cshtml" />
     <Content Include="Views\Authentication\FacebookChannel.cshtml" />
     <Content Include="Views\Home\Signup.cshtml" />
+    <Content Include="Views\Issues\IssueLetter.cshtml" />
+    <Content Include="Views\Issues\_LetterInfoForm.cshtml" />
+    <Content Include="Views\Shared\_BootstrapLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

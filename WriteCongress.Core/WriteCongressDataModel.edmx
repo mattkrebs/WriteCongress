@@ -92,6 +92,7 @@
           <Property Name="Against" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -343,6 +344,7 @@
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
+          <Property Type="String" Name="Slug" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_IssueLetter_Letter">
           <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="1" />
@@ -455,6 +457,7 @@
           <EntitySetMapping Name="Letters">
             <EntityTypeMapping TypeName="WriteCongressModel.Letter">
               <MappingFragment StoreEntitySet="Letter">
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Against" ColumnName="Against" />

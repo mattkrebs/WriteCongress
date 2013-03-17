@@ -26,6 +26,7 @@ namespace WriteCongress.Core
         public bool Against { get; set; }
         public bool Active { get; set; }
         public System.DateTime CreatedDate { get; set; }
+        public string Slug { get; set; }
     
         public virtual ICollection<IssueLetter> IssueLetters { get; set; }
     }

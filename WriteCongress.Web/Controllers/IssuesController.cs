@@ -24,6 +24,17 @@ namespace WriteCongress.Web.Controllers
             
             return View("Issue",issue);
         }
+        public ActionResult IssueLetter(string issueSlug, string letterSlug) {
+            
+            var letter = db.IssueLetters.Where(il => il.Issue.Slug == issueSlug && il.Letter.Slug == letterSlug).Select(l => l.Letter).SingleOrDefault();
+            if (letter == null) {
+                return RedirectToAction("Index", new {slug = issueSlug});
+            }
+
+            ViewBag.Issue = db.Issues.FirstOrDefault(i => i.Slug == issueSlug);
+            return View("IssueLetter", letter);
+
+        }
 
     }
 }

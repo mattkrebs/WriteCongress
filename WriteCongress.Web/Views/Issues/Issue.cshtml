@@ -2,7 +2,7 @@
 @model WriteCongress.Core.Issue
 
 @{
-    ViewBag.Title = "Issue";
+    ViewBag.Title = "Send a real letter to congress about "+@Model.Name;
 }
 <div class="wrapper" id="content">
     <div class="container">
@@ -28,14 +28,14 @@
             <h2>For</h2>
             <ul>
                 @foreach (var letter in lettersYay) {
-                    <li>@letter.Name</li>   
+                    <li><a href="/Issues/@Model.Slug/@letter.Slug">@letter.Name &ndash; @letter.Description</a></li>
                 }
             </ul>
             
             <h2>Against</h2>
             <ul>
                 @foreach (var letter in lettersNay) {
-                     <li>@letter.Name</li>   
+                    <li><a href="/Issues/@Model.Slug/@letter.Slug">@letter.Name &ndash; @letter.Description</a></li>
                     }
             </ul>
             

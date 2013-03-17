@@ -13,8 +13,13 @@ namespace WriteCongress.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("issue", "Issues/{slug}", new {controller = "Issues", action = "Index"});
-            routes.MapRoute(name: "Default",url: "{controller}/{action}/{id}",defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+            routes.MapRoute("Issue", "Issues/{slug}", new { controller = "Issues", action = "Index" });
+            routes.MapRoute("IssueLetter", "Issues/{issueSlug}/{letterSlug}", new { controller = "Issues", action = "IssueLetter" });
+            routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+            
+            
+            
         }
     }
 }
