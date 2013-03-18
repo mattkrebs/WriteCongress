@@ -29,7 +29,7 @@
                 <h5>Personal Info <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-lock"></i> Login</span></a>
                     @*<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>*@
                 </h5>
-                <input class="span4" type="text" class="zip" maxlength="5"  placeholder="Zip Code" /><br />
+                <input class="span4 ZipCode" type="text" maxlength="5"  placeholder="Zip Code" /><br />
                 <input class="span6" type="text" id="firstName" maxlength="11" placeholder="First Name" />
                 <input class="span6" type="text" id="lastName" maxlength="20" placeholder="Last Name" /><br />
                 <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
@@ -91,9 +91,23 @@
                 </select>
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
-                <button class="btn btn-small">Email this</button>
-                <button class="btn btn-large btn-primary"><i class="icon-envelope"></i> Mail it for me!</button>
+                @*<button class="btn btn-small">Email this</button>*@
+                <a href="#createAccount" data-toggle="modal" role="button" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Mail it for me!</a>
             </div>
         </div>
+    </div>
+</div>
+<div id="createAccount" class="modal hide">
+    <div class="modal-header">
+        <h3>Create an Account</h3>
+        <h6>You're almost there</h6>
+    </div>
+    <div class="modal-body">
+            <input type="password" id="password"  class="span4" placeholder="Password"/>
+            <input type="password" id="passwordConfirm"  class="span4" placeholder="Password Confirm"/>
+            
+    </div>
+    <div class="modal-footer">
+        
     </div>
 </div>

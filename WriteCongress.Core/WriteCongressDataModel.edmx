@@ -125,12 +125,16 @@
           <Property Name="Identity" Type="varchar" Nullable="false" MaxLength="80" />
           <Property Name="CreatedDateUtc" Type="datetime" />
           <Property Name="Email" Type="varchar" MaxLength="80" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressOne" Type="varchar" MaxLength="50" />
           <Property Name="AddressTwo" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="char" MaxLength="2" />
           <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="Salt" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Bill_Person">
           <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
@@ -201,7 +205,6 @@
           <EntitySet Name="Bills" EntityType="WriteCongressModel.Bill" />
           <EntitySet Name="IssueLetters" EntityType="WriteCongressModel.IssueLetter" />
           <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
-          <EntitySet Name="Users" EntityType="WriteCongressModel.User" />
           <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.FK_Bill_Person">
             <End Role="Person" EntitySet="People" />
             <End Role="Bill" EntitySet="Bills" />
@@ -219,6 +222,7 @@
             <End Role="Letter" EntitySet="Letters" />
             <End Role="IssueLetter" EntitySet="IssueLetters" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="WriteCongressModel.User" />
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -289,21 +293,6 @@
           <Property Type="Boolean" Name="Active" />
           <NavigationProperty Name="Bills" Relationship="WriteCongressModel.FK_Bill_Person" FromRole="Person" ToRole="Bill" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Identity" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
-          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="AddressOne" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AddressTwo" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="ZipCode" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="FK_Bill_Person">
           <End Type="WriteCongressModel.Person" Role="Person" Multiplicity="1" />
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -358,6 +347,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Identity" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
+          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AddressOne" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AddressTwo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="ZipCode" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Salt" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -430,22 +438,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="WriteCongressModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="AddressTwo" ColumnName="AddressTwo" />
-                <ScalarProperty Name="AddressOne" ColumnName="AddressOne" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
-                <ScalarProperty Name="Identity" ColumnName="Identity" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="BillIssue" TypeName="WriteCongressModel.BillIssue" StoreEntitySet="BillIssue">
             <EndProperty Name="Issue">
               <ScalarProperty Name="IssueId" ColumnName="IssueId" />
@@ -465,6 +457,26 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="WriteCongressModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressTwo" ColumnName="AddressTwo" />
+                <ScalarProperty Name="AddressOne" ColumnName="AddressOne" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
+                <ScalarProperty Name="Identity" ColumnName="Identity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

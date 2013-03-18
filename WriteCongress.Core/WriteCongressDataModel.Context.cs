@@ -29,7 +29,7 @@ namespace WriteCongress.Core
         public DbSet<Bill> Bills { get; set; }
         public DbSet<IssueLetter> IssueLetters { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Letter> Letters { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
