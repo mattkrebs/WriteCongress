@@ -56,6 +56,12 @@ namespace WriteCongress.Web.Controllers
         }
 
         [HttpPost]
+        public ActionResult CheckEmailUsage(string email) {
+            email = email.Trim();
+            return Json(Db.Users.Any(u => u.Email == email));
+        }
+
+        [HttpPost]
         public ActionResult SignIn(string email, string password, string redirect) {
             var user = Db.Users.SingleOrDefault(u => u.Email == email);
             if (user != null) {
@@ -85,14 +91,14 @@ namespace WriteCongress.Web.Controllers
             WriteCongress.Core.User newUser = new User();
             newUser.Identity = CryptoHelper.GenerateRandomString(64);
             newUser.CreatedDateUtc = DateTime.UtcNow;
-            newUser.Email = email;
-            newUser.FirstName = firstname;
-            newUser.LastName = lastname;
-            newUser.AddressOne = address1;
-            newUser.AddressTwo = address2;
-            newUser.City = city;
+            newUser.Email = email.Trim();
+            newUser.FirstName = firstname.Trim();
+            newUser.LastName = lastname.Trim();
+            newUser.AddressOne = address1.Trim();
+            newUser.AddressTwo = address2.Trim();
+            newUser.City = city.Trim();
             newUser.State = state;
-            newUser.ZipCode = zipcode;
+            newUser.ZipCode = zipcode.Trim();
 
             var salt = CryptoHelper.GenerateRandomString();
             newUser.Salt = salt;

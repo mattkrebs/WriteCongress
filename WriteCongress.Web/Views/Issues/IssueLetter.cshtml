@@ -269,6 +269,7 @@
                 <label class="control-label">Email</label>
                 <div class="controls">
                     <input id="signup-email" type="text" name="email" placeholder="Email">
+                    <i class="icon-info-sign error hidden"></i>
                 </div>
             </div>
 
@@ -424,6 +425,15 @@
     {
         <script type="text/javascript">
             $(function () {
+                $('#signup-email').on('blur', function () {
+                    var emailInput = $(this);
+                    $.post('/Authentication/CheckEmailUsage',{email:emailInput.val()}, function (data) {
+                        if (data === true) {
+                            $('i', emailInput.parent()).show().removeClass('hidden').tooltip({ title: 'This email is already in use',placement:'bottom' });
+                            $('#createAccountSendLetter').attr('disabled','disabled');
+                        }
+                    });
+                });
                 $('#beInvolved').removeAttr('disabled');
                 $('#beInvolved').on('click', function () {
                     //TODO: validate;
