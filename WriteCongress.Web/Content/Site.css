@@ -74,3 +74,15 @@
       .letterinfo>h4 {
           text-transform: uppercase;
       }
+      .error {
+          
+      }
+      .paymentform>.control-group {
+    margin-bottom: 10px;
+}
+      .validation-summary-errors[data-valmsg-summary=true]>ul>li {
+    color:#fc4b4b !important;
+}
+.error {
+    color:#fc4b4b !important;
+}

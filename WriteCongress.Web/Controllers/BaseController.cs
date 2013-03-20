@@ -20,11 +20,14 @@ namespace WriteCongress.Web.Controllers
             }
         }
 
+        public User AuthenticatedUser { get; private set; }
+
         protected override void OnAuthorization(AuthorizationContext filterContext) {
             if (User.Identity.IsAuthenticated) {
                 var user = Db.Users.FirstOrDefault(u => u.SessionId == User.Identity.Name);
                 if (user != null) {
                     ViewBag.AuthenticatedUser = user;
+                    AuthenticatedUser = user;
                     return;
                 }
                 FormsAuthentication.SignOut();//you were marked as authenticated but that session is no longer valid

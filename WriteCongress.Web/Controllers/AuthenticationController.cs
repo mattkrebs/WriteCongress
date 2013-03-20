@@ -49,23 +49,7 @@ namespace WriteCongress.Web.Controllers
                 return Json(new JsonServiceResult<bool>(true));
             }
         }
-
-        [HttpPost]
-        public JsonResult GetLetterPrefill()
-        {
-            return Json(Db.Users.Where(u => u.SessionId == User.Identity.Name).Select(ui => new {
-                ui.FirstName,
-                ui.LastName,
-                ui.AddressOne,
-                ui.AddressTwo,
-                ui.Email,
-                ui.PhoneNumber,
-                ui.ZipCode,
-                ui.City,
-                ui.State
-            }).FirstOrDefault(), JsonRequestBehavior.DenyGet);
-        }
-
+      
         public ActionResult Signout() {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
@@ -100,6 +84,7 @@ namespace WriteCongress.Web.Controllers
         
             WriteCongress.Core.User newUser = new User();
             newUser.Identity = CryptoHelper.GenerateRandomString(64);
+            newUser.CreatedDateUtc = DateTime.UtcNow;
             newUser.Email = email;
             newUser.FirstName = firstname;
             newUser.LastName = lastname;

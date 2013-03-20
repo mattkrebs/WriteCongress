@@ -29,5 +29,6 @@ namespace WriteCongress.Core
         public string Password { get; set; }
         public string Salt { get; set; }
         public string SessionId { get; set; }
+        public string StripeCustomerId { get; set; }
     }
 }

@@ -27,8 +27,9 @@
                 <h4>Send this letter</h4>
                 <hr />
                 <h5>Personal Info 
-                    @if (!User.Identity.IsAuthenticated) {
-                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i> Sign In</span></a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>
                     }
                 </h5>
                 <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
@@ -99,21 +100,55 @@
         </div>
     </div>
 </div>
-<div id="purchaseLetter" class="modal hide" style="width:750px">
+<div id="purchaseLetter" class="modal hide" style="width: 750px">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h2><i style="color:#468847" class="icon-lock"></i> Secure Checkout</h2>
+        <h2><i style="color: #468847" class="icon-lock"></i> Secure Checkout</h2>
     </div>
     <div class="modal-body">
         <div class="pull-left">
             <h4>Card Details</h4>
-            <form action="" method="POST" id="payment-form" class="form-horizontal">
+            <div id="cardOnFile" class="hide form-horizontal paymentform">
+                <em>Card on File</em>
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Name On Card:</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" disabled="disabled" id="card-on-file-name"></input>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Type:</span>
+                    </label>
+                    <div class="controls">
+                        <img id="card-on-file-img" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Last 4:</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" disabled id="card-on-file-last4"></input>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                    </label>
+                    <div class="controls">
+                        <a id="useDifferentCard" href="javascript:void(0);" class="btn btn-mini">Use a different card</a>
+                    </div>
+                </div>
+            </div>
+            <form action="" method="POST" id="payment-form" class="form-horizontal paymentform">
                 <div class="control-group">
                     <label class="control-label">
                         <span>Name on Card</span>
                     </label>
                     <div class="controls">
-                        <input type="text" id="card-name" maxlength="30" autocomplete="off"/>
+                        <input type="text" id="card-name" maxlength="30" autocomplete="off" />
                         <i class="icon-info-sign error hidden"></i>
                     </div>
                 </div>
@@ -177,29 +212,38 @@
                             <option value="2018">2018</option>
                         </select>
                         <i class="icon-info-sign error hidden"></i>
-                    </div><br />
-                    <span id="payment-errors" class="alert alert-danger" style="display:none"></span>
+                    </div>
+                    <br />
+                    <span id="payment-errors" class="alert alert-danger" style="display: none"></span>
                 </div>
             </form>
         </div>
         <div class="pull-right">
-                <h4>Letters to Send:</h4>
+            <h4>Letters to Send:</h4>
             <div class="well">
                 <div class="control-group">
-                <label class="control-label">Send To:</label>
-                <div class="controls">
-                    <label class="checkbox"><input class="recipientSelector" type="checkbox" value="tos">
-                                            <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300076-50px.jpeg?1329296647" />Senator Patty Murray</label>
-                    <label class="checkbox"><img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300018-50px.jpeg?1329297085" /><input class="recipientSelector" type="checkbox" value="tos">Senator Maria Cantwell</label>
-                    <label class="checkbox"><img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/400262-50px.jpeg?1329296773" /><input class="recipientSelector" type="checkbox" value="tos">Rep Jim McDermott</label>
+                    <label class="control-label">Send To:</label>
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input class="recipientSelector" type="checkbox" checked="checked" value="tos">
+                            <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300076-50px.jpeg?1329296647" />
+                            Senator Patty Murray</label>
+                        <label class="checkbox">
+                            <input class="recipientSelector" checked="checked" type="checkbox" value="tos">
+                            <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300018-50px.jpeg?1329297085" />
+                            Senator Maria Cantwell
+                        </label>
+                        <label class="checkbox">
+                            <input class="recipientSelector" checked="checked" type="checkbox" value="tos">
+                            <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/400262-50px.jpeg?1329296773" />
+                            Rep Jim McDermott</label>
+                    </div>
                 </div>
             </div>
-                <span id="chargedToday" class="alert alert-info">Total $<span id="totalCharge"></span></span>
-            </div>
-            </div>
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="javascript:void(0);" id="createAccountSendLetter" class="btn btn-primary">Checkout</a>
+        <a href="javascript:void(0);" id="checkout" class="btn btn-success btn-xlarge">Checkout</a>
     </div>
 </div>
 
@@ -262,10 +306,17 @@
 
 </div>
 @section scripts{
-    @if (User.Identity.IsAuthenticated) {
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+        <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
-            $(function() {
-                $.post('/Authentication/GetLetterPrefill', function(user) {
+            Stripe.setPublishableKey('pk_test_nOvbLL4UrnJeKav4whH3rJO7');
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                var stripeHelper = new PaymentHelper();
+                $.post('/User/GetLetterPrefill', function (user) {
                     if (user !== null) {
                         $('#email').val(user.Email);
                         $('#firstname').val(user.FirstName);
@@ -283,21 +334,78 @@
                     if (window.location.hash === "#sendletter") {
                         $('#purchaseLetter').modal();
                     }
-                    
+
                     $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
                     $('#card-zip').val($('#zipcode').val());
                     CalculateAndDisplayPrice();
                 });
-                
+
                 $('#beInvolved').on('click', function () {
+                    $.post('/User/GetPaymentDetails', function (data) {
+                        if (data != null) {
+                            $('#payment-form').hide();
+                            $('#card-on-file-name').val(data.Name);
+                            $('#card-on-file-last4').val(data.Last4);
+                            $('#card-on-file-img').attr('src', 'https://checkout.stripe.com/assets/cards/' + data.Type.toLowerCase() + '.png');
+                            $('#cardOnFile').show();
+                            //TODO: actually show a secondary selector
+                        }
+                    });
                     $('#purchaseLetter').modal();
                 });
 
-                $('.recipientSelector').click(function() {
+                $('#useDifferentCard').on('click', function () {
+                    $('#cardOnFile').hide();
+                    $('#payment-form').show();
+                });
+
+                $('.recipientSelector').click(function () {
                     CalculateAndDisplayPrice();
                 });
+
+
+                $('#checkout').on('click', function () {
+                    $('i.error').addClass('hidden');
+                    $('#payment-errors').hide();
+                    var cardInfo = {
+                        name: $('#card-name').val(),
+                        number: $('#card-number').val(),
+                        cvc: $('#card-cvc').val(),
+                        exp_month: $('#card-expiry-month').val(),
+                        exp_year: $('#card-expiry-year').val(),
+                        address_zip: $('#card-zip').val()
+                    };
+
+                    var errors = stripeHelper.ValidateCard(cardInfo);
+                    if (errors.length > 0) {
+                        for (var i = 0; i < errors.length; i++) {
+                            var parent = $(errors[i].field).parent();
+                            $('i', parent).show().removeClass('hidden').tooltip({ title: errors[i].message });
+                        }
+                        $(this).removeAttr('disabled').removeClass('disabled');
+                        document.body.style.cursor = 'default';
+                    } else {
+                        stripeHelper.CreatePaymentToken(cardInfo, function (status, response) {
+                            if (response.error) {
+                                $('#payment-errors').show().html(response.error.message);
+                            } else {
+                                stripeHelper.UpdateCustomerToken(response.id, function (data) {
+                                    if (data === true) {
+                                        alert('should process the order and queue the charge. customer has been saved');
+                                    } else {
+                                        $('#payment-errors').show().html(data);
+                                        $(this).removeAttr('disabled').removeClass('disabled');
+                                        document.body.style.cursor = 'default';
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+
             });
-            
+
             function CalculateAndDisplayPrice() {
                 var recipients = $('.recipientSelector:checked').length;
                 var price = 1.99;
@@ -307,15 +415,17 @@
                 if (recipients == 0) {
                     price = 0;
                 }
-                $('#totalCharge').html(price.toFixed(2));
+
+                $('#checkout').html('<i class="icon-lock"></i> Checkout ($' + price.toFixed(2) + ')');
             }
         </script>
     }
-    else {
+    else
+    {
         <script type="text/javascript">
             $(function () {
                 $('#beInvolved').removeAttr('disabled');
-                $('#beInvolved').on('click', function() {
+                $('#beInvolved').on('click', function () {
                     //TODO: validate;
 
                     $('#signup-email').val($('#email').val());
@@ -331,7 +441,7 @@
                     $('#createAccount').modal();
                 });
 
-                $('#createAccountSendLetter').on('click', function() {
+                $('#createAccountSendLetter').on('click', function () {
                     $('#createAccountAndRedirect').submit();
                 });
             });
