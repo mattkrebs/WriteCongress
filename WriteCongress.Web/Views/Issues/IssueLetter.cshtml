@@ -94,7 +94,7 @@
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
                 @*<button class="btn btn-small">Email this</button>*@
-                <a id="beInvolved" href="javascript:void(0);" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Be Involved</a>
+                <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Be Involved</button>
             </div>
         </div>
     </div>
@@ -107,13 +107,13 @@
     <div class="modal-body">
         <div class="pull-left">
             <h4>Card Details</h4>
-            <form action="" method="POST" id="payment-form">
+            <form action="" method="POST" id="payment-form" class="form-horizontal">
                 <div class="control-group">
                     <label class="control-label">
                         <span>Name on Card</span>
                     </label>
                     <div class="controls">
-                        <input type="text" id="card-name" maxlength="30" autocomplete="off" />
+                        <input type="text" id="card-name" maxlength="30" autocomplete="off"/>
                         <i class="icon-info-sign error hidden"></i>
                     </div>
                 </div>
@@ -182,67 +182,20 @@
                 </div>
             </form>
         </div>
-        <div class="pull-right" style="margin-left:40px">
-                <h4>Plan Selection:</h4>
-                <div class="well">
-                    <select id="plan">
-                        <option value="AdHoc">Ad Hoc ($0.00/Monthly)</option>
-                        <option value="35">Solo ($6/Monthly)</option>
-                        <option value="100" selected>100 ($19/Monthly)</option>
-                        <option value="250">250 ($29/Monthly)</option>
-                        <option value="500">500 ($59/Monthly)</option>
-                    </select>
-                    <div class="planFeatures">
-                        <div class="hidden plandetails" data-planid="AdHoc" data-price="0">
-                            <ul>
-                                <li>$1.39/Piece</li>
-                                <li>Email Support</li>
-                            </ul>
-                        </div>
-                        <div class="hidden plandetails" data-planid="35" data-price="6">
-                            <ul>
-                                <li>$1.06/Piece</li>
-                                <li>Webhooks for status updates</li>
-                                <li>Chat Support</li>
-                                <li>35 mailings/month max</li>
-                            </ul>
-                        </div>
-                        <div class="hidden plandetails" data-planid="250" data-price="29">
-                            <ul>
-                                <li>$1.06/Piece</li>
-                                <li>Webhooks for status updates</li>
-                                <li>Color printing (+$0.10/page)</li>
-                                <li>Email Support</li>
-                            </ul>
-                        </div>
-                        <div class="hidden plandetails" data-planid="250" data-price="29">
-                            <ul>
-                                <li>$0.99/Piece</li>
-                                <li>Webhooks for status updates</li>
-                                <li><span style="color:red">C</span>
-                                    <span style="color:purple">o</span>
-                                    <span style="color:yellowgreen">l</span>
-                                    <span style="color:orange">o</span>
-                                    <span style="color:red">r</span> printing (+$0.08/page)</li>
-                                <li>Chat Support</li>
-                            </ul>
-                        </div>
-                        <div class="hidden plandetails" data-planid="500" data-price="59">
-                            <ul>
-                                <li>$0.99/Piece</li>
-                                <li>Webhooks for status updates</li>
-                                <li><span style="color:red">C</span>
-                                    <span style="color:purple">o</span>
-                                    <span style="color:yellowgreen">l</span>
-                                    <span style="color:orange">o</span>
-                                    <span style="color:red">r</span> printing (+$0.08/page)</li>
-                                <li>Phone &amp; Chat Support</li>
-                                <li>Print on your own letterhead*</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <span id="chargedToday" class="alert alert-info">We'll charge $<span id="amountChargedToday"></span> in 3 days (to get you started)</span>
+        <div class="pull-right">
+                <h4>Letters to Send:</h4>
+            <div class="well">
+                <div class="control-group">
+                <label class="control-label">Send To:</label>
+                <div class="controls">
+                    <label class="checkbox"><input class="recipientSelector" type="checkbox" value="tos">
+                                            <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300076-50px.jpeg?1329296647" />Senator Patty Murray</label>
+                    <label class="checkbox"><img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300018-50px.jpeg?1329297085" /><input class="recipientSelector" type="checkbox" value="tos">Senator Maria Cantwell</label>
+                    <label class="checkbox"><img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/400262-50px.jpeg?1329296773" /><input class="recipientSelector" type="checkbox" value="tos">Rep Jim McDermott</label>
                 </div>
+            </div>
+                <span id="chargedToday" class="alert alert-info">Total $<span id="totalCharge"></span></span>
+            </div>
             </div>
     </div>
     <div class="modal-footer">
@@ -323,6 +276,8 @@
                         $('#state').val(user.State);
                         $('#zipcode').val(user.ZipCode);
                         $('#phonenumber').val(user.PhoneNumber);
+
+                        $('#beInvolved').removeAttr('disabled');
                     }
 
                     if (window.location.hash === "#sendletter") {
@@ -333,10 +288,26 @@
                 $('#beInvolved').on('click', function () {
                     $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
                     $('#card-zip').val($('#zipcode').val());
+                    CalculateAndDisplayPrice();
                     $('#purchaseLetter').modal();
                 });
 
+                $('.recipientSelector').click(function() {
+                    CalculateAndDisplayPrice();
+                });
             });
+            
+            function CalculateAndDisplayPrice() {
+                var recipients = $('.recipientSelector:checked').length;
+                var price = 1.99;
+                if (recipients > 1) {
+                    price += (recipients - 1) * 1.49;
+                }
+                if (recipients == 0) {
+                    price = 0;
+                }
+                $('#totalCharge').html(price.toFixed(2));
+            }
         </script>
     }
     else {
