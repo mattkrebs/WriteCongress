@@ -27,12 +27,12 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Issues</a></li>
                   <li><a href="#">How this works</a></li>
-                  @if (!User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser!=null) {
-                      <li><a href="/Authentication/Login">Login</a></li>
+                  @if (!User.Identity.IsAuthenticated || ViewBag.AuthenticatedUser!=null) {
+                      <li><a href="/Authentication/Login"> Login</a></li>
                   }
                   else {
                       <li><a>Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
-                      <li><a href="/Authentication/Logout"><i class="icon-signout"></i> Logout</a></li>
+                      <li><a href="/Authentication/Signout"><i class="icon-signout"></i> Logout</a></li>
                   }
               </ul>
             </div>
