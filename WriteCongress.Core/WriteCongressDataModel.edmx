@@ -13,6 +13,7 @@
           <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.Store.FK_Bill_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="Bill" EntitySet="Bill" />
@@ -138,6 +139,23 @@
           <Property Name="SessionId" Type="varchar" MaxLength="200" />
           <Property Name="StripeCustomerId" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6005: The data type 'geography' is not supported for the target .NET Framework version. The column 'Point' in the table 'writecongress_dev.dbo.ZipCodes' was excluded from the model. To use the data type 'geography', target the .NET Framework 4.5 or higher.
+      -->
+        <EntityType Name="ZipCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="PostalCode" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="City" Type="varchar" Nullable="false" MaxLength="180" />
+          <Property Name="State" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="StateAbbreviation" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="County" Type="varchar" MaxLength="100" />
+          <Property Name="AdminCode" Type="varchar" MaxLength="20" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <Association Name="FK_Bill_Person">
           <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
           <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="*" />
@@ -225,6 +243,7 @@
             <End Role="IssueLetter" EntitySet="IssueLetters" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="WriteCongressModel.User" />
+          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.ZipCode" />
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -370,6 +389,20 @@
           <Property Type="String" Name="SessionId" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="StripeCustomerId" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="ZipCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StateAbbreviation" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="County" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AdminCode" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Latitude" Nullable="false" />
+          <Property Type="Double" Name="Longitude" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -483,6 +516,21 @@
                 <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
                 <ScalarProperty Name="Identity" ColumnName="Identity" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipCodes">
+            <EntityTypeMapping TypeName="WriteCongressModel.ZipCode">
+              <MappingFragment StoreEntitySet="ZipCodes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="AdminCode" ColumnName="AdminCode" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="StateAbbreviation" ColumnName="StateAbbreviation" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
