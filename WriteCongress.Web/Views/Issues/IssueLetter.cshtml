@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
     var Issue = (Issue)ViewBag.Issue;
-    ViewBag.Title = "title";
+    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Against ? "opposing" : "supporting", Issue.Name, Model.Name);    
 }
 
 
@@ -187,21 +187,23 @@
                         $('#zipcode').val(user.ZipCode);
                         $('#phonenumber').val(user.PhoneNumber);
                     }
-                    
+
                     if (window.location.hash === "#sendletter") {
                         $('#purchaseLetter').modal();
                     }
                 });
                 
-                
+                $('#beInvolved').on('click', function () {
+                    $('#purchaseLetter').modal();
+                });
+
             });
         </script>
     }
-    else
-    {
+    else {
         <script type="text/javascript">
-            $(function () {
-                $('#beInvolved').on('click', function () {
+            $(function() {
+                $('#beInvolved').on('click', function() {
                     //TODO: validate;
 
                     $('#signup-email').val($('#email').val());
@@ -217,7 +219,7 @@
                     $('#createAccount').modal();
                 });
 
-                $('#createAccountSendLetter').on('click', function () {
+                $('#createAccountSendLetter').on('click', function() {
                     $('#createAccountAndRedirect').submit();
                 });
             });
