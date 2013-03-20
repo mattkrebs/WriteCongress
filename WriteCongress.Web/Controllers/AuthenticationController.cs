@@ -66,6 +66,11 @@ namespace WriteCongress.Web.Controllers
             }).FirstOrDefault(), JsonRequestBehavior.DenyGet);
         }
 
+        public ActionResult Signout() {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {
 
