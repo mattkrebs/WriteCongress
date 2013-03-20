@@ -28,9 +28,8 @@
                 <hr />
                 <h5>Personal Info 
                     @if (!User.Identity.IsAuthenticated) {
-                        <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-lock"></i>Login</span></a>
+                        <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-signin"></i> Login</span></a>
                     }
-                    @*<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>*@
                 </h5>
                 <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
                 <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" />
@@ -100,19 +99,157 @@
         </div>
     </div>
 </div>
-<div id="purchaseLetter" class="modal hide">
+<div id="purchaseLetter" class="modal hide" style="width:750px">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>Create an Account</h3>
-        <h6>You're almost there</h6>
+        <h2><i style="color:#468847" class="icon-lock"></i> Secure Checkout</h2>
     </div>
     <div class="modal-body">
-        Credit Card/Purchase Details Here
+        <div class="pull-left">
+            <h4>Card Details</h4>
+            <form action="" method="POST" id="payment-form">
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Name on Card</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" id="card-name" maxlength="30" autocomplete="off" />
+                        <i class="icon-info-sign error hidden"></i>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Billing Zip</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" id="card-zip" autocomplete="off" class="numeric" style="width: 70px" maxlength="5" />
+                        <i class="icon-info-sign error hidden"></i>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Card Number</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" id="card-number" maxlength="20" autocomplete="off" class="numeric" />
+                        <i class="icon-info-sign hidden error"></i>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>CVC</span>
+                    </label>
+
+                    <div class="controls">
+                        <input type="text" id="card-cvc" maxlength="4" size="4" autocomplete="off" class="span1" />
+                        <i class="icon-info-sign hidden error"></i>
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <span>Expiration</span>
+                    </label>
+                    <div class="controls">
+                        <select id="card-expiry-month" style="width: 95px">
+                            <option value="01">01 - Jan</option>
+                            <option value="02">02 - Feb</option>
+                            <option value="03">03 - Mar</option>
+                            <option value="04">04 - Apr</option>
+                            <option value="05">05 - May</option>
+                            <option value="06">06 - Jun</option>
+                            <option value="07">07 - Jul</option>
+                            <option value="08">08 - Aug</option>
+                            <option value="09">09 - Sep</option>
+                            <option value="10">10 - Oct</option>
+                            <option value="11">11 - Nov</option>
+                            <option value="12">12 - Dec</option>
+                        </select>
+                        /  
+                        <select id="card-expiry-year" style="width: 90px">
+                            <option value="2013">2013</option>
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                        </select>
+                        <i class="icon-info-sign error hidden"></i>
+                    </div><br />
+                    <span id="payment-errors" class="alert alert-danger" style="display:none"></span>
+                </div>
+            </form>
+        </div>
+        <div class="pull-right" style="margin-left:40px">
+                <h4>Plan Selection:</h4>
+                <div class="well">
+                    <select id="plan">
+                        <option value="AdHoc">Ad Hoc ($0.00/Monthly)</option>
+                        <option value="35">Solo ($6/Monthly)</option>
+                        <option value="100" selected>100 ($19/Monthly)</option>
+                        <option value="250">250 ($29/Monthly)</option>
+                        <option value="500">500 ($59/Monthly)</option>
+                    </select>
+                    <div class="planFeatures">
+                        <div class="hidden plandetails" data-planid="AdHoc" data-price="0">
+                            <ul>
+                                <li>$1.39/Piece</li>
+                                <li>Email Support</li>
+                            </ul>
+                        </div>
+                        <div class="hidden plandetails" data-planid="35" data-price="6">
+                            <ul>
+                                <li>$1.06/Piece</li>
+                                <li>Webhooks for status updates</li>
+                                <li>Chat Support</li>
+                                <li>35 mailings/month max</li>
+                            </ul>
+                        </div>
+                        <div class="hidden plandetails" data-planid="250" data-price="29">
+                            <ul>
+                                <li>$1.06/Piece</li>
+                                <li>Webhooks for status updates</li>
+                                <li>Color printing (+$0.10/page)</li>
+                                <li>Email Support</li>
+                            </ul>
+                        </div>
+                        <div class="hidden plandetails" data-planid="250" data-price="29">
+                            <ul>
+                                <li>$0.99/Piece</li>
+                                <li>Webhooks for status updates</li>
+                                <li><span style="color:red">C</span>
+                                    <span style="color:purple">o</span>
+                                    <span style="color:yellowgreen">l</span>
+                                    <span style="color:orange">o</span>
+                                    <span style="color:red">r</span> printing (+$0.08/page)</li>
+                                <li>Chat Support</li>
+                            </ul>
+                        </div>
+                        <div class="hidden plandetails" data-planid="500" data-price="59">
+                            <ul>
+                                <li>$0.99/Piece</li>
+                                <li>Webhooks for status updates</li>
+                                <li><span style="color:red">C</span>
+                                    <span style="color:purple">o</span>
+                                    <span style="color:yellowgreen">l</span>
+                                    <span style="color:orange">o</span>
+                                    <span style="color:red">r</span> printing (+$0.08/page)</li>
+                                <li>Phone &amp; Chat Support</li>
+                                <li>Print on your own letterhead*</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span id="chargedToday" class="alert alert-info">We'll charge $<span id="amountChargedToday"></span> in 3 days (to get you started)</span>
+                </div>
+            </div>
     </div>
     <div class="modal-footer">
         <a href="javascript:void(0);" id="createAccountSendLetter" class="btn btn-primary">Checkout</a>
     </div>
 </div>
+
 <div id="createAccount" class="modal hide">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -194,6 +331,8 @@
                 });
                 
                 $('#beInvolved').on('click', function () {
+                    $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
+                    $('#card-zip').val($('#zipcode').val());
                     $('#purchaseLetter').modal();
                 });
 

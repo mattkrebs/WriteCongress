@@ -1,5 +1,4 @@
-﻿@{WriteCongress.Core.User user = (WriteCongress.Core.User)ViewBag.AuthenticatedUser;}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -28,11 +27,12 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Issues</a></li>
                   <li><a href="#">How this works</a></li>
-                  @if (!Request.IsAuthenticated) {
+                  @if (!User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser!=null) {
                       <li><a href="/Authentication/Login">Login</a></li>
                   }
                   else {
-                      <li><a>Welcome @user.FirstName @user.LastName.Left(1)</a></li>
+                      <li><a>Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
+                      <li><a href="/Authentication/Logout"><i class="icon-signout"></i> Logout</a></li>
                   }
               </ul>
             </div>
