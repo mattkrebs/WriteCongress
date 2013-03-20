@@ -1,8 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{WriteCongress.Core.User user = (WriteCongress.Core.User)ViewBag.AuthenticatedUser;}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -13,32 +14,26 @@
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
     <![endif]-->
-
   </head>
-
     <body>
         <div style="height:10px;background-color:rgb(35, 95, 167);margin-top:0px !important;margin-left:0px!important;width:100%"></div>
-        <div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=430035390415738";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
     <div class="container">
 
 <div class="masthead">
-        <h3 class="muted"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" />
-        </h3>
+        <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a></h3>
         <div class="navbar" style="margin-bottom:0px">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Issues</a></li>
                   <li><a href="#">How this works</a></li>
-                  <li><a href="#">Login</a></li>
+                  @if (!Request.IsAuthenticated) {
+                      <li><a href="/Authentication/Login">Login</a></li>
+                  }
+                  else {
+                      <li><a>Welcome @user.FirstName @user.LastName.Left(1)</a></li>
+                  }
               </ul>
             </div>
           </div>
@@ -58,5 +53,6 @@
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
         @Scripts.Render("~/js/site")
+        @RenderSection("scripts", false)
   </body>
 </html>

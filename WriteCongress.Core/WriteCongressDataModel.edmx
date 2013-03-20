@@ -135,6 +135,7 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" />
           <Property Name="Salt" Type="varchar" MaxLength="100" />
+          <Property Name="SessionId" Type="varchar" MaxLength="200" />
         </EntityType>
         <Association Name="FK_Bill_Person">
           <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
@@ -365,6 +366,7 @@
           <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Password" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Salt" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SessionId" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -463,6 +465,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="WriteCongressModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

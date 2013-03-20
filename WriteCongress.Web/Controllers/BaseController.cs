@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WriteCongress.Core;
 
 namespace WriteCongress.Web.Controllers
@@ -17,6 +18,18 @@ namespace WriteCongress.Web.Controllers
                 }
                 return _db;
             }
+        }
+
+        protected override void OnAuthorization(AuthorizationContext filterContext) {
+            if (User.Identity.IsAuthenticated) {
+                var user = Db.Users.FirstOrDefault(u => u.SessionId == User.Identity.Name);
+                if (user != null) {
+                    ViewBag.AuthenticatedUser = user;
+                    return;
+                }
+                FormsAuthentication.SignOut();//you were marked as authenticated but that session is no longer valid
+            }
+            ViewBag.AuthenticatedUser = null;
         }
     }
 }

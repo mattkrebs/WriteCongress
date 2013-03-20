@@ -40,12 +40,34 @@ namespace WriteCongress.Web.Controllers
         public ActionResult FacebookChannel() {
             return View();
         }
-
+        
         [HttpPost]
-        public JsonResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zip, string email, string password) {
+        public ActionResult CheckEmailAddress(string email) {
             if (Db.Users.Any(u => u.Email == email)) {
                 return Json(new JsonServiceResult<bool>(false, "Email already exsists"));
+            }else {
+                return Json(new JsonServiceResult<bool>(true));
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetLetterPrefill()
+        {
+            return Json(Db.Users.Where(u => u.SessionId == User.Identity.Name).Select(ui => new {
+                ui.FirstName,
+                ui.LastName,
+                ui.AddressOne,
+                ui.AddressTwo,
+                ui.Email,
+                ui.PhoneNumber,
+                ui.ZipCode,
+                ui.City,
+                ui.State
+            }).FirstOrDefault(), JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {
 
             WriteCongress.Core.User newUser = new User();
             newUser.Identity = CryptoHelper.GenerateRandomString(64);
@@ -56,16 +78,25 @@ namespace WriteCongress.Web.Controllers
             newUser.AddressTwo = address2;
             newUser.City = city;
             newUser.State = state;
-            newUser.ZipCode = zip;
+            newUser.ZipCode = zipcode;
 
             var salt = CryptoHelper.GenerateRandomString();
             newUser.Salt = salt;
             newUser.Password = CryptoHelper.HashAndSalt(password, salt);
+            newUser.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays", StringEncodingFormat.Base64).Left(128);
 
             Db.Users.Add(newUser);
-            Db.SaveChanges();
+            try {
+                Db.SaveChanges();
+            }
+            catch (System.Exception ex) {
+                var errors = Db.GetValidationErrors();
+                errors.ToString();
 
-            return Json(new JsonServiceResult<bool>(true));
+            }
+
+            FormsAuthentication.SetAuthCookie(newUser.SessionId, true);
+            return Redirect(redirect ?? Request.UrlReferrer.ToString());
         }
     }
 }

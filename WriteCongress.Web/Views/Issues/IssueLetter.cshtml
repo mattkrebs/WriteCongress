@@ -26,12 +26,15 @@
             <div class="well letterinfo">
                 <h4>Send this letter</h4>
                 <hr />
-                <h5>Personal Info <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-lock"></i> Login</span></a>
+                <h5>Personal Info 
+                    @if (!User.Identity.IsAuthenticated) {
+                        <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-lock"></i>Login</span></a>
+                    }
                     @*<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div>*@
                 </h5>
-                <input class="span4 ZipCode" type="text" maxlength="5"  placeholder="Zip Code" /><br />
-                <input class="span6" type="text" id="firstName" maxlength="11" placeholder="First Name" />
-                <input class="span6" type="text" id="lastName" maxlength="20" placeholder="Last Name" /><br />
+                <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
+                <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" />
+                <input class="span6" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
                 <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
                 <input class="span12" type="text" id="address2" maxlength="60" placeholder="Address 2" /><br />
                 <input class="span6" type="text" id="city" maxlength="20" placeholder="City" />
@@ -92,53 +95,132 @@
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
                 @*<button class="btn btn-small">Email this</button>*@
-                <a href="#createAccount" data-toggle="modal" role="button" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Mail it for me!</a>
+                <a id="beInvolved" href="javascript:void(0);" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Be Involved</a>
             </div>
         </div>
     </div>
 </div>
-<div id="createAccount" class="modal hide">
+<div id="purchaseLetter" class="modal hide">
     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Create an Account</h3>
         <h6>You're almost there</h6>
     </div>
     <div class="modal-body">
-        <h5></h5>
-<!-- Text input-->
-<label class="control-label">Email</label>
-<div class="controls">
-  <input type="text" placeholder="Email" class="input-xlarge">
-  <p class="help-block">We'll send you an email when your letter is mailed</p>
-</div>
-
-<!-- Text input-->
-<label class="control-label">Password</label>
-<div class="controls">
-  <input type="text" placeholder="Password" class="input-xlarge">
-  <p class="help-block"></p>
-</div>
-
-<!-- Text input-->
-<label class="control-label">Password Confirm</label>
-<div class="controls">
-  <input type="text" placeholder="Confirm your password" class="input-xlarge">
-  <p class="help-block"></p>
-</div>
-
-<!-- Multiple Checkboxes (inline) -->
-<label class="control-label">I agree:</label>
-<div class="controls">
-  <label class="checkbox">
-    <input type="checkbox" value="tos">
-    Terms of Service
-  </label><label class="checkbox">
-    <input type="checkbox" value="newsletter">
-    "Monitoring Democracy" Email Newsletter
-  </label>
-</div>
-            
+        Credit Card/Purchase Details Here
     </div>
     <div class="modal-footer">
-        
+        <a href="javascript:void(0);" id="createAccountSendLetter" class="btn btn-primary">Checkout</a>
     </div>
 </div>
+<div id="createAccount" class="modal hide">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Create an Account</h3>
+        <h6>You're almost there</h6>
+    </div>
+
+    <div class="modal-body">
+        <form id="createAccountAndRedirect" method="post" action="/Authentication/CreateAccount" class="form-horizontal">
+            <input type="hidden" id="signup-redirect" name="redirect" value="@Request.Url#sendletter" />
+            <input type="hidden" id="signup-firstname" name="firstname" />
+            <input type="hidden" id="signup-lastname" name="lastname" />
+            <input type="hidden" id="signup-address1" name="address1" />
+            <input type="hidden" id="signup-address2" name="address2" />
+            <input type="hidden" id="signup-city" name="city" />
+            <input type="hidden" id="signup-state" name="state" />
+            <input type="hidden" id="signup-zipcode" name="zipcode" />
+            <input type="hidden" id="signup-phonenumber" name="phonenumber" />
+            <div class="control-group">
+                <label class="control-label">Email</label>
+                <div class="controls">
+                    <input id="signup-email" type="text" name="email" placeholder="Email">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <div class="controls">
+                    <input id="signup-password" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password Confirm</label>
+                <div class="controls">
+                    <input id="signup-passwordconfirm" type="password" placeholder="Confirm your password">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">I agree:</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" value="tos">
+                        Terms of Service
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" value="newsletter">"Monitoring Democracy" Email Newsletter
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0);" id="createAccountSendLetter" class="btn btn-primary">Signup & Send My Letters</a>
+    </div>
+
+</div>
+@section scripts{
+    @if (User.Identity.IsAuthenticated) {
+        <script type="text/javascript">
+            $(function() {
+                $.post('/Authentication/GetLetterPrefill', function(user) {
+                    if (user !== null) {
+                        $('#email').val(user.Email);
+                        $('#firstname').val(user.FirstName);
+                        $('#lastname').val(user.LastName);
+                        $('#address1').val(user.AddressOne);
+                        $('#address2').val(user.AddressTwo);
+                        $('#city').val(user.City);
+                        $('#state').val(user.State);
+                        $('#zipcode').val(user.ZipCode);
+                        $('#phonenumber').val(user.PhoneNumber);
+                    }
+                    
+                    if (window.location.hash === "#sendletter") {
+                        $('#purchaseLetter').modal();
+                    }
+                });
+                
+                
+            });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(function () {
+                $('#beInvolved').on('click', function () {
+                    //TODO: validate;
+
+                    $('#signup-email').val($('#email').val());
+                    $('#signup-firstname').val($('#firstname').val());
+                    $('#signup-lastname').val($('#lastname').val());
+                    $('#signup-address1').val($('#address1').val());
+                    $('#signup-address2').val($('#address2').val());
+                    $('#signup-city').val($('#city').val());
+                    $('#signup-state').val($('#state').val());
+                    $('#signup-zipcode').val($('#zipcode').val());
+                    $('#signup-phonenumber').val($('#phonenumber').val());
+
+                    $('#createAccount').modal();
+                });
+
+                $('#createAccountSendLetter').on('click', function () {
+                    $('#createAccountAndRedirect').submit();
+                });
+            });
+        </script>
+    }
+}
