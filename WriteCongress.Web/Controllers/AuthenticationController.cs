@@ -72,8 +72,32 @@ namespace WriteCongress.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {
+        public ActionResult SignIn(string email, string password, string redirect) {
+            var user = Db.Users.SingleOrDefault(u => u.Email == email);
+            if (user != null) {
+                var hashedPassword = CryptoHelper.HashAndSalt(password, user.Salt);
+                if (hashedPassword == user.Password) {
+                    user.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays", StringEncodingFormat.Base64).Left(128);
+                    FormsAuthentication.SetAuthCookie(user.SessionId, true);
+                    Db.SaveChanges();
+                    return Redirect(redirect ?? Request.UrlReferrer.ToString());
+                }
+                else {
+                    return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
+                }
+            }
+            else {
+                return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
+            }
 
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {
+            if (Db.Users.Any(u => u.Email == email)) {
+                return Redirect(redirect ?? Request.UrlReferrer.ToString());
+            }
+        
             WriteCongress.Core.User newUser = new User();
             newUser.Identity = CryptoHelper.GenerateRandomString(64);
             newUser.Email = email;

@@ -28,7 +28,7 @@
                 <hr />
                 <h5>Personal Info 
                     @if (!User.Identity.IsAuthenticated) {
-                        <a href="javascript:void(0);" class="login-label"><span class="label label-info"><i class="icon-signin"></i> Login</span></a>
+                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i> Sign In</span></a>
                     }
                 </h5>
                 <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
@@ -257,7 +257,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="javascript:void(0);" id="createAccountSendLetter" class="btn btn-primary">Signup & Send My Letters</a>
+        <button id="createAccountSendLetter" class="btn btn-primary">Signup & Send My Letters</button>
     </div>
 
 </div>
@@ -283,12 +283,13 @@
                     if (window.location.hash === "#sendletter") {
                         $('#purchaseLetter').modal();
                     }
-                });
-                
-                $('#beInvolved').on('click', function () {
+                    
                     $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
                     $('#card-zip').val($('#zipcode').val());
                     CalculateAndDisplayPrice();
+                });
+                
+                $('#beInvolved').on('click', function () {
                     $('#purchaseLetter').modal();
                 });
 
@@ -312,7 +313,8 @@
     }
     else {
         <script type="text/javascript">
-            $(function() {
+            $(function () {
+                $('#beInvolved').removeAttr('disabled');
                 $('#beInvolved').on('click', function() {
                     //TODO: validate;
 

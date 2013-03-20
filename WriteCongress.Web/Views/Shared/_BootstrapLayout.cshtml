@@ -27,8 +27,8 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">Hot Issues</a></li>
                   <li><a href="#">How this works</a></li>
-                  @if (!User.Identity.IsAuthenticated || ViewBag.AuthenticatedUser!=null) {
-                      <li><a href="/Authentication/Login"> Login</a></li>
+                  @if (User.Identity.IsAuthenticated==false || ViewBag.AuthenticatedUser==null) {
+                      <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i> Sign In</a></li>
                   }
                   else {
                       <li><a>Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
@@ -45,7 +45,7 @@
         <hr>
 
       <div class="footer">
-        <p>&copy; Company 2013</p>
+        <p>&copy; Three Wise Taco Guys 2013</p>
       </div>
 
     </div>
@@ -54,5 +54,9 @@
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
         @Scripts.Render("~/js/site")
         @RenderSection("scripts", false)
-  </body>
+        
+        @if (!User.Identity.IsAuthenticated) {
+            Html.RenderPartial("_LoginModal");
+        }
+    </body>
 </html>

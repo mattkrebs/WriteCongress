@@ -346,6 +346,7 @@
     <Content Include="Views\Issues\IssueLetter.cshtml" />
     <Content Include="Views\Issues\_LetterInfoForm.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.cshtml" />
+    <Content Include="Views\Shared\_LoginModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
