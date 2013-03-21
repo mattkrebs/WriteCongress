@@ -9,8 +9,12 @@ namespace WriteCongress.Web.Controllers
 {
     public class IssuesController : BaseController
     {
-        
-        public ActionResult Index(string slug) {
+        public ActionResult Index()
+        {
+            var issues = Db.Issues;
+            return View(issues.ToList());
+        }
+        public ActionResult Details(string slug) {
             var issue = Db.Issues.SingleOrDefault(i => i.Slug == slug);
             
             if (issue == null)

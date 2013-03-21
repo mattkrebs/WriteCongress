@@ -3,23 +3,19 @@
 
 @{
     ViewBag.Title = "Send a real letter to congress about "+@Model.Name;
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+    
 }
-<div class="wrapper" id="content">
-    <div class="container">
-        <div class="posts-wrap" id="page">
-            <h2 class="post_title">@Model.Name</h2>
+<div class="container-fluid">
+        <div class="row-fluid">
+            <h1>@Model.Name</h1>
             <div>
                 <p>
                     @Model.Description
                 </p>
             </div>
             <div>
-                <a class="button buttonleft" href="#">​In Favor​</a>​
-                <a class="button buttonleft button_red" href="#">​Opposed​</a>​
-            </div>
-            <div class="clear"></div>
-            
-            @{
+                 @{
                 var issueLetters = (List<Letter>) ViewBag.Letters;
                 var lettersYay = issueLetters.Where(i => i.Against == true).ToList();
                 var lettersNay = issueLetters.Where(i => i.Against == false).ToList();
@@ -38,8 +34,8 @@
                     <li><a href="/Issues/@Model.Slug/@letter.Slug">@letter.Name &ndash; @letter.Description</a></li>
                     }
             </ul>
-            
+
+            </div>
         </div>
-        @Html.Partial("_SideBar")
-    </div>
+
 </div>
