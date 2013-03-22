@@ -301,6 +301,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\IssueLetterAuthenticated.js" />
+    <Content Include="Scripts\IssueLetterNonAuthenticated.js" />
     <Content Include="Scripts\site.ZipCodeFill.js" />
     <Content Include="Scripts\StripeHelper.js" />
     <Content Include="Web.config">
@@ -338,6 +340,8 @@
     <Content Include="Views\Shared\_LoginModal.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Shared\_PurchaseLetter.cshtml" />
+    <Content Include="Views\Shared\_CreateAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

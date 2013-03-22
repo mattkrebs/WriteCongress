@@ -1,0 +1,60 @@
+﻿
+<div id="createAccount" class="modal hide">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Create an Account</h3>
+        <h6>You're almost there</h6>
+    </div>
+
+    <div class="modal-body">
+        <form id="createAccountAndRedirect" method="post" action="/Authentication/CreateAccount" class="form-horizontal">
+            <input type="hidden" id="signup-redirect" name="redirect" value="@Request.Url#sendletter" />
+            <input type="hidden" id="signup-firstname" name="firstname" />
+            <input type="hidden" id="signup-lastname" name="lastname" />
+            <input type="hidden" id="signup-address1" name="address1" />
+            <input type="hidden" id="signup-address2" name="address2" />
+            <input type="hidden" id="signup-city" name="city" />
+            <input type="hidden" id="signup-state" name="state" />
+            <input type="hidden" id="signup-zipcode" name="zipcode" />
+            <input type="hidden" id="signup-phonenumber" name="phonenumber" />
+            <div class="control-group">
+                <label class="control-label">Email</label>
+                <div class="controls">
+                    <input id="signup-email" type="text" name="email" placeholder="Email">
+                    <i class="icon-info-sign error hidden"></i>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <div class="controls">
+                    <input id="signup-password" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password Confirm</label>
+                <div class="controls">
+                    <input id="signup-passwordconfirm" type="password" placeholder="Confirm your password">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">I agree:</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" value="tos">
+                        Terms of Service
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" value="newsletter">"Monitoring Democracy" Email Newsletter
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="createAccountSendLetter" class="btn btn-primary">Signup & Send My Letters</button>
+    </div>
+
+</div>
