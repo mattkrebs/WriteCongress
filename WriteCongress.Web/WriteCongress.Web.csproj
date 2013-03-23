@@ -323,7 +323,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index_backup.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_TopNav.cshtml" />
@@ -344,6 +343,9 @@
     <Content Include="Views\Issues\Index.cshtml" />
     <Content Include="Views\Shared\_PurchaseLetter.cshtml" />
     <Content Include="Views\Shared\_CreateAccount.cshtml" />
+    <Content Include="Views\Authentication\PasswordReset.cshtml" />
+    <Content Include="Views\Authentication\BeginPasswordReset.cshtml" />
+    <Content Include="Views\Authentication\InvalidPasswordResetToken.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

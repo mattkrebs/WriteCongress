@@ -11,6 +11,7 @@
           <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
@@ -33,6 +34,10 @@
           <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.Store.FK_IssueLetter_Letter">
             <End Role="Letter" EntitySet="Letter" />
             <End Role="IssueLetter" EntitySet="IssueLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PasswordResets_Users" Association="WriteCongressModel.Store.FK_PasswordResets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PasswordResets" EntitySet="PasswordResets" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Bill">
@@ -94,6 +99,17 @@
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PasswordResets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DateRequestedUtc" Type="datetime" Nullable="false" />
+          <Property Name="UserHostAddress" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="DateUsed" Type="datetime" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -218,6 +234,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PasswordResets_Users">
+          <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
+          <End Role="PasswordResets" Type="WriteCongressModel.Store.PasswordResets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordResets">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -246,6 +274,11 @@
           </AssociationSet>
           <EntitySet Name="Users" EntityType="WriteCongressModel.User" />
           <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.ZipCode" />
+          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.PasswordReset" />
+          <AssociationSet Name="FK_PasswordResets_Users" Association="WriteCongressModel.FK_PasswordResets_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PasswordReset" EntitySet="PasswordResets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -392,6 +425,7 @@
           <Property Type="String" Name="StripeCustomerId" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Ip" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PasswordResets" Relationship="WriteCongressModel.FK_PasswordResets_Users" FromRole="User" ToRole="PasswordReset" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -407,6 +441,30 @@
           <Property Type="Double" Name="Longitude" Nullable="false" />
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="PasswordReset">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="DateRequestedUtc" Nullable="false" Precision="3" />
+          <Property Type="String" Name="UserHostAddress" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateUsed" Precision="3" />
+          <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_PasswordResets_Users" FromRole="PasswordReset" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_PasswordResets_Users">
+          <End Type="WriteCongressModel.User" Role="User" Multiplicity="1" />
+          <End Type="WriteCongressModel.PasswordReset" Role="PasswordReset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordReset">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -537,6 +595,18 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasswordResets">
+            <EntityTypeMapping TypeName="WriteCongressModel.PasswordReset">
+              <MappingFragment StoreEntitySet="PasswordResets">
+                <ScalarProperty Name="DateUsed" ColumnName="DateUsed" />
+                <ScalarProperty Name="UserHostAddress" ColumnName="UserHostAddress" />
+                <ScalarProperty Name="DateRequestedUtc" ColumnName="DateRequestedUtc" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

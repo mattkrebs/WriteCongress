@@ -84,5 +84,9 @@
     color:#fc4b4b !important;
 }
 .error {
-    color:#fc4b4b !important;
+    color: #fc4b4b !important;
 }
+.help-block {
+    font-size: 12px;
+}
+

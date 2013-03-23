@@ -14,6 +14,11 @@ namespace WriteCongress.Core
     
     public partial class User
     {
+        public User()
+        {
+            this.PasswordResets = new HashSet<PasswordReset>();
+        }
+    
         public int Id { get; set; }
         public string Identity { get; set; }
         public Nullable<System.DateTime> CreatedDateUtc { get; set; }
@@ -32,5 +37,7 @@ namespace WriteCongress.Core
         public string StripeCustomerId { get; set; }
         public string Ip { get; set; }
         public string UserAgent { get; set; }
+    
+        public virtual ICollection<PasswordReset> PasswordResets { get; set; }
     }
 }

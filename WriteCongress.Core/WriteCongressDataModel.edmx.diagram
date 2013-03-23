@@ -16,6 +16,8 @@
         <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Letter" />
         <EntityTypeShape EntityType="WriteCongressModel.User" Width="1.5" PointX="7.0074551436153492" PointY="22.06281345619951" />
         <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="4.5792954157010168" PointY="11.810380821959292" />
+        <EntityTypeShape EntityType="WriteCongressModel.PasswordReset" Width="1.5" PointX="2.4453012284102389" PointY="29.303516237672191" />
+        <AssociationConnector Association="WriteCongressModel.FK_PasswordResets_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

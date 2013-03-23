@@ -55,11 +55,6 @@ namespace WriteCongress.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public ActionResult CheckEmailUsage(string email) {
-            email = email.Trim();
-            return Json(Db.Users.Any(u => u.Email == email));
-        }
 
         [HttpPost]
         public ActionResult SignIn(string email, string password, string redirect) {
@@ -79,8 +74,76 @@ namespace WriteCongress.Web.Controllers
             else {
                 return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
             }
-
+        
         }
+        
+        [HttpGet]
+        public ActionResult PasswordReset() {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PasswordReset(string email) {
+            email = email.Trim();
+            var user = Db.Users.FirstOrDefault(u => u.Email == email);
+            if (user == null) {
+                return Json(false, JsonRequestBehavior.DenyGet);
+            }
+            else {
+                PasswordReset r = new PasswordReset();
+                r.Guid = Guid.NewGuid();
+                r.UserId = user.Id;
+                r.DateRequestedUtc = DateTime.UtcNow;
+                r.UserHostAddress = Request.UserHostAddress;
+                r.DateUsed = null;
+                Db.PasswordResets.Add(r);
+                Db.SaveChanges();
+
+                //TODO: send an email
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        [HttpGet]
+        public ActionResult BeginPasswordReset(Guid token) {
+            var dayAgo = DateTime.UtcNow.AddHours(-24);
+            var passwordReset = Db.PasswordResets.FirstOrDefault(r => r.Guid == token && r.UserHostAddress == Request.UserHostAddress && r.DateUsed==null && r.DateRequestedUtc>=dayAgo);
+            if (passwordReset == null) {
+                //TODO: log this?
+                return View("InvalidPasswordResetToken");
+            }
+            else {
+                return View(token);
+            }
+        }
+        [HttpPost]
+        public ActionResult FinishPasswordReset(Guid token, string email, string password)
+        {
+            var dayAgo = DateTime.UtcNow.AddHours(-24);
+            var passwordReset = Db.PasswordResets.FirstOrDefault(r => r.Guid == token && r.UserHostAddress == Request.UserHostAddress && r.DateUsed == null && r.DateRequestedUtc >= dayAgo);
+            if (passwordReset == null) {
+                return View("InvalidPasswordResetToken");
+            }
+            else {
+                if (!passwordReset.User.Email.Equals(email.Trim(), StringComparison.OrdinalIgnoreCase)) {
+                    //TODO: should log this and probably give them a message, but its low priority and i don't want to handle it at the moment
+                    return View("InvalidPasswordResetToken");
+                }
+                else {
+                    var user = passwordReset.User;
+                    user.Salt = CryptoHelper.GenerateRandomString();
+                    user.Password = CryptoHelper.HashAndSalt(password, user.Salt);
+                    passwordReset.DateUsed = DateTime.UtcNow;
+                    
+                    //log them in as well
+                    user.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays").Left(128);
+                    Db.SaveChanges();
+
+                    FormsAuthentication.SetAuthCookie(user.SessionId, true);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+        }
+    
 
         [HttpPost]
         public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {

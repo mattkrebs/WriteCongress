@@ -32,5 +32,6 @@ namespace WriteCongress.Core
         public DbSet<Letter> Letters { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ZipCode> ZipCodes { get; set; }
+        public DbSet<PasswordReset> PasswordResets { get; set; }
     }
 }

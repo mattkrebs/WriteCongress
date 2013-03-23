@@ -1,8 +1,8 @@
 ﻿$(function () {
     $('#email').on('blur', function() {
         var emailInput = $(this);
-        $.post('/Authentication/CheckEmailUsage', { email: emailInput.val() }, function(data) {
-            if (data === true) {
+        $.post('/Authentication/CheckEmailAddress', { email: emailInput.val() }, function(data) {
+            if (data.Success === true) {
                 $('#signin-email').val(emailInput.val());
                 $('#login-modal').modal();
                 $('#signin-password').focus();
@@ -12,8 +12,8 @@
     
     $('#signup-email').on('blur', function () {
         var emailInput = $(this);
-        $.post('/Authentication/CheckEmailUsage', { email: emailInput.val() }, function (data) {
-            if (data === true) {
+        $.post('/Authentication/CheckEmailAddress', { email: emailInput.val() }, function (data) {
+            if (data.Success === true) {
                 $('i', emailInput.parent()).show().removeClass('hidden').tooltip({ title: 'This email is already in use', placement: 'bottom' });
                 $('#createAccountSendLetter').attr('disabled', 'disabled');
             }

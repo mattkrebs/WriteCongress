@@ -59,6 +59,9 @@
     <Compile Include="Letter.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PasswordReset.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
