@@ -1,4 +1,15 @@
 ﻿$(function () {
+    $('#email').on('blur', function() {
+        var emailInput = $(this);
+        $.post('/Authentication/CheckEmailUsage', { email: emailInput.val() }, function(data) {
+            if (data === true) {
+                $('#signin-email').val(emailInput.val());
+                $('#login-modal').modal();
+                $('#signin-password').focus();
+            }
+        });
+    });
+    
     $('#signup-email').on('blur', function () {
         var emailInput = $(this);
         $.post('/Authentication/CheckEmailUsage', { email: emailInput.val() }, function (data) {

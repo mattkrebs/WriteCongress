@@ -33,4 +33,9 @@
         $('#login-modal').modal();
         $('#signin-email').focus();
     });
+    $('#login-modal').keydown(function (e) {
+        if (e.keyCode == '13') {
+            $('#login-modal-signin').click();
+        }
+    });
 </script>
