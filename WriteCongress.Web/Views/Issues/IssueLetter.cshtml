@@ -94,7 +94,6 @@
                 </select>
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
-                @*<button class="btn btn-small">Email this</button>*@
                 <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Be Involved</button>
             </div>
         </div>
@@ -104,8 +103,7 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated)
-    {
+    @if (User.Identity.IsAuthenticated){
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
@@ -113,8 +111,5 @@
         </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else
-    {
-        <script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>
-    }
+    else{<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
 }
