@@ -138,6 +138,8 @@
           <Property Name="Salt" Type="varchar" MaxLength="100" />
           <Property Name="SessionId" Type="varchar" MaxLength="200" />
           <Property Name="StripeCustomerId" Type="varchar" MaxLength="50" />
+          <Property Name="Ip" Type="varchar" MaxLength="15" />
+          <Property Name="UserAgent" Type="varchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6005: The data type 'geography' is not supported for the target .NET Framework version. The column 'Point' in the table 'writecongress_dev.dbo.ZipCodes' was excluded from the model. To use the data type 'geography', target the .NET Framework 4.5 or higher.
@@ -388,6 +390,8 @@
           <Property Type="String" Name="Salt" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="SessionId" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="StripeCustomerId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ip" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -500,6 +504,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="WriteCongressModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
                 <ScalarProperty Name="StripeCustomerId" ColumnName="StripeCustomerId" />
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />

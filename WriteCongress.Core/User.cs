@@ -30,5 +30,7 @@ namespace WriteCongress.Core
         public string Salt { get; set; }
         public string SessionId { get; set; }
         public string StripeCustomerId { get; set; }
+        public string Ip { get; set; }
+        public string UserAgent { get; set; }
     }
 }

@@ -99,6 +99,8 @@ namespace WriteCongress.Web.Controllers
             newUser.City = city.Trim();
             newUser.State = state;
             newUser.ZipCode = zipcode.Trim();
+            newUser.Ip = Request.UserHostAddress.Left(15);
+            newUser.UserAgent = Request.UserAgent.Left(500);
 
             var salt = CryptoHelper.GenerateRandomString();
             newUser.Salt = salt;
