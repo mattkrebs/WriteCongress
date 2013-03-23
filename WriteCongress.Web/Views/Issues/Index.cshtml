@@ -1,29 +1,28 @@
 ﻿@model List<WriteCongress.Core.Issue>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Send mail to congress about issues including gun control, abortion, immigration, and more!";
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
-<div class="row-fluid">
-<ul class="thumbnails">
-    @foreach (var issue in Model)
-    {
-        <li class="span4">
-            <div class="thumbnail">
-                <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="http://1.bp.blogspot.com/-0beq83Vnszg/UQENsl619SI/AAAAAAAABEY/t17mt1KSbhw/s1600/gun+control.jpg" />
-                <div class="caption">
-                    <h3>@issue.Name</h3>
-                    <p>@issue.Description</p>
-                    <p>
-                        <a class="btn btn-primary" href="/Issues/@issue.Slug/">Action</a>
-                    </p>
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <ul class="thumbnails">
+            @foreach (var issue in Model)
+            {
+                <li class="span4">
+                    <div class="thumbnail">
+                        <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="http://1.bp.blogspot.com/-0beq83Vnszg/UQENsl619SI/AAAAAAAABEY/t17mt1KSbhw/s1600/gun+control.jpg" />
+                        <div class="caption">
+                            <h3>@issue.Name</h3>
+                            <p>@issue.Description</p>
+                            <p>
+                                <a class="btn btn-primary" href="/Issues/@issue.Slug/">Take Action!</a>
+                            </p>
+                        </div>
+                    </div>
 
-        </li>
-    }
-
-
-
-</ul>
+                </li>
+            }
+        </ul>
     </div>
+</div>
