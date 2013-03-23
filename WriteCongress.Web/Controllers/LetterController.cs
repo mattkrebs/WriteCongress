@@ -7,7 +7,7 @@ using WriteCongress.Core;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class LetterController : Controller
+    public class LetterController : BaseController
     {
         //
         // GET: /Letter/

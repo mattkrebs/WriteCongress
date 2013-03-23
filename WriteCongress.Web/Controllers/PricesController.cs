@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class PricesController : Controller
+    public class PricesController : BaseController
     {
         public ActionResult Index()
         {

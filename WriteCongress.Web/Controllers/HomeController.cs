@@ -8,7 +8,7 @@ using WriteCongress.Web.Models;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Content/
