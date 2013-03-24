@@ -245,6 +245,7 @@
     <Content Include="Content\fonts\style-rokkitt.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\Bitter-Regular-webfont.eot" />
