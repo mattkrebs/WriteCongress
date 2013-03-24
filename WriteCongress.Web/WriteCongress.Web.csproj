@@ -246,6 +246,7 @@
     <Content Include="Content\fonts\style-museo.css" />
     <Content Include="Content\fonts\style-nevis.css" />
     <Content Include="Content\fonts\style-rokkitt.css" />
+    <Content Include="Content\images\emailheader.jpg" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\logo.png" />

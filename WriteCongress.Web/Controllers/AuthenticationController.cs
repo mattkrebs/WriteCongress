@@ -182,6 +182,15 @@ namespace WriteCongress.Web.Controllers
 
             }
 
+            try {
+                EmailManager em = new EmailManager();
+                em.SendMessage(newUser.Email, EmailManager.Support, "Get involved - WriteCongress.us", this.RenderPartialViewToString("~/Views/Email/SignupConfirm.cshtml", newUser));
+            }
+            catch (System.Exception ex) {
+                //TODO: log this but don't prevent them from logging in
+            }
+            
+
             FormsAuthentication.SetAuthCookie(newUser.SessionId, true);
             return Redirect(redirect ?? Request.UrlReferrer.ToString());
         }
