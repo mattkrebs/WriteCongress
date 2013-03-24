@@ -1,0 +1,20 @@
+﻿@using System.Drawing
+@model beta.Models.Email.SignupConfirmModel
+@{
+    Layout = "~/Views/Email/_Layout.cshtml";
+}
+<h2>try{Paper} Signup Confirmation</h2>
+
+<p>Thanks for signing up! Your account is good to go. Getting started with the API is super easy:</p>
+@*@Html.EmailButton("1) Confirm your email address", "https://www.trypaper.com/authentication/confirmsignup?email=" + Url.Encode(Model.Email), System.Drawing.Color.DodgerBlue)*@
+@Html.EmailButton("1) View the Getting Started guide", "https://www.trypaper.com/docs/", System.Drawing.Color.SeaGreen)
+
+<p>That's all :)</p>
+
+<p>Happy mailing! If you need anything, don't hesitate to reach out to support via support@@trypaper.com</p>
+
+<p>
+Sincerely,<br />
+Joseph & The try{Paper} Team<br />
+<a href="mailto:hello@trypaper.com">hello@trypaper.com</a>
+</p>

@@ -98,7 +98,9 @@ namespace WriteCongress.Web.Controllers
                 Db.PasswordResets.Add(r);
                 Db.SaveChanges();
 
-                //TODO: send an email
+                EmailManager em = new EmailManager();
+                em.SendMessage(user.Email, EmailManager.Support, "Password Reset - WriteCongress.us", this.RenderPartialViewToString("~/Views/Email/PasswordReset.cshtml",r));
+
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
         }

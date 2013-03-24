@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\EmailManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\LetterController.cs" />
@@ -197,6 +198,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -360,6 +363,9 @@
     <Content Include="Views\Authentication\PasswordReset.cshtml" />
     <Content Include="Views\Authentication\BeginPasswordReset.cshtml" />
     <Content Include="Views\Authentication\InvalidPasswordResetToken.cshtml" />
+    <Content Include="Views\Email\PasswordReset.cshtml" />
+    <Content Include="Views\Email\SignupConfirm.cshtml" />
+    <Content Include="Views\Email\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
