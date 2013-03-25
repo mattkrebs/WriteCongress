@@ -23,14 +23,14 @@
             <div class="letter">
                 @Html.Raw(Model.Body)
                 Sincerely<br />
-                <span class="signature" id="letter-signature"></span>
+                <span class="signature" id="letter-signature">[Fill out form on right]</span>
             </div>
         </div>
         <div class="span4">
             <div class="well letterinfo">
                 <h4>Send this letter</h4>
                 <hr />
-                <h5>Personal Info 
+                <h5>Constituent Info 
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i> Sign In</span></a>
