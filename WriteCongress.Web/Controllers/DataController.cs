@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WriteCongress.Core;
+using WriteCongress.Web.Models.SmartyStreets;
+
 namespace WriteCongress.Web.Controllers
 {
     [SSLRequired]
@@ -46,6 +48,22 @@ namespace WriteCongress.Web.Controllers
                 people.AddRange(senators);
             }
             return Json(people, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetCorrectedAddress(string address, string city, string state, string postalcode) {
+            Models.SmartyStreets.SmartyStreetClient client = new Models.SmartyStreets.SmartyStreetClient();
+            var recipient = new Models.SmartyStreets.Recipient() {
+                AddressLineOne = address,
+                City = city,
+                Province = state,
+                PostalCode = postalcode
+            };
+            var suggestions = client.GetSuggestions(recipient);
+
+            var scrubbedAddress = SmartyStreetClient.MergeFirstCandidate(recipient, suggestions);
+
+            return Json(scrubbedAddress, JsonRequestBehavior.DenyGet);
         }
 
     }
