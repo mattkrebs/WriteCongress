@@ -44,15 +44,26 @@ namespace WriteCongress.Web.Controllers
         [HttpPost]
         public ActionResult CheckEmailAddress(string email) {
             if (Db.Users.Any(u => u.Email == email)) {
-                return Json(new JsonServiceResult<bool>(false, "Email already exsists"));
+                return Json(new JsonServiceResult<bool>(true) {Data = true, Message = "Email already exists."});
             }else {
-                return Json(new JsonServiceResult<bool>(true));
+                return Json(new JsonServiceResult<bool>(true) {Data = false});
             }
         }
       
         public ActionResult Signout() {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult ValidateEmailFormat(string email) {
+            try {
+                System.Net.Mail.MailAddress ma = new System.Net.Mail.MailAddress(email);
+                return Json(new JsonServiceResult<string>(true){Data = ma.Address});
+            }
+            catch {
+                return Json(new JsonServiceResult<bool>(false));
+            }
         }
 
 
