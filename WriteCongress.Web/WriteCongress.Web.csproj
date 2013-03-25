@@ -139,37 +139,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -205,47 +177,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\style.css" />
-    <Content Include="Content\fancybox\blank.gif" />
-    <Content Include="Content\fancybox\fancybox-x.png" />
-    <Content Include="Content\fancybox\fancybox-y.png" />
-    <Content Include="Content\fancybox\fancybox.png" />
-    <Content Include="Content\fancybox\fancy_close.png" />
-    <Content Include="Content\fancybox\fancy_loading.png" />
-    <Content Include="Content\fancybox\fancy_nav_left.png" />
-    <Content Include="Content\fancybox\fancy_nav_right.png" />
-    <Content Include="Content\fancybox\fancy_shadow_e.png" />
-    <Content Include="Content\fancybox\fancy_shadow_n.png" />
-    <Content Include="Content\fancybox\fancy_shadow_ne.png" />
-    <Content Include="Content\fancybox\fancy_shadow_nw.png" />
-    <Content Include="Content\fancybox\fancy_shadow_s.png" />
-    <Content Include="Content\fancybox\fancy_shadow_se.png" />
-    <Content Include="Content\fancybox\fancy_shadow_sw.png" />
-    <Content Include="Content\fancybox\fancy_shadow_w.png" />
-    <Content Include="Content\fancybox\fancy_title_left.png" />
-    <Content Include="Content\fancybox\fancy_title_main.png" />
-    <Content Include="Content\fancybox\fancy_title_over.png" />
-    <Content Include="Content\fancybox\fancy_title_right.png" />
-    <Content Include="Content\fancybox\jquery.easing-1.3.pack.js" />
-    <Content Include="Content\fancybox\jquery.fancybox-1.3.4.css" />
-    <Content Include="Content\fancybox\jquery.fancybox-1.3.4.js" />
-    <Content Include="Content\fancybox\jquery.fancybox-1.3.4.pack.js" />
-    <Content Include="Content\fancybox\jquery.mousewheel-3.0.4.pack.js" />
-    <Content Include="Content\fonts\Bitter-Regular-webfont.svg" />
-    <Content Include="Content\fonts\DroidSans-Bold-webfont.svg" />
-    <Content Include="Content\fonts\DroidSans-webfont.svg" />
-    <Content Include="Content\fonts\DroidSerif-Regular-webfont.svg" />
-    <Content Include="Content\fonts\franchise-bold-webfont.svg" />
-    <Content Include="Content\fonts\Museo_Slab_500-webfont.svg" />
-    <Content Include="Content\fonts\nevis-webfont.svg" />
-    <Content Include="Content\fonts\Rokkitt-webfont.svg" />
-    <Content Include="Content\fonts\style-bitter.css" />
-    <Content Include="Content\fonts\style-droidsans.css" />
-    <Content Include="Content\fonts\style-droidserif.css" />
-    <Content Include="Content\fonts\style-franchise.css" />
-    <Content Include="Content\fonts\style-museo.css" />
-    <Content Include="Content\fonts\style-nevis.css" />
-    <Content Include="Content\fonts\style-rokkitt.css" />
     <Content Include="Content\images\emailheader.jpg" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
@@ -253,30 +184,6 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\fonts\Bitter-Regular-webfont.eot" />
-    <Content Include="Content\fonts\Bitter-Regular-webfont.ttf" />
-    <Content Include="Content\fonts\Bitter-Regular-webfont.woff" />
-    <Content Include="Content\fonts\DroidSans-Bold-webfont.eot" />
-    <Content Include="Content\fonts\DroidSans-Bold-webfont.ttf" />
-    <Content Include="Content\fonts\DroidSans-Bold-webfont.woff" />
-    <Content Include="Content\fonts\DroidSans-webfont.eot" />
-    <Content Include="Content\fonts\DroidSans-webfont.ttf" />
-    <Content Include="Content\fonts\DroidSans-webfont.woff" />
-    <Content Include="Content\fonts\DroidSerif-Regular-webfont.eot" />
-    <Content Include="Content\fonts\DroidSerif-Regular-webfont.ttf" />
-    <Content Include="Content\fonts\DroidSerif-Regular-webfont.woff" />
-    <Content Include="Content\fonts\franchise-bold-webfont.eot" />
-    <Content Include="Content\fonts\franchise-bold-webfont.ttf" />
-    <Content Include="Content\fonts\franchise-bold-webfont.woff" />
-    <Content Include="Content\fonts\Museo_Slab_500-webfont.eot" />
-    <Content Include="Content\fonts\Museo_Slab_500-webfont.ttf" />
-    <Content Include="Content\fonts\Museo_Slab_500-webfont.woff" />
-    <Content Include="Content\fonts\nevis-webfont.eot" />
-    <Content Include="Content\fonts\nevis-webfont.ttf" />
-    <Content Include="Content\fonts\nevis-webfont.woff" />
-    <Content Include="Content\fonts\Rokkitt-webfont.eot" />
-    <Content Include="Content\fonts\Rokkitt-webfont.ttf" />
-    <Content Include="Content\fonts\Rokkitt-webfont.woff" />
     <None Include="Properties\PublishProfiles\writecongress - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy %282%29.pubxml" />
