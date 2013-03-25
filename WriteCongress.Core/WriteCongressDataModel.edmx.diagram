@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0d3dd18203344a3fa7dba47c43f857ec" Name="Diagram1">
+      <Diagram DiagramId="0d3dd18203344a3fa7dba47c43f857ec" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="WriteCongressModel.Issue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WriteCongressModel.Bill" Width="1.5" PointX="3.25" PointY="1.125" />
         <EntityTypeShape EntityType="WriteCongressModel.IssueLetter" Width="1.5" PointX="2.375" PointY="5.75" />
-        <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="5.5" PointY="1.125" />
-        <AssociationConnector Association="WriteCongressModel.FK_Bill_Person" />
         <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Issue" />
-        <AssociationConnector Association="WriteCongressModel.BillIssue" />
         <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="5.25" PointY="5.625" />
         <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Letter" />
         <EntityTypeShape EntityType="WriteCongressModel.User" Width="1.5" PointX="3.75" PointY="20.125" />
         <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="4.5792954157010168" PointY="11.810380821959292" />
         <EntityTypeShape EntityType="WriteCongressModel.PasswordReset" Width="1.5" PointX="2.4453012284102389" PointY="29.303516237672191" />
         <AssociationConnector Association="WriteCongressModel.FK_PasswordResets_Users" />
+        <EntityTypeShape EntityType="WriteCongressModel.Bill" Width="1.5" PointX="2.3533714983395169" PointY="8.3819642553021971" />
+        <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="6.2461145903198574" PointY="2.0058676609796788" />
+        <AssociationConnector Association="WriteCongressModel.FK_Bill_Person" />
+        <AssociationConnector Association="WriteCongressModel.BillIssue" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
