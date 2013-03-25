@@ -21,9 +21,13 @@
     });
     $('#beInvolved').removeAttr('disabled');
     $('#beInvolved').on('click', function () {
-        //TODO: validate;
+
+        $('#signup-email').on('change', function () {
+            validateEmail();
+        });
 
         $('#signup-email').val($('#email').val());
+        validateEmail();
         $('#signup-firstname').val($('#firstname').val());
         $('#signup-lastname').val($('#lastname').val());
         $('#signup-address1').val($('#address1').val());
@@ -35,6 +39,32 @@
 
         $('#createAccount').modal();
     });
+    
+    function validateEmail() {
+        var emailInput = $('#signup-email');
+        emailInput.mailcheck({
+            suggested: function (element, suggestion) {
+                var suggestionParagraph = $('#emailSuggestion');
+                emailInput.parent().addClass('alert alert-danger');
+                suggestionParagraph.html('Did you mean <a href="javascript:void(0);" class="useEmailSuggestion" title="Use the suggestion">' + suggestion.full + '</a>?');
+                suggestionParagraph.show();
+                $('.useEmailSuggestion', suggestionParagraph).on('click', function () {
+                    emailInput.parent().removeClass('alert-danger').removeClass('alert');
+                    emailInput.val(suggestion.full);
+                    suggestionParagraph.hide();
+                    emailInput.change();
+                });
+            },
+            empty: function (element, suggestion) {
+                var suggestionParagraph = $('#emailSuggestion');
+                suggestionParagraph.hide();
+
+                if (typeof emptyCallback === "function") {
+                    emptyCallback();
+                }
+            }
+        });
+    }
 
     $('#createAccountSendLetter').on('click', function () {
         $('#createAccountAndRedirect').submit();

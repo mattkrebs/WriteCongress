@@ -53,9 +53,9 @@
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
         @Scripts.Render("~/js/site")
+        @Scripts.Render("~/js/plugins")
         @Html.Partial("_Analytics")
         @RenderSection("scripts", false)
-        
         @if (!User.Identity.IsAuthenticated) {
             Html.RenderPartial("_LoginModal");
         }

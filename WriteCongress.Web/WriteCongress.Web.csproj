@@ -323,6 +323,9 @@
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\IssueLetterAuthenticated.js" />
     <Content Include="Scripts\IssueLetterNonAuthenticated.js" />
+    <Content Include="Scripts\plugins\jquery.cookie.js" />
+    <Content Include="Scripts\plugins\jquery.kicksend.js" />
+    <Content Include="Scripts\plugins\jquery.timeago.js" />
     <Content Include="Scripts\site.ZipCodeFill.js" />
     <Content Include="Scripts\StripeHelper.js" />
     <Content Include="Web.config">
