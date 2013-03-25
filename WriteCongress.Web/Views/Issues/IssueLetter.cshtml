@@ -36,7 +36,7 @@
                         <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i> Sign In</span></a>
                     }
                 </h5>
-                <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
+                <input class="span4 ZipCode replookup" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
                 <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" />
                 <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
                 <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
@@ -118,11 +118,19 @@
     else {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
     
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             $('.livepreview').on('keyup', updateLetter);
-            $('.livepreview').on('change', updateLetter);//handle the pull from the backend
+            $('.livepreview').on('change', updateLetter); //handle the pull from the backend
+
+            $('.replookup').on('change', function() {
+                var zip = $(this).val();
+                setMySenators(false, zip);
+                setMyRep(false, zip);
+            });
         });
+
         
+
         function updateLetter() {
             $('#letter-signature').html($('#firstname').val() + ' ' + $('#lastname').val());
         }

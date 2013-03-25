@@ -62,6 +62,9 @@
     <Compile Include="PasswordReset.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="User.cs">
@@ -83,6 +86,9 @@
       <DependentUpon>WriteCongressDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ZipCode.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ZipCodeDistrict.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

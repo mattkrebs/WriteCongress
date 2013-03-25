@@ -321,6 +321,7 @@
     <Content Include="Images\_demo\office-300x300.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\site.core.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\IssueLetterAuthenticated.js" />
     <Content Include="Scripts\IssueLetterNonAuthenticated.js" />

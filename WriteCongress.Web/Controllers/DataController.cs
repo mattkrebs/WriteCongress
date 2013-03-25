@@ -21,5 +21,32 @@ namespace WriteCongress.Web.Controllers
                 return Json(new { result.City, result.StateAbbreviation }, JsonRequestBehavior.DenyGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult GetCongressionalDistrictByZip(string zip) {
+            var districts = Db.ZipCodeDistricts.Where(z => z.PostalCode == zip).ToList();
+
+            var people = new List<Person>();
+            foreach (var d in districts) {
+                var person = Db.People.FirstOrDefault(p => p.State == d.State && p.District == d.District);
+                if (person != null) {
+                    people.Add(person);
+                }
+            }
+
+            return Json(people, JsonRequestBehavior.DenyGet);
+        }
+        [HttpPost]
+        public JsonResult GetSenatorsByZip(string zip) {
+            var states =Db.ZipCodes.Where(z => z.PostalCode == zip).Select(z => z.StateAbbreviation).ToList();
+            
+            var people = new List<Person>();
+            foreach (var s in states) {
+                var senators = Db.People.Where(p => p.State == s && p.District == null).ToList();
+                people.AddRange(senators);
+            }
+            return Json(people, JsonRequestBehavior.DenyGet);
+        }
+
     }
 }

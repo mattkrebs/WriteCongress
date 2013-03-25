@@ -18,8 +18,11 @@
     <div class="container">
 
 <div class="masthead">
-        <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a></h3>
-        <div class="navbar" style="margin-bottom:0px">
+    <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a> 
+        <div class="pull-right" id="myrep"></div>
+        <div class="pull-right" style="margin-right:5px;" id="mysenators"></div>
+    </h3>
+        <div class="navbar" style="margin-bottom:0px;margin-top:15px">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
@@ -37,6 +40,7 @@
             </div>
           </div>
         </div><!-- /.navbar -->
+    
       </div>
         <div class="content">
             @RenderBody()
