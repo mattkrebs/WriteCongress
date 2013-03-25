@@ -1,6 +1,8 @@
 ﻿@using WriteCongress.Core
 @model WriteCongress.Core.Letter
-
+@section head{
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+}
 @{
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
     var Issue = (Issue)ViewBag.Issue;
@@ -18,8 +20,10 @@
                     @Model.Description
                 </p>
             </div>
-            <div>
+            <div class="letter">
                 @Html.Raw(Model.Body)
+                Sincerely<br />
+                <span class="signature" id="letter-signature"></span>
             </div>
         </div>
         <div class="span4">
@@ -33,8 +37,8 @@
                     }
                 </h5>
                 <input class="span4 ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
-                <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" />
-                <input class="span6" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
+                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" />
+                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
                 <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
                 <input class="span12" type="text" id="address2" maxlength="60" placeholder="Address 2" /><br />
                 <input class="span6 zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" />
@@ -103,7 +107,7 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated){
+    @if (User.Identity.IsAuthenticated) {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
@@ -111,5 +115,17 @@
         </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else{<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+    else {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+    
+    <script type="text/javascript">
+        $(function () {
+            $('.livepreview').on('keyup', updateLetter);
+            $('.livepreview').on('change', updateLetter);//handle the pull from the backend
+        });
+        
+        function updateLetter() {
+            $('#letter-signature').html($('#firstname').val() + ' ' + $('#lastname').val());
+        }
+
+    </script>
 }

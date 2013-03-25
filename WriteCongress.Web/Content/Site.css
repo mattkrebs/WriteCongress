@@ -89,4 +89,13 @@
 .help-block {
     font-size: 12px;
 }
-
+.letter {
+    background-image: url('/content/images/lightpaperfibers.png');
+    font-family: Calibri;
+    padding: 15px;
+}
+.signature {
+    font-family: Pacifico;
+    font-weight: 400;
+    font-size: 22px;
+}
