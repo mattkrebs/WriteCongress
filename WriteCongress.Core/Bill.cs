@@ -34,7 +34,6 @@ namespace WriteCongress.Core
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string Status { get; set; }
     
-        public virtual Person Person { get; set; }
         public virtual ICollection<Issue> Issues { get; set; }
     }
 }

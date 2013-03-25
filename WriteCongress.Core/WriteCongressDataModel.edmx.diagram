@@ -15,9 +15,9 @@
         <EntityTypeShape EntityType="WriteCongressModel.PasswordReset" Width="1.5" PointX="2.4453012284102389" PointY="29.303516237672191" />
         <AssociationConnector Association="WriteCongressModel.FK_PasswordResets_Users" />
         <EntityTypeShape EntityType="WriteCongressModel.Bill" Width="1.5" PointX="2.3533714983395169" PointY="8.3819642553021971" />
-        <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="6.2461145903198574" PointY="2.0058676609796788" />
-        <AssociationConnector Association="WriteCongressModel.FK_Bill_Person" />
         <AssociationConnector Association="WriteCongressModel.BillIssue" />
+        <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="10.060254803886757" PointY="4.7239984146896745" />
+        <EntityTypeShape EntityType="WriteCongressModel.ZipCodeDistrict" Width="1.5" PointX="4.9803437725549307" PointY="10.156525229176751" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

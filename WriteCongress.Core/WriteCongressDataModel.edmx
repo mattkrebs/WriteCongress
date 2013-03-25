@@ -14,11 +14,8 @@
           <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.Store.FK_Bill_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Bill" EntitySet="Bill" />
-          </AssociationSet>
           <AssociationSet Name="FK_BillIssue_Bill" Association="WriteCongressModel.Store.FK_BillIssue_Bill">
             <End Role="Bill" EntitySet="Bill" />
             <End Role="BillIssue" EntitySet="BillIssue" />
@@ -115,24 +112,19 @@
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
-          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OpenCongressId" Type="varchar" MaxLength="10" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="MiddleInital" Type="nvarchar" MaxLength="2" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="BirthDate" Type="datetime" />
-          <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="Fax" Type="varchar" MaxLength="50" />
-          <Property Name="TotalVotes" Type="int" />
-          <Property Name="Gender" Type="varchar" MaxLength="1" />
-          <Property Name="CongressOffice" Type="varchar" MaxLength="250" />
-          <Property Name="UserApproval" Type="float" />
-          <Property Name="YoutubeId" Type="varchar" MaxLength="50" />
-          <Property Name="URL" Type="varchar" MaxLength="500" />
-          <Property Name="VotesRepublican" Type="int" />
-          <Property Name="VotesDemocratic" Type="int" />
-          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Title" Type="varchar" MaxLength="10" />
+          <Property Name="FullNameAndTitle" Type="varchar" MaxLength="100" />
           <Property Name="Session" Type="int" />
-          <Property Name="Active" Type="bit" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="District" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="Party" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -157,8 +149,17 @@
           <Property Name="Ip" Type="varchar" MaxLength="15" />
           <Property Name="UserAgent" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="ZipCodeDistricts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PostalCode" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="District" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
-      warning 6005: The data type 'geography' is not supported for the target .NET Framework version. The column 'Point' in the table 'writecongress_dev.dbo.ZipCodes' was excluded from the model. To use the data type 'geography', target the .NET Framework 4.5 or higher.
+      warning 6005: The data type 'geography' is not supported for the target .NET Framework version. The column 'Point' in the table 'WriteCongress.dbo.ZipCodes' was excluded from the model. To use the data type 'geography', target the .NET Framework 4.5 or higher.
       -->
         <EntityType Name="ZipCodes">
           <Key>
@@ -174,18 +175,6 @@
           <Property Name="Longitude" Type="float" Nullable="false" />
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
-        <Association Name="FK_Bill_Person">
-          <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
-          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Bill">
-              <PropertyRef Name="SponsorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BillIssue_Bill">
           <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="1" />
           <End Role="BillIssue" Type="WriteCongressModel.Store.BillIssue" Multiplicity="*" />
@@ -270,15 +259,12 @@
             <End Role="PasswordReset" EntitySet="PasswordResets" />
           </AssociationSet>
           <EntitySet Name="Bills" EntityType="WriteCongressModel.Bill" />
-          <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
-          <AssociationSet Name="FK_Bill_Person" Association="WriteCongressModel.FK_Bill_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Bill" EntitySet="Bills" />
-          </AssociationSet>
           <AssociationSet Name="BillIssue" Association="WriteCongressModel.BillIssue">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="Issue" EntitySet="Issues" />
           </AssociationSet>
+          <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
+          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.ZipCodeDistrict" />
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -422,49 +408,39 @@
           <Property Type="String" Name="TitleCommon" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
           <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_Bill_Person" FromRole="Bill" ToRole="Person" />
           <NavigationProperty Name="Issues" Relationship="WriteCongressModel.BillIssue" FromRole="Bill" ToRole="Issue" />
         </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Type="Int32" Name="PersonId" Nullable="false" />
-          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MiddleInital" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="BirthDate" Precision="3" />
-          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="TotalVotes" />
-          <Property Type="String" Name="Gender" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CongressOffice" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="Double" Name="UserApproval" />
-          <Property Type="String" Name="YoutubeId" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="URL" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="VotesRepublican" />
-          <Property Type="Int32" Name="VotesDemocratic" />
-          <Property Type="String" Name="Email" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="Session" />
-          <Property Type="Boolean" Name="Active" />
-          <NavigationProperty Name="Bills" Relationship="WriteCongressModel.FK_Bill_Person" FromRole="Person" ToRole="Bill" />
-        </EntityType>
-        <Association Name="FK_Bill_Person">
-          <End Type="WriteCongressModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonId" />
-            </Principal>
-            <Dependent Role="Bill">
-              <PropertyRef Name="SponsorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="BillIssue">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
           <End Type="WriteCongressModel.Issue" Role="Issue" Multiplicity="*" />
         </Association>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="OpenCongressId" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FullNameAndTitle" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Session" />
+          <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="District" />
+          <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="BirthDate" Precision="3" />
+          <Property Type="String" Name="Party" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZipCodeDistrict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="District" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -578,30 +554,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="WriteCongressModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Session" ColumnName="Session" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="VotesDemocratic" ColumnName="VotesDemocratic" />
-                <ScalarProperty Name="VotesRepublican" ColumnName="VotesRepublican" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="YoutubeId" ColumnName="YoutubeId" />
-                <ScalarProperty Name="UserApproval" ColumnName="UserApproval" />
-                <ScalarProperty Name="CongressOffice" ColumnName="CongressOffice" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="TotalVotes" ColumnName="TotalVotes" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleInital" ColumnName="MiddleInital" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="BillIssue" TypeName="WriteCongressModel.BillIssue" StoreEntitySet="BillIssue">
             <EndProperty Name="Issue">
               <ScalarProperty Name="IssueId" ColumnName="IssueId" />
@@ -610,6 +562,35 @@
               <ScalarProperty Name="BillId" ColumnName="BillId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="WriteCongressModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Party" ColumnName="Party" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="FullNameAndTitle" ColumnName="FullNameAndTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="OpenCongressId" ColumnName="OpenCongressId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipCodeDistricts">
+            <EntityTypeMapping TypeName="WriteCongressModel.ZipCodeDistrict">
+              <MappingFragment StoreEntitySet="ZipCodeDistricts">
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

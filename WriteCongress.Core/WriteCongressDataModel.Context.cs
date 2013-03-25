@@ -33,5 +33,6 @@ namespace WriteCongress.Core
         public DbSet<PasswordReset> PasswordResets { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<ZipCodeDistrict> ZipCodeDistricts { get; set; }
     }
 }
