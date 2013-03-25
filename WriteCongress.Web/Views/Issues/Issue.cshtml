@@ -21,7 +21,30 @@
                 var lettersNay = issueLetters.Where(i => i.Against == false).ToList();
             }
             
-            <h2>For</h2>
+                <ul>
+                    @foreach (var letter in issueLetters)
+                    {
+                         <li>
+                        <div class="media">
+                          <a class="pull-left" href="#">
+                              @if(letter.Against){
+                            <img class="media-object" src="/Images/thumbs_down.med.png" />
+                              }else{
+                            <img class="media-object" src="/Images/thumbs_up.med.png" />
+                              
+                              }
+                          </a>
+                          <div class="media-body">
+                            <h4 class="media-heading">@letter.Name</h4>
+                            <p>@letter.Description</p>
+                          </div>
+                        </div>
+                    </li>
+                    }
+                   
+
+                </ul>
+            @*<h2>For</h2>
             <ul>
                 @foreach (var letter in lettersYay) {
                     <li><a href="/Issues/@Model.Slug/@letter.Slug">@letter.Name &ndash; @letter.Description</a></li>
@@ -33,7 +56,7 @@
                 @foreach (var letter in lettersNay) {
                     <li><a href="/Issues/@Model.Slug/@letter.Slug">@letter.Name &ndash; @letter.Description</a></li>
                     }
-            </ul>
+            </ul>*@
 
             </div>
         </div>
