@@ -187,6 +187,12 @@
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\SmartyStreets\Analysis.cs" />
+    <Compile Include="Models\SmartyStreets\CandidateAddress.cs" />
+    <Compile Include="Models\SmartyStreets\Components.cs" />
+    <Compile Include="Models\SmartyStreets\Metadata.cs" />
+    <Compile Include="Models\SmartyStreets\Recipient.cs" />
+    <Compile Include="Models\SmartyStreets\SmartyStreetClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
