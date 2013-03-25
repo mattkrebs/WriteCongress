@@ -1,18 +1,16 @@
 ﻿@model WriteCongress.Core.Issue
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Issue</legend>
-
-        @Html.HiddenFor(model => model.IssueId)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -54,16 +52,8 @@
             @Html.ValidationMessageFor(model => model.Active)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Slug)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Slug)
-            @Html.ValidationMessageFor(model => model.Slug)
-        </div>
-
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 }

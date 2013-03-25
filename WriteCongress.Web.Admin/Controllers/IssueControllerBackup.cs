@@ -9,109 +9,104 @@ using WriteCongress.Core;
 
 namespace WriteCongress.Web.Admin.Controllers
 {
-    public class LetterController : Controller
+    public class IssueControllerBackup : Controller
     {
         private WriteCongressConnection db = new WriteCongressConnection();
 
         //
-        // GET: /Letter/
+        // GET: /Issue/
 
         public ActionResult Index()
         {
-            var letters = db.Letters.Include(l => l.IssueLetters);
-            return View(letters.ToList());
+            return View(db.Issues.ToList());
         }
 
         //
-        // GET: /Letter/Details/5
+        // GET: /Issue/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Letter letter = db.Letters.Find(id);
-            if (letter == null)
+            Issue issue = db.Issues.Find(id);
+            if (issue == null)
             {
                 return HttpNotFound();
             }
-            return View(letter);
+            return View(issue);
         }
 
         //
-        // GET: /Letter/Create
+        // GET: /Issue/Create
 
         public ActionResult Create()
         {
-            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name");
             return View();
         }
 
         //
-        // POST: /Letter/Create
+        // POST: /Issue/Create
 
         [HttpPost]
-        public ActionResult Create(Letter letter)
+        public ActionResult Create(Issue issue)
         {
             if (ModelState.IsValid)
             {
-                db.Letters.Add(letter);
+                db.Issues.Add(issue);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.LetterId);
-            return View(letter);
+            return View(issue);
         }
 
         //
-        // GET: /Letter/Edit/5
+        // GET: /Issue/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Letter letter = db.Letters.Find(id);
-            if (letter == null)
+            Issue issue = db.Issues.Find(id);
+            if (issue == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.LetterId);
-            return View(letter);
+            return View(issue);
         }
 
         //
-        // POST: /Letter/Edit/5
+        // POST: /Issue/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Letter letter)
+        public ActionResult Edit(Issue issue)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(letter).State = EntityState.Modified;
+                db.Entry(issue).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IssueId = new SelectList(db.Issues, "IssueId", "Name", letter.LetterId);
-            return View(letter);
+            return View(issue);
         }
 
         //
-        // GET: /Letter/Delete/5
+        // GET: /Issue/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Letter letter = db.Letters.Find(id);
-            if (letter == null)
+            Issue issue = db.Issues.Find(id);
+            if (issue == null)
             {
                 return HttpNotFound();
             }
-            return View(letter);
+            return View(issue);
         }
 
         //
-        // POST: /Letter/Delete/5
+        // POST: /Issue/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Letter letter = db.Letters.Find(id);
-            db.Letters.Remove(letter);
+            Issue issue = db.Issues.Find(id);
+            db.Issues.Remove(issue);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,12 +1,11 @@
 ﻿@model WriteCongress.Core.Issue
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
 
-<h2>Delete</h2>
+<h2>Details</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <fieldset>
     <legend>Issue</legend>
 
@@ -44,17 +43,8 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Active)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Slug)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Slug)
-    </div>
 </fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.IssueId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -168,6 +168,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\IssueControllerBackup.cs" />
     <Compile Include="Controllers\LetterController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -304,16 +305,21 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\IssueBackup\Index.cshtml" />
+    <Content Include="Views\IssueBackup\Details.cshtml" />
+    <Content Include="Views\IssueBackup\Create.cshtml" />
+    <Content Include="Views\IssueBackup\Edit.cshtml" />
+    <Content Include="Views\IssueBackup\Delete.cshtml" />
+    <Content Include="Views\LetterBackup\Index.cshtml" />
+    <Content Include="Views\LetterBackup\Details.cshtml" />
+    <Content Include="Views\LetterBackup\Create.cshtml" />
+    <Content Include="Views\LetterBackup\Edit.cshtml" />
+    <Content Include="Views\LetterBackup\Delete.cshtml" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Issue\Details.cshtml" />
     <Content Include="Views\Issue\Create.cshtml" />
     <Content Include="Views\Issue\Edit.cshtml" />
     <Content Include="Views\Issue\Delete.cshtml" />
-    <Content Include="Views\Letter\Index.cshtml" />
-    <Content Include="Views\Letter\Details.cshtml" />
-    <Content Include="Views\Letter\Create.cshtml" />
-    <Content Include="Views\Letter\Edit.cshtml" />
-    <Content Include="Views\Letter\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

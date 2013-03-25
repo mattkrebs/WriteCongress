@@ -26,9 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Active)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Slug)
-        </th>
         <th></th>
     </tr>
 
@@ -48,9 +45,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IssueId }) |
