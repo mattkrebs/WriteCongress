@@ -12,7 +12,7 @@
                 $('#state').val(user.State);
                 $('#zipcode').val(user.ZipCode);
                 $('#phonenumber').val(user.PhoneNumber);
-                $('#firstname').change();//fire this so the letter updates
+                $('#zipcode').change();//fire this so the letter updates
                 $('#beInvolved').removeAttr('disabled');
             }
 
