@@ -1,6 +1,6 @@
 <Query Kind="Statements" />
 
- 			//jspaur pulled this from his TSUG libraries, but it should work anywhere
+//jspaur pulled this from his TSUG libraries, but it should work anywhere
 			
 			var zipPath = Path.Combine(Path.GetTempPath(),"US.zip");
 			var outputPath = Path.Combine(Path.GetTempPath(),"us.txt");							
@@ -57,10 +57,10 @@
             }            
 
 			var csb = new System.Data.SqlClient.SqlConnectionStringBuilder();
-			csb.DataSource = "z69vbhbm00.database.windows.net";
-			csb.UserID = "matt.krebs@z69vbhbm00";
-			csb.Password="Drinksonm3";
-			csb.InitialCatalog = "writecongress_dev";
+			csb.DataSource = "ikgdngr4jq.database.windows.net";
+			csb.UserID = "writecongress";
+			csb.Password="m5@VWmj5oVFT#RWDyl";
+			csb.InitialCatalog = "writecongress";
 			
             string connectionString = csb.ToString();
 
@@ -102,4 +102,4 @@
             
             sw.Stop();
             
-            Console.WriteLine("finished loading {1} zipcodes in {0} seconds. press any key to quit.",sw.Elapsed.TotalSeconds,lines.Length);         
+            Console.WriteLine("finished loading {1} zipcodes in {0} seconds. press any key to quit.",sw.Elapsed.TotalSeconds,lines.Length);
