@@ -1,4 +1,5 @@
 ﻿$(function () {
+    $('#beInvolved').html('<i class="icon-envelope"></i> Sign Up &amp; Send!');
     $('#email').on('blur', function () {
         var emailInput = $(this);
         $.post('/Authentication/CheckEmailAddress', { email: emailInput.val() }, function (data) {
