@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="WriteCongressModelStoreContainer">
-          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="FK_BillIssue_Bill" Association="WriteCongressModel.Store.FK_BillIssue_Bill">
             <End Role="Bill" EntitySet="Bill" />
             <End Role="BillIssue" EntitySet="BillIssue" />
@@ -238,8 +238,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WriteCongressModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="WriteCongressConnection" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="WriteCongressModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WriteCongressConnection" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Issues" EntityType="WriteCongressModel.Issue" />
           <EntitySet Name="IssueLetters" EntityType="WriteCongressModel.IssueLetter" />
           <AssociationSet Name="FK_IssueLetter_Issue" Association="WriteCongressModel.FK_IssueLetter_Issue">
@@ -270,7 +270,7 @@
           <Key>
             <PropertyRef Name="IssueId" />
           </Key>
-          <Property Name="IssueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IssueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
@@ -284,7 +284,7 @@
           <Key>
             <PropertyRef Name="IssueLetterId" />
           </Key>
-          <Property Type="Int32" Name="IssueLetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IssueLetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="IssueId" Nullable="false" />
           <Property Type="Int32" Name="LetterId" Nullable="false" />
           <NavigationProperty Name="Issue" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="IssueLetter" ToRole="Issue" />
@@ -306,7 +306,7 @@
           <Key>
             <PropertyRef Name="LetterId" />
           </Key>
-          <Property Type="Int32" Name="LetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="LetterId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -332,7 +332,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Identity" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
           <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
@@ -364,13 +364,13 @@
           <Property Type="String" Name="AdminCode" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="Double" Name="Latitude" Nullable="false" />
           <Property Type="Double" Name="Longitude" Nullable="false" />
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         </EntityType>
         <EntityType Name="PasswordReset">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Guid" Name="Guid" Nullable="false" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="DateTime" Name="DateRequestedUtc" Nullable="false" Precision="3" />
@@ -418,7 +418,7 @@
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
-          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="OpenCongressId" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -436,7 +436,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="PostalCode" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="District" Nullable="false" />
@@ -445,7 +445,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WriteCongressModelStoreContainer" CdmEntityContainer="WriteCongressConnection">
           <EntitySetMapping Name="Issues">
             <EntityTypeMapping TypeName="WriteCongressModel.Issue">
@@ -596,7 +596,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -611,6 +611,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams />
   </Designer>
 </edmx:Edmx>
