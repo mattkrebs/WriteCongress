@@ -1,4 +1,4 @@
-namespace WriteCongress.Web.Models.SmartyStreeets
+namespace WriteCongress.Web.Models.SmartyStreets
 {
     public class Components
     {

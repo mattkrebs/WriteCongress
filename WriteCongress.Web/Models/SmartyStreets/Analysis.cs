@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WriteCongress.Web.Models.SmartyStreeets
+namespace WriteCongress.Web.Models.SmartyStreets
 {
     //copied from http://stackoverflow.com/questions/9522044/trying-to-consume-smartystreets-json-with-json-net-cannot-deserialize-json-a
 

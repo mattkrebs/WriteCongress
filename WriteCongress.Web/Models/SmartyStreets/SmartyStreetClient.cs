@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using Newtonsoft.Json;
 using RestSharp;
-using WriteCongress.Web.Models.SmartyStreeets;
-using WriteCongress.Web.Models.SmartyStreets;
 
 namespace WriteCongress.Web.Models.SmartyStreets
 {
     public class SmartyStreetClient
     {
-        private static string uriFormat =
-            "https://api.qualifiedaddress.com/street-address?auth-id={0}&auth-token={1}&street={2}&street2={3}&city={4}&state={5}&zipcode={6}&candidates=3";
+        private static string uriFormat = "https://api.qualifiedaddress.com/street-address?auth-id={0}&auth-token={1}&street={2}&street2={3}&city={4}&state={5}&zipcode={6}&candidates=3";
+        
 
         public CandidateAddress[] GetSuggestions(Recipient recipient) {
             var t = GetSuggestionsAsync(recipient);
@@ -55,7 +54,11 @@ namespace WriteCongress.Web.Models.SmartyStreets
                 }
                 throw new System.Net.WebException(response.ErrorMessage ?? response.StatusDescription);
             }
-            return JsonConvert.DeserializeObject<CandidateAddress[]>(response.Content);
+
+
+            return Json.Decode<CandidateAddress[]>(response.Content);
+            //return JsonConvert.DeserializeObject<CandidateAddress[]>(response.Content);
+
         }
 
         public static Recipient MergeFirstCandidate(Recipient r,CandidateAddress[] suggestions) {
