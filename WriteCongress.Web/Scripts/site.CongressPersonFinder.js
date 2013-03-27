@@ -1,7 +1,4 @@
-﻿$(function () {
-    window.CongressPersonFinder = new CongressPersonFinder(null, null, null, null);
-});
-var CongressPersonFinder = function (address, city, state, zip) {
+﻿var CongressPersonFinder = function (address, city, state, zip) {
     this.Address = address || '';
     this.City = city || '';
     this.State = state || '';
