@@ -5,12 +5,12 @@
             if (user !== null) {
                 $('#email').val(user.Email);
                 $('#firstname').val(user.FirstName);
-                $('#lastname').val(user.LastName).change();;
+                $('#lastname').val(user.LastName).change();
                 $('#address1').val(user.AddressOne);
                 $('#address2').val(user.AddressTwo);
                 $('#city').val(user.City);
                 $('#state').val(user.State);
-                $('#zipcode').val(user.ZipCode);
+                $('#zipcode').val(user.ZipCode).change();
                 $('#phonenumber').val(user.PhoneNumber);
                 $('#beInvolved').removeAttr('disabled');
             }

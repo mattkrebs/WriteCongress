@@ -124,11 +124,10 @@
 
             $('.replookup').on('change', function() {
                 var zip = $(this).val();
-                if (typeof window.congressFinder !== "undefined") {
-                    window.congressFinder.Zip = zip;
-                    window.congressFinder.Find(true);
+                if (typeof window.personFinder !== "undefined") {
+                    window.personFinder.Zip = zip;
+                    window.personFinder.Find(true);
                 }
-                
             });
         });
 

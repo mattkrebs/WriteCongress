@@ -54,18 +54,19 @@ CongressPersonFinder.prototype = {
                     if (typeof me.RepresentativeLookupComplete === "function") {
                         me.RepresentativeLookupComplete();
                     }
+                    me.Save();
                 });
-                if (typeof this.RepresentativeLookupComplete === "function") {
-                    this.RepresentativeLookupComplete();
-                }
             } else if (this.Zip.length === 5) {
                 $.post('/Data/GetCongressionalDistrictByZip', { zip: this.Zip }, function(data) {
                     if (data.length == 1) {
                         me.Representative = data[0];
+                    }else if (data.length > 1) {
+                        me.Representative = data;
                     }
                     if (typeof me.RepresentativeLookupComplete === "function") {
                         me.RepresentativeLookupComplete();
                     }
+                    me.Save();
                 });
             }
         }
@@ -82,6 +83,7 @@ CongressPersonFinder.prototype = {
                     if (typeof me.SenatorLookupComplete === "function") {
                         me.SenatorLookupComplete();
                     }
+                    me.Save();
                 });
             } else if (this.State.length == 2 || this.Zip.length === 5) {
                 //we can typically get the senator right with just a state or zip
@@ -92,6 +94,7 @@ CongressPersonFinder.prototype = {
                     if (typeof me.SenatorLookupComplete === "function") {
                         me.SenatorLookupComplete();
                     }
+                    me.Save();
                 });
                 
             }

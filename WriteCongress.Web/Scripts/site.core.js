@@ -8,6 +8,9 @@ var setSection = function (selector, html) {
 
 function setMySenators(data) {
     var html = '';
+    if (data == null) {
+        return;
+    }
     if (data.length != 2) {
         html = '<img class="img-polaroid" title="Your zipcode alone isn\'t enough to determine your Senators. Try entering your full address on a letter." src="http://writecongress.blob.core.windows.net/congress-photos/unknown.jpg"/>';
     } else {
@@ -19,7 +22,10 @@ function setMySenators(data) {
 
 function setMyRep(data) {
     var html = '';
-    if (data===null) {
+    if (data == null) {
+        return;
+    }
+    if (data instanceof Array) {
         html = '<img class="img-polaroid" title="Your zipcode alone isn\'t enough to determine your Represenative. Try entering your full address on a letter." src="http://writecongress.blob.core.windows.net/congress-photos/unknown.jpg"/>';
     } else {
         html = '<img class="img-polaroid" title="' + data.FullNameAndTitle + '" src="http://writecongress.blob.core.windows.net/congress-photos/' + data.OpenCongressId + '-50px.jpg"/>';
@@ -29,20 +35,15 @@ function setMyRep(data) {
 
 $(function () {
     var personFinder = new CongressPersonFinder(null, null, null, null);
-    window.congressFinder = personFinder;
+    window.personFinder = personFinder;
+    
+    setMySenators(window.personFinder.Senators);
+    setMyRep(window.personFinder.Representative);
 
-    if (personFinder.Zip !== null && personFinder.Zip.length===5) {
-        setMySenators(personFinder.Senators);
-        setMyRep(personFinder.Representative);
-    }
-
-
-    personFinder.RepresentativeLookupComplete = function () {
-        setMyRep(personFinder.Representative);
-        personFinder.Save();
+    window.personFinder.RepresentativeLookupComplete = function () {
+        setMyRep(window.personFinder.Representative);
     };
-    personFinder.SenatorLookupComplete = function () {
-        setMySenators(personFinder.Senators);
-        personFinder.Save();
+    window.personFinder.SenatorLookupComplete = function () {
+        setMySenators(window.personFinder.Senators);
     };
 });
