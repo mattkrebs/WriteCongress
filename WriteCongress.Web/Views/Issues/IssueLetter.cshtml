@@ -124,8 +124,11 @@
 
             $('.replookup').on('change', function() {
                 var zip = $(this).val();
-                setMySenators(false, zip);
-                setMyRep(false, zip);
+                if (typeof window.congressFinder !== "undefined") {
+                    window.congressFinder.Zip = zip;
+                    window.congressFinder.Find(true);
+                }
+                
             });
         });
 

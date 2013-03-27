@@ -20,12 +20,8 @@
 };
 CongressPersonFinder.prototype = {
     Save: function () {
-        if (this.Representative !== null) {
-            window.localStorage.setItem("representative", JSON.stringifY(this.Representative));
-        }
-        if (this.Senators !== null) {
-            window.localStorage.setItem("senators", JSON.stringifY(this.Senators));
-        }
+        window.localStorage.setItem("representative", JSON.stringify(this.Representative));
+        window.localStorage.setItem("senators", JSON.stringify(this.Senators));
     },
     Find: function (force) {
         var me = this;
@@ -40,6 +36,12 @@ CongressPersonFinder.prototype = {
                 this.RepresentativeLookupComplete();
             }
         }
+        
+        if (force) {
+            this.Senators = null;
+            this.Representative = null;
+            this.Save();
+        }
 
         //if we're forcing OR the rep is null
         if (force || this.Representative == null) {
@@ -48,7 +50,7 @@ CongressPersonFinder.prototype = {
                 $.post('/Data/GetCongressionalDistrictByAddress', {address:this.Address,city:this.City,state:this.State,zip: this.Zip }, function(data) {
                     if (data.length == 1) {
                         me.Representative = data[0];
-                    }
+                    } 
                     if (typeof me.RepresentativeLookupComplete === "function") {
                         me.RepresentativeLookupComplete();
                     }

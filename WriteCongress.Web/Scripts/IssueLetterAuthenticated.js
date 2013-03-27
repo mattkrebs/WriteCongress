@@ -5,14 +5,13 @@
             if (user !== null) {
                 $('#email').val(user.Email);
                 $('#firstname').val(user.FirstName);
-                $('#lastname').val(user.LastName);
+                $('#lastname').val(user.LastName).change();;
                 $('#address1').val(user.AddressOne);
                 $('#address2').val(user.AddressTwo);
                 $('#city').val(user.City);
                 $('#state').val(user.State);
                 $('#zipcode').val(user.ZipCode);
                 $('#phonenumber').val(user.PhoneNumber);
-                $('#zipcode').change();//fire this so the letter updates
                 $('#beInvolved').removeAttr('disabled');
             }
 
