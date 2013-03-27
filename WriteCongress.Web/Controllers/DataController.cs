@@ -51,9 +51,9 @@ namespace WriteCongress.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetCorrectedAddress(string address, string city, string state, string postalcode) {
-            Models.SmartyStreets.SmartyStreetClient client = new Models.SmartyStreets.SmartyStreetClient();
-            var recipient = new Models.SmartyStreets.Recipient() {
+        public JsonResult GetNormalizedAddress(string address, string city, string state, string postalcode) {
+            var client = new SmartyStreetClient();
+            var recipient = new Recipient() {
                 AddressLineOne = address,
                 City = city,
                 Province = state,

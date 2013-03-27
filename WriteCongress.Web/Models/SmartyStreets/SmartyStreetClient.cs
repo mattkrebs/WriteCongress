@@ -41,11 +41,9 @@ namespace WriteCongress.Web.Models.SmartyStreets
                         candidates = 3
                     }
                 });
-            
 
+            var response = rc.Execute(request);
 
-
-            var response = await rc.ExecuteTaskAsync(request);
             if (response.ResponseStatus != ResponseStatus.Completed)
             {
                 if (response.ErrorException != null)
@@ -54,10 +52,8 @@ namespace WriteCongress.Web.Models.SmartyStreets
                 }
                 throw new System.Net.WebException(response.ErrorMessage ?? response.StatusDescription);
             }
-
-
-            return Json.Decode<CandidateAddress[]>(response.Content);
-            //return JsonConvert.DeserializeObject<CandidateAddress[]>(response.Content);
+            
+            return JsonConvert.DeserializeObject<CandidateAddress[]>(response.Content);
 
         }
 
@@ -75,21 +71,7 @@ namespace WriteCongress.Web.Models.SmartyStreets
             r.DeliveryState = address.components.state_abbreviation;
             r.DeliveryZipCode = address.components.zipcode;
             r.DeliveryZipPlusFour = address.components.plus4_code;
-
-            r.DeliveryPointBarcode = address.delivery_point_barcode;
-            r.DeliveryPMBDesignator = address.components.pmb_designator;
-            r.DeliveryPoint = address.components.delivery_point;
-            r.DeliveryPointCheckDigit = address.components.delivery_point_check_digit;
-            r.RecordType = address.metadata.record_type;
-            r.ResidentialDeliveryIndicator = address.metadata.rdi;
-            r.Latitude = (decimal?)address.metadata.latitude;
-            r.Longitude = (decimal?)address.metadata.longitude;
-            r.DPVMatchCode = address.analysis.dpv_match_code;
-            r.DPVFootnotes = address.analysis.dpv_footnotes;
-            r.DPVCommercialMailAgency = address.analysis.dpv_cmra == "Y";
-            r.DPVVacant = address.analysis.dpv_vacant == "Y";
-            r.DPVActive = address.analysis.active == "Y";
-
+            r.CongressionalDistrict = address.metadata.congressional_district;
 
             return r;
         }

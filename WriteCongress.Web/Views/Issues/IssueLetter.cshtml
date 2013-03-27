@@ -39,10 +39,10 @@
                 <input class="span4 livepreview ZipCode replookup" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
                 <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" />
                 <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
-                <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
-                <input class="span12" type="text" id="address2" maxlength="60" placeholder="Address 2" /><br />
-                <input class="span6 zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" />
-                <select name="state" id="state" class="span6 zipautofill-state" size="1" placeholder="State">
+                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
+                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" /><br />
+                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" />
+                <select name="state" id="state" class="span6 zipautofill-state address" size="1" placeholder="State">
                     <option value="" selected="selected">State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -129,9 +129,24 @@
                     window.personFinder.Find(true);
                 }
             });
+
+            $('.address').on('change', function () {
+                var address = $('#address1').val();
+                var city = $('#city').val();
+                var state = $('#state').val();
+                var zip = $('#zipcode').val();
+
+                if (address.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
+                    $.post('/Data/GetNormalizedAddress', { address: address, city: city, state: state, postalcode: zip }, function (data) {
+                        $('#address1').val(data.DeliveryLineOne);
+                        $('#city').val(data.DeliveryCity);
+                        $('#state').val(data.DeliveryState);
+                        $('#zipcode').val(data.DeliveryZipCode);
+                    });
+                }
+            });
         });
 
-        
 
         function updateLetter() {
             $('#letter-signature').html($('#firstname').val() + ' ' + $('#lastname').val());
