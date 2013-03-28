@@ -46,4 +46,6 @@ $(function () {
     window.personFinder.SenatorLookupComplete = function () {
         setMySenators(window.personFinder.Senators);
     };
+    
+    $('input, textarea').placeholder();
 });

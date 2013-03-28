@@ -241,6 +241,7 @@
     <Content Include="Images\_demo\office-300x300.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\plugins\jquery.placeholder.js" />
     <Content Include="Scripts\site.CongressPersonFinder.js" />
     <Content Include="Scripts\site.core.js" />
     <Content Include="Scripts\holder.js" />
