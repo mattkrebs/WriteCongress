@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <h3>My Account</h3>
+        <div class="tabbable">
+            <!-- Only required for left/right tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">History</a></li>
+                <li><a href="#tab2" data-toggle="tab">Account Info</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Letter</th>
+                                <th>Count</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tr class="success">
+                            <td><b>Gun Control</b>- Guns are sweet</td>
+                            <td>3</td>
+                            <td>Sent</td>
+                            <td>$4.95</td>
+                        </tr>
+
+                        <tr class="warning">
+                            <td><b>Education</b>- Mo-money for the childern</td>
+                            <td>3</td>
+                            <td>Printing</td>
+                            <td>$4.95</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <div class="row-fluid">
+                        <div class="span7"> 
+                     <dl class="dl-horizontal">
+                        <dt>Name</dt>
+                        <dd>Matt Krebs</dd>
+                        <dt>Address 1</dt>
+                        <dd>123 Abc St.</dd>
+                        <dt>Address 2</dt>
+                        <dd>&nbsp;</dd>
+                        <dt>City</dt>
+                        <dd>Maple Grove</dd>
+                        <dt>Zip</dt>
+                        <dd>55369</dd>
+                        <dt>Newsletter</dt>
+                        <dd>@Html.CheckBox("newsletter")</dd>
+                       
+                    </dl></div>
+                        <div class="span5">
+                            <div><iframe width="325" height="280" frameborder="0" src="http://www.bing.com/maps/embed/viewer.aspx?v=3&cp=45.063981~-93.440125&lvl=11&w=325&h=280&sty=r&typ=d&pp=~~45.069168~-93.438065&ps=&dir=0&mkt=en-us&form=BMEMJS"></iframe></div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
