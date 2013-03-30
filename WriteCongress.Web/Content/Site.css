@@ -101,3 +101,9 @@
     font-weight: 400;
     font-size: 22px;
 }
+ul.issueletters>li {
+    list-style: none;
+}
+div.media>a>i {
+    font-size: 48px;
+}
