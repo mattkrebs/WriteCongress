@@ -24,6 +24,24 @@ namespace WriteCongress.Web.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult SendUsLetters()
+        {
+            return View();
+        }
+
+        public ActionResult HowThisWorks()
+        {
+            return View();
+        }
 
     }
 }

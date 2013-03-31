@@ -22,24 +22,8 @@
         <div class="pull-right" id="myrep"></div>
         <div class="pull-right" style="margin-right:5px;" id="mysenators"></div>
     </h3>
-        <div class="navbar" style="margin-bottom:0px;margin-top:15px">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/Issues/">Hot Issues</a></li>
-                  <li><a href="#">How this works</a></li>
-                  @if (User.Identity.IsAuthenticated==false || ViewBag.AuthenticatedUser==null) {
-                      <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i> Sign In</a></li>
-                  }
-                  else {
-                      <li><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
-                      <li><a href="/Authentication/Signout"><i class="icon-signout"></i> Logout</a></li>
-                  }
-              </ul>
-            </div>
-          </div>
-        </div><!-- /.navbar -->
+	
+                @Html.Partial("_TopNav")
     
       </div>
         <div class="content">
@@ -47,9 +31,9 @@
         </div>
         <hr>
 
-      <div class="footer">
-        <p>&copy; Three Wise Taco Guys 2013</p>
-      </div>
+
+            @Html.Partial("_Footer")
+   
 
     </div>
       

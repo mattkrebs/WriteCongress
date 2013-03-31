@@ -1,15 +1,18 @@
-﻿<div id="main_menu">
-    <div class="container">
-        <div id="main_menu_wrap">
-            <div class="menu-main-container">
-                <ul id="menu-main" class="menu">
-                    <li><a href="/">Home</a></li>
-                    <li style="color:#FFF">Hot Issues:</li>
-                    <li><a href="/Issues/assult-weapons-ban-2013">Firearm Control</a></li>
-                    <li><a href="/Issues/assult-weapons-ban-2013">Abortion</a></li>
-                    <li><a href="/Issues/assult-weapons-ban-2013">Imigration</a></li>
-                </ul>
+﻿        <div class="navbar" style="margin-bottom:0px;margin-top:15px">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="@(Request.Url.AbsolutePath == "/" ? "active" : "")"><a href="/">Home</a></li>
+                <li class="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")"><a href="/Issues/">Hot Issues</a></li>
+                  <li class="@(Request.Url.AbsolutePath.ToLower().Contains("how-this-works") ? "active" : "")"><a href="/how-this-works/">How this works</a></li>
+                  @if (User.Identity.IsAuthenticated==false || ViewBag.AuthenticatedUser==null) {
+                      <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i> Sign In</a></li>
+                  }
+                  else {
+                      <li><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
+                      <li><a href="/Authentication/Signout"><i class="icon-signout"></i> Logout</a></li>
+                  }
+              </ul>
             </div>
-        </div>
-    </div>
-</div>
+          </div>
+        </div><!-- /.navbar -->
