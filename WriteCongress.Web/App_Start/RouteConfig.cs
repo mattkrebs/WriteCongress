@@ -21,11 +21,9 @@ namespace WriteCongress.Web
             routes.MapRoute("HowThisWorks", "how-this-works", new { controller = "Home", action = "HowThisWorks" });
 
             routes.MapRoute("IssueLetter", "Issues/{issueSlug}/{letterSlug}", new { controller = "Issues", action = "IssueLetter" });
+            routes.MapRoute("FAQ", "FAQ", new { controller = "Home", Action = "FAQ" });
             routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
-            
-            
-            
         }
     }
 }

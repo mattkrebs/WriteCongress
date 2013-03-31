@@ -23,6 +23,9 @@ namespace WriteCongress.Web.Controllers
         public ActionResult Signup() {
             return View();
         }
+        public ActionResult FAQ() {
+            return View();
+        }
 
         public ActionResult About()
         {
