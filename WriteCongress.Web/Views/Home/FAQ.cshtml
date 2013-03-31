@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "FAQ";
+}@section head{
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 }
 
 <div class="container-fluid">
@@ -26,31 +28,71 @@
         </div>
         <div class="span9">
             <div>
-                <h3>What is this site?</h3>
+                <h2>What is this site?</h2>
+                <p>Simply put, we help you write thought out and informed letters to congress (your Senators and Representative) and then actually PRINT and MAIL the letter on your behalf. No need to track down evelopes, stamps, your congress persons address, etc. We want to make it easy to be involved.</p>
+                <h5>Did you know?</h5>
+                <p>Many Congressional offices 'count' physical letters as <em>30</em> times more than email and <em>10</em> times a phonecall. The extra effort lets them know you <em>really</em> care. <b>That's why you should be mailing letters!</b></p>
             </div>
+            <hr/>
             <div>
-                <h3>Who made this?</h3>
+                <h2>Who made this?</h2>
+                <p>Three friends from Minneapolis and Seattle (guess where the liberal lives....). Our names are Matt, George and Joseph and we're software engineers and problem solvers at heart. Feel free to reach out to us below:</p>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <img src="/content/images/joseph.png" class="img-circle" />
+                        <div class="contact-info">
+                            <h2>Joseph</h2>
+                            <h3 class="small">The Democrat</h3>
+                            <a  class="small"href="mailto:joseph@writecongress.us">joseph@writecongress.us</a>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <img src="/content/images/george.png" class="img-circle" />
+                        <div class="contact-info">
+                            <h2>George</h2>
+                            <h3 class="small">The Independent</h3>
+                            <a class="small" href="mailto:george@writecongress.us">george@writecongress.us</a>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <img src="/content/images/matt.png" class="img-circle" />
+                        <div class="contact-info">
+                            <h2>Matt</h2>
+                            <h3 class="small">The Republican</h3>
+                            <a class="small" href="mailto:matt@writecongress.us">george@writecongress.us</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <hr/>
             <div>
-                <h3>What does this cost?</h3>
-                <p>Costs are as follows:
-                    <ul>
-                        <li>$1.99 for the first letter on an issue (ex: sending to your Representative)</li>
-                        <li>$1.49 each additional letter on an issue (ex: sending to your Senators  [$1.49x2] )</li>
-                    </ul>
+                <h2>What does this cost?</h2>
+                <p>
+                    Costs are as follows:
+                <ul>
+                    <li>$1.99 for the first letter on an issue (ex: sending to your Representative)</li>
+                    <li>$1.49 each additional letter on an issue (ex: sending to your Senators  [$1.49x2] )</li>
+                </ul>
                     This covers printing, folding, stamping, and mailing your letter (within 1-2 business days). Sending to both your Senators and your Representative is $4.97
                 </p>
             </div>
             <div>
-                <h3>How do I know my card is safe?</h3>
+                <h2>How do I know my credit card info is safe?</h2>
+                <p>First off, our entire site uses SSL (HTTP/TLS). This means all information you send us is automatically encrypted using bank grade security. Secondly we're proud users of <a href="https://stripe.com/help/security" target="_blank">Stripe</a>. Your credit card info is sent directly to Stripe (<a href="http://www.visa.com/splisting/searchGrsp.do?companyNameCriteria=stripe" target="_blank">PCI Level 1 Compliant</a>). They lock it away in their digital vault much like your bank does, and when its time to charge your card we have to send a request to them. Rest assured your credit card data is never stored on our servers!</p>
             </div>
+            <hr/>
             <div>
-                <h3>What is your refund policy?</h3>
+                <h2>What is your refund policy?</h2>
+                <p>We can typically issue a refund within 1 business day of your purchase. After that we'll likely have already printed and mailed your letter (including licking the stamp), so a refund is not possible after 1 business day.</p>
             </div>
+            <hr/>
             <div>
-                <h3>How can I contact you?</h3>
+                <h2>How can I contact you?</h2>
+                <p>Check out our <a href="/contact-us">Contact Us</a> page. (For support <a href="mailto:support@writecongress.us">support@writecongress.us</a></p>
             </div>
         </div>
     </div>
 </div>
+
+
 

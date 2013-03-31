@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,41 +11,30 @@
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
     <![endif]-->
-     @RenderSection("head",false)
-  </head>
-    <body>
-        <div style="height:10px;background-color:rgb(35, 95, 167);margin-top:0px !important;margin-left:0px!important;width:100%"></div>
+    @RenderSection("head", false)
+</head>
+<body>
+    <div style="height: 10px; background-color: rgb(35, 95, 167); margin-top: 0px !important; margin-left: 0px!important; width: 100%"></div>
     <div class="container">
-
-<div class="masthead">
-    <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a> 
-        <div class="pull-right" id="myrep"></div>
-        <div class="pull-right" style="margin-right:5px;" id="mysenators"></div>
-    </h3>
-	
-                @Html.Partial("_TopNav")
-    
-      </div>
+        <div class="masthead">
+            <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
+                <div class="pull-right" id="myrep"></div>
+                <div class="pull-right" style="margin-right: 5px;" id="mysenators"></div>
+            </h3>
+            @Html.Partial("_TopNav")
+        </div>
         <div class="content">
             @RenderBody()
         </div>
         <hr>
-
-
-            @Html.Partial("_Footer")
-   
-
+        @Html.Partial("_Footer")
     </div>
-      
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-        @Scripts.Render("~/js/site")
-        @Scripts.Render("~/js/plugins")
-        @Html.Partial("_Analytics")
-        @RenderSection("scripts", false)
-        @if (!User.Identity.IsAuthenticated) {
-            Html.RenderPartial("_LoginModal");
-        }
-        
-    </body>
-</html>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/js/site")
+    @Scripts.Render("~/js/plugins")
+    @Html.Partial("_Analytics")
+    @RenderSection("scripts", false)
+    @if (!User.Identity.IsAuthenticated){Html.RenderPartial("_LoginModal");}
+</body></html>
