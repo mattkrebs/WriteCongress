@@ -153,3 +153,7 @@ div.contact-info > a {
         font-weight: bold;
         font-size: 14px;
     }
+
+    .container-fluid {
+        min-height: 700px;
+    }
