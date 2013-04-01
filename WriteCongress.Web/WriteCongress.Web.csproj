@@ -172,6 +172,7 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\LetterController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +191,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Print.css" />
     <Content Include="Content\images\bg_linen.png" />
     <Content Include="Content\images\emailheader.jpg" />
     <Content Include="Content\images\george.PNG" />
@@ -268,6 +270,8 @@
     <Content Include="Views\Home\SendUsLetters.cshtml" />
     <Content Include="Views\Home\HowThisWorks.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Shared\_BasicLayout.cshtml" />
+    <Content Include="Views\Print\PrintView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

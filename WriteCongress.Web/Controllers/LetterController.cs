@@ -15,6 +15,7 @@ namespace WriteCongress.Web.Controllers
 
         public ActionResult Index(int id, bool position)
         {
+
             return View();
         }
 

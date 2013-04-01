@@ -10,6 +10,7 @@ namespace WriteCongress.Web
         {
 
             bundles.Add(new StyleBundle("~/css/site").Include("~/content/site.css"));
+            bundles.Add(new StyleBundle("~/css/print").Include( new string[] {"~/content/site.css","~/content/print.css"})); 
             bundles.Add(new ScriptBundle("~/js/site").Include("~/scripts/site.*"));
             bundles.Add(new ScriptBundle("~/js/plugins").Include("~/scripts/plugins/jquery.*"));
 
