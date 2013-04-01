@@ -6,13 +6,15 @@ using System.Web.Mvc;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class AccountController : Controller
+    [Authorize]
+    public class AccountController : BaseController
     {
         //
         // GET: /Account/
 
         public ActionResult Index()
         {
+            
             return View();
         }
 

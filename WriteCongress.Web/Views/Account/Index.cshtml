@@ -37,20 +37,24 @@
                         </tr>
                     </table>
                 </div>
+                @if(User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null){
+                    WriteCongress.Core.User user = ViewBag.AuthenticatedUser;
                 <div class="tab-pane" id="tab2">
                     <div class="row-fluid">
                         <div class="span7">
                             <dl class="dl-horizontal">
                                 <dt>Name</dt>
-                                <dd>Matt Krebs</dd>
+                                <dd>@user.FirstName @user.LastName</dd>
                                 <dt>Address 1</dt>
-                                <dd>123 Abc St.</dd>
+                                <dd>@user.AddressOne</dd>
+                                @if (!String.IsNullOrEmpty(user.AddressTwo)){
                                 <dt>Address 2</dt>
-                                <dd>&nbsp;</dd>
+                                <dd>@user.AddressTwo</dd>
+                                }
                                 <dt>City</dt>
-                                <dd>Maple Grove</dd>
+                                <dd>@user.City</dd>
                                 <dt>Zip</dt>
-                                <dd>55369</dd>
+                                <dd>@user.ZipCode</dd>
                                 <dt>Newsletter</dt>
                                 <dd>@Html.CheckBox("newsletter")</dd>
 
@@ -64,6 +68,7 @@
                     </div>
 
                 </div>
+                }
             </div>
         </div>
     </div>
