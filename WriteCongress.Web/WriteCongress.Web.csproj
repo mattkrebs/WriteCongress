@@ -221,6 +221,7 @@
     <Content Include="Scripts\plugins\jquery.cookie.js" />
     <Content Include="Scripts\plugins\jquery.kicksend.js" />
     <Content Include="Scripts\plugins\jquery.timeago.js" />
+    <Content Include="Scripts\site.Utils.js" />
     <Content Include="Scripts\site.ZipCodeFill.js" />
     <Content Include="Scripts\StripeHelper.js" />
     <Content Include="Web.config">
@@ -272,6 +273,7 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Shared\_BasicLayout.cshtml" />
     <Content Include="Views\Print\PrintView.cshtml" />
+    <Content Include="Scripts\site.Geolocator.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

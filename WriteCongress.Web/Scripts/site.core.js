@@ -1,10 +1,10 @@
-﻿/// <reference path="site.CongressPersonFinder.js" />
+﻿/// <reference path="site.Geolocator.js" />
+/// <reference path="site.CongressPersonFinder.js" />
 var setSection = function (selector, html) {
     var section = $(selector);
     section.html(html);
     $('img', section).tooltip({ placement: 'bottom' });
 };
-
 
 function setMySenators(data) {
     var html = '';
@@ -22,30 +22,34 @@ function setMySenators(data) {
 
 function setMyRep(data) {
     var html = '';
-    if (data == null) {
-        return;
-    }
-    if (data instanceof Array) {
+    if (data === "needaddress") {
         html = '<img class="img-polaroid" title="Your zipcode alone isn\'t enough to determine your Represenative. Try entering your full address on a letter." src="http://writecongress.blob.core.windows.net/congress-photos/unknown.jpg"/>';
+    } else if (data == null) {
+        html = '';
     } else {
         html = '<img class="img-polaroid" title="' + data.FullNameAndTitle + '" src="http://writecongress.blob.core.windows.net/congress-photos/' + data.OpenCongressId + '-50px.jpg"/>';
     }
     setSection('#myrep', html);
 }
 
-$(function () {
-    var personFinder = new CongressPersonFinder(null, null, null, null);
-    window.personFinder = personFinder;
-    
-    setMySenators(window.personFinder.Senators);
-    setMyRep(window.personFinder.Representative);
 
-    window.personFinder.RepresentativeLookupComplete = function () {
-        setMyRep(window.personFinder.Representative);
+$(function () {
+    //some globals
+    geolocator = new Geolocator();
+    var address = JSON.parse(window.localStorage.getItem("address"));
+    if (address === null) {
+        address = new Address();
+    }
+
+    congressPersonFinder = new CongressPersonFinder(address);
+
+    setMySenators(congressPersonFinder.Senators);
+    setMyRep(congressPersonFinder.Representative);
+
+    congressPersonFinder.RepresentativeLookupComplete = function () {
+        setMyRep(congressPersonFinder.Representative);
     };
-    window.personFinder.SenatorLookupComplete = function () {
-        setMySenators(window.personFinder.Senators);
+    congressPersonFinder.SenatorLookupComplete = function () {
+        setMySenators(congressPersonFinder.Senators);
     };
-    
-    $('input, textarea').placeholder();
 });

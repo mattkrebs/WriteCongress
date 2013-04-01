@@ -33,10 +33,10 @@
                 <h5>Constituent Info 
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i> Sign In</span></a>
+                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>
                     }
                 </h5>
-                <input class="span4 livepreview ZipCode replookup" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
+                <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
                 <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" />
                 <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
                 <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
@@ -98,7 +98,7 @@
                 </select>
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
-                <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
+                <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i>Send</button>
             </div>
         </div>
     </div>
@@ -107,7 +107,8 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated) {
+    @if (User.Identity.IsAuthenticated)
+    {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
@@ -115,19 +116,32 @@
         </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
-    
+    else
+    {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+
     <script type="text/javascript">
-        $(function() {
+        $(function () {
+            
             $('.livepreview').on('keyup', updateLetter);
             $('.livepreview').on('change', updateLetter); //handle the pull from the backend
 
-            $('.replookup').on('change', function() {
-                var zip = $(this).val();
-                if (typeof window.personFinder !== "undefined") {
-                    window.personFinder.Zip = zip;
-                    window.personFinder.Find(true);
-                }
+            $('#zipcode').on('change', function () {
+                var input = $(this);
+                var zip = input.val();
+                input.tooltip('destroy');
+                geolocator.GetZipCodeInfo(zip).done(function (data) {
+                    if (data !== null) {
+                        input.tooltip({ title: data.City + ' ' + data.StateAbbreviation });
+                        $('.zipautofill-city').val(data.City);
+                        $('.zipautofill-state').val(data.StateAbbreviation);
+
+                        congressPersonFinder.Address.City = data.City;
+                        congressPersonFinder.Address.State = data.StateAbbreviation;
+                        congressPersonFinder.Address.Zip = zip;
+                        congressPersonFinder.Address.CongressionalDistrict = data.CongressionalDistrict;
+                    }
+                    congressPersonFinder.Find();
+                });
             });
 
             $('.address').on('change', function () {
@@ -137,20 +151,26 @@
                 var zip = $('#zipcode').val();
 
                 if (address.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
-                    $.post('/Data/GetNormalizedAddress', { address: address, city: city, state: state, postalcode: zip }, function (data) {
-                        $('#address1').val(data.DeliveryLineOne);
-                        $('#city').val(data.DeliveryCity);
-                        $('#state').val(data.DeliveryState);
-                        $('#zipcode').val(data.DeliveryZipCode);
-                    });
+                    if (typeof congressPersonFinder !== "undefined") {
+                        congressPersonFinder.Address.Address1 = address;
+                        congressPersonFinder.Address.City = city;
+                        congressPersonFinder.Address.State = state;
+                        congressPersonFinder.Address.Zip = zip;
+                    }
                 }
             });
+
+            function updateLetter() {
+                var firstname = $('#firstname').val();
+                var lastname = $('#lastname').val();
+                if (firstname.length === 0 && lastname.length === 0) {
+                    $('#letter-signature').html('[Fill out form on right]');
+                } else {
+                    $('#letter-signature').html(firstname + ' ' + lastname);
+                }
+            }
+
+            ;
         });
-
-
-        function updateLetter() {
-            $('#letter-signature').html($('#firstname').val() + ' ' + $('#lastname').val());
-        }
-
     </script>
 }
