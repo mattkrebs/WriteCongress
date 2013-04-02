@@ -6,14 +6,14 @@
     this.Representative = null;
     this.RepresentativeLookupComplete = null;
     
-    //var storageSenators = window.localStorage.getItem("senators");
-    //if (storageSenators != null) {
-    //    this.Senators = JSON.parse(storageSenators);
-    //}
-    //var storageRep = window.localStorage.getItem("representative");
-    //if (storageRep != null) {
-    //    this.Representative = JSON.parse(storageRep);
-    //}
+    var storageSenators = window.localStorage.getItem("senators");
+    if (storageSenators != null) {
+        this.Senators = JSON.parse(storageSenators);
+    }
+    var storageRep = window.localStorage.getItem("representative");
+    if (storageRep != null) {
+        this.Representative = JSON.parse(storageRep);
+    }
 };
 CongressPersonFinder.prototype = {
     Save: function () {
@@ -42,8 +42,10 @@ CongressPersonFinder.prototype = {
         var me = this;
         me.Representative = null;
 
-        var lookupDone = function(data) {
-            me.Representative = data;
+        var lookupDone = function (data) {
+            if (data.length === 1) {
+                me.Representative = data[0];
+            }
             if (typeof me.RepresentativeLookupComplete === "function") {
                 me.RepresentativeLookupComplete();
             }
