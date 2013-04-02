@@ -11,13 +11,13 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="HTTP" protocol="http" port="80" />
-      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="SSL" />
+      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="www" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
     <Certificates>
-      <Certificate name="SSL" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="www" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
   </WebRole>
 </ServiceDefinition>
