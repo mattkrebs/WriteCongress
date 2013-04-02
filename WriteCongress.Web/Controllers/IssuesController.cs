@@ -12,7 +12,7 @@ namespace WriteCongress.Web.Controllers
         public ActionResult Index()
         {
             var issues = Db.Issues;
-            return View(issues.ToList());
+            return View(issues.Where(x => x.Active == true).ToList());
         }
         public ActionResult Details(string slug) {
             var issue = Db.Issues.SingleOrDefault(i => i.Slug == slug);
