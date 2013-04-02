@@ -1,4 +1,4 @@
-WriteCongress.us
+WriteCongress.net
 =============
 
 Site - dev
