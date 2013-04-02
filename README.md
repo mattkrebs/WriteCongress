@@ -10,3 +10,5 @@ http://writecongressadmin.azurewebsites.net/
 
 DB
 - see web.config
+- 
+- 
