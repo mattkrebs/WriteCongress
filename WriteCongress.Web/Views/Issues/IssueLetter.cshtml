@@ -26,8 +26,8 @@
                 <span id="name">@(!String.IsNullOrWhiteSpace(Model.FullName)? Model.FullName :"[Your Name]")</span><br />
                 <span id="address">@(!String.IsNullOrWhiteSpace(Model.FormatAddress) ? Model.FormatAddress :"[Your Address]")</span><br />
                 <span id="city-state-zip">@(!String.IsNullOrWhiteSpace(Model.FormatLocation) ? Model.FormatLocation :"[Your City, State Zip]")</span><br />
-                <span id="email">@(!String.IsNullOrWhiteSpace(Model.User.Email) ? Model.User.Email : "[Your Email]") </span><br />
-                <span id="phone">@(!String.IsNullOrWhiteSpace(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "[Your Phone]") </span><br /> <br />
+                <span id="email">@(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.Email) ? Model.User.Email : "[Your Email]") </span><br />
+                <span id="phone">@(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "[Your Phone]") </span><br /> <br />
 
                 The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span> <br />
                 
