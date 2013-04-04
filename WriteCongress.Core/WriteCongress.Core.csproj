@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="TryPaperHelper.cs" />
     <Compile Include="User.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>

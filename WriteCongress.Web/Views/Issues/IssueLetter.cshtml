@@ -1,27 +1,43 @@
 ﻿@using WriteCongress.Core
-@model WriteCongress.Core.Letter
+@model WriteCongress.Web.Models.LetterModel
 @section head{
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 }
 @{
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
     var Issue = (Issue)ViewBag.Issue;
-    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Against ? "opposing" : "supporting", Issue.Name, Model.Name);    
+    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Issue.Name, Model.Letter.Name);    
 }
 
 
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
-            <h1>@Model.Name</h1>
+            <h1>@Model.Letter.Name</h1>
             <h2><a href="/Issues/@Issue.Slug">@Issue.Name</a></h2>
             <div>
                 <p>
-                    @Model.Description
+                    @Model.Letter.Description
                 </p>
             </div>
             <div class="letter">
-                @Html.Raw(Model.Body)
+                <div class="letter-head">
+                <span id="date">@DateTime.Now.ToString("MMMM d, yyyy")</span><br /><br />
+                <span id="name">@(!String.IsNullOrWhiteSpace(Model.FullName)? Model.FullName :"[Your Name]")</span><br />
+                <span id="address">@(!String.IsNullOrWhiteSpace(Model.FormatAddress) ? Model.FormatAddress :"[Your Address]")</span><br />
+                <span id="city-state-zip">@(!String.IsNullOrWhiteSpace(Model.FormatLocation) ? Model.FormatLocation :"[Your City, State Zip]")</span><br />
+                <span id="email">@(!String.IsNullOrWhiteSpace(Model.User.Email) ? Model.User.Email : "[Your Email]") </span><br />
+                <span id="phone">@(!String.IsNullOrWhiteSpace(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "[Your Phone]") </span><br /> <br />
+
+                The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span> <br />
+                
+                [Location] <br />
+ <br />
+ </div>
+                <div class="letter-reason">RE: @Issue.Name</div>
+                <br />
+
+                @Html.Raw(Model.Letter.Body)
                 Sincerely<br />
                 <span class="signature" id="letter-signature">[Fill out form on right]</span>
             </div>

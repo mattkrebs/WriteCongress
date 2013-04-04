@@ -112,6 +112,16 @@
     background-image: url('/content/images/lightpaperfibers.png');
     font-family: Calibri;
     padding: 15px;
+    border:1px solid black;
+}
+
+.letter-head {
+    font-weight: bold;
+}
+
+.letter-reason {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .signature {

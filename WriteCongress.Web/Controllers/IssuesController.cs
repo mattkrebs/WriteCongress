@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WriteCongress.Core;
+using WriteCongress.Web.Models;
 
 namespace WriteCongress.Web.Controllers
 {
@@ -30,11 +31,24 @@ namespace WriteCongress.Web.Controllers
             
             var letter = Db.IssueLetters.Where(il => il.Issue.Slug == issueSlug && il.Letter.Slug == letterSlug).Select(l => l.Letter).SingleOrDefault();
             if (letter == null) {
+                
+                
+
+
+
                 return RedirectToAction("Index", new {slug = issueSlug});
             }
+            LetterModel letterModel = new LetterModel()
+            {
+                Letter = letter,
+                User = this.AuthenticatedUser
+                
+            };
+
+            
 
             ViewBag.Issue = Db.Issues.FirstOrDefault(i => i.Slug == issueSlug);
-            return View("IssueLetter", letter);
+            return View("IssueLetter", letterModel);
 
         }
 

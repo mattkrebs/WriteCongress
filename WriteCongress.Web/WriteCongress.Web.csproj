@@ -186,6 +186,7 @@
     <Compile Include="Helpers\RestSharpExtensions.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\LetterModel.cs" />
     <Compile Include="Models\SmartyStreets\Analysis.cs" />
     <Compile Include="Models\SmartyStreets\CandidateAddress.cs" />
     <Compile Include="Models\SmartyStreets\Components.cs" />

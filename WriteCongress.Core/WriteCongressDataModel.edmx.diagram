@@ -11,13 +11,13 @@
         <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="5.25" PointY="5.625" />
         <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Letter" />
         <EntityTypeShape EntityType="WriteCongressModel.User" Width="1.5" PointX="3.75" PointY="20.125" />
-        <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="4.5792954157010168" PointY="11.810380821959292" />
+        <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="4.75" PointY="10.75" />
         <EntityTypeShape EntityType="WriteCongressModel.PasswordReset" Width="1.5" PointX="2.4453012284102389" PointY="29.303516237672191" />
         <AssociationConnector Association="WriteCongressModel.FK_PasswordResets_Users" />
         <EntityTypeShape EntityType="WriteCongressModel.Bill" Width="1.5" PointX="2.3533714983395169" PointY="8.3819642553021971" />
         <AssociationConnector Association="WriteCongressModel.BillIssue" />
         <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="10.060254803886757" PointY="4.7239984146896745" />
-        <EntityTypeShape EntityType="WriteCongressModel.ZipCodeDistrict" Width="1.5" PointX="4.9803437725549307" PointY="10.156525229176751" />
+        <EntityTypeShape EntityType="WriteCongressModel.ZipCodeDistrict" Width="1.5" PointX="9" PointY="10.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
