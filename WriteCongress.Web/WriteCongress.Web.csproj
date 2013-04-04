@@ -227,7 +227,6 @@
     <Content Include="Scripts\plugins\jquery.kicksend.js" />
     <Content Include="Scripts\plugins\jquery.timeago.js" />
     <Content Include="Scripts\site.Utils.js" />
-    <Content Include="Scripts\site.ZipCodeFill.js" />
     <Content Include="Scripts\StripeHelper.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
