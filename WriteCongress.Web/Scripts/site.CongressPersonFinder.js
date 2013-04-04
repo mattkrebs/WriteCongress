@@ -1,6 +1,4 @@
-﻿var CongressPersonFinder = function (address) {
-    this.Address = address || new Address();
-    
+﻿var CongressPersonFinder = function () {
     this.Senators = null;
     this.SenatorLookupComplete = null;
     this.Representative = null;
@@ -21,14 +19,14 @@ CongressPersonFinder.prototype = {
         window.localStorage.setItem("senators", JSON.stringify(this.Senators));
     },
     
-    Find:function() {
-        this.FindSenators();
-        this.FindRepresentative();
+    Find:function(address) {
+        this.FindSenators(address);
+        this.FindRepresentative(address);
     },
-    FindSenators:function() {
+    FindSenators:function(address) {
         var me = this;
         me.Senators = null;
-        $.get('/Data/SenatorsByState', { state: this.Address.State }).done(function(data) {
+        $.get('/Data/SenatorsByState', { state: address.State }).done(function(data) {
             if (data.length == 2) {
                 me.Senators = data;
             }
@@ -38,13 +36,15 @@ CongressPersonFinder.prototype = {
             me.Save();
         });
     },
-    FindRepresentative: function() {
+    FindRepresentative: function(address) {
         var me = this;
         me.Representative = null;
 
         var lookupDone = function (data) {
             if (data.length === 1) {
                 me.Representative = data[0];
+            } else {
+                me.Representative = "needaddress";
             }
             if (typeof me.RepresentativeLookupComplete === "function") {
                 me.RepresentativeLookupComplete();
@@ -52,12 +52,12 @@ CongressPersonFinder.prototype = {
             me.Save();
         };
 
-        var district = this.Address.CongressionalDistrict;
-        if ( (district!== -1 && district!==null) && this.Address.State.length == 2) {
-            $.get('/Data/RepresentativeByStateAndDistrict', { state: this.Address.State, district: this.Address.CongressionalDistrict },lookupDone);
+        var district = address.CongressionalDistrict;
+        if ( (district!== -1 && district!==null) && address.State.length == 2) {
+            $.get('/Data/RepresentativeByStateAndDistrict', { state: address.State, district: address.CongressionalDistrict },lookupDone);
         }
-        else if (this.Address.Zip.length === 5) {
-            $.get('/Data/RepresentativeByZip', { zip: this.Zip }, lookupDone);
+        else if (address.Zip.length === 5) {
+            $.get('/Data/RepresentativeByZip', { zip: address.Zip }, lookupDone);
         }
     }
 };

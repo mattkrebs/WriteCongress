@@ -17,6 +17,17 @@ var Geolocator = (function () {
 });
 
 Geolocator.prototype = {
+    LocateMe: function () {
+        var address = JSON.parse(window.localStorage.getItem("address"));
+        if (address === null) {
+            address = new Address();
+        }
+        return address;
+    },
+    SaveLocation:function(address) {
+        window.localStorage.setItem("address", JSON.stringify(address));
+        return;
+    },
 	CacheZipResult: function (zip,result) {
 		if (typeof this.cache[zip] === "undefined" || this.cache[zip] === null) {
 			this.zipcache[zip] = result;

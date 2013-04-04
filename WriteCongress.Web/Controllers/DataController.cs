@@ -52,14 +52,14 @@ namespace WriteCongress.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult NormalizedAddress(string address1,string address2, string city, string state, string postalcode) {
+        public JsonResult NormalizedAddress(string address1,string address2, string city, string state, string zip) {
             var client = new SmartyStreetClient();
             var recipient = new Recipient() {
                 AddressLineOne = address1,
                 AddressLineTwo = address2,
                 City = city,
                 Province = state,
-                PostalCode = postalcode
+                PostalCode = zip
             };
             var suggestions = client.GetSuggestions(recipient);
 

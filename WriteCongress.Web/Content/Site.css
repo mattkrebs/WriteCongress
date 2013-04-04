@@ -167,3 +167,6 @@ div.contact-info > a {
     .container-fluid {
         min-height: 700px;
     }
+    .photo-xsmall {
+        width: 35px;
+    }

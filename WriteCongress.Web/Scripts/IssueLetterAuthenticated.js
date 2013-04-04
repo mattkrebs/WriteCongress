@@ -34,7 +34,23 @@
             }
         });
 
-        $('#beInvolved').on('click', function() {
+        $('#beInvolved').on('click', function () {
+            var senators = congressPersonFinder.Senators;
+            var rep = congressPersonFinder.Representative;
+            var html = '';
+            if(senators.length==2){
+                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
+                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+senators[1].OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+senators[1].OpenCongressId+'-50px.jpg" /> '+ senators[1].FullNameAndTitle+'</label>';
+            }
+            if (rep != null) {
+                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+rep.OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+rep.OpenCongressId+'-50px.jpg" /> '+rep.FullNameAndTitle+'</label>';
+            }
+            $('#congressPersonsToSendTo').html(html);
+            
+            $('.recipientSelector').click(function() {
+                CalculateAndDisplayPrice();
+            });
+                            
             $('#purchaseLetter').modal();
         });
 
@@ -42,11 +58,6 @@
             $('#cardOnFile').hide();
             $('#payment-form').show();
         });
-
-        $('.recipientSelector').click(function() {
-            CalculateAndDisplayPrice();
-        });
-
 
         $('#checkout').on('click', function() {
             $('i.error').addClass('hidden');

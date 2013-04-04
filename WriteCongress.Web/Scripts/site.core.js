@@ -36,12 +36,8 @@ function setMyRep(data) {
 $(function () {
     //some globals
     geolocator = new Geolocator();
-    var address = JSON.parse(window.localStorage.getItem("address"));
-    if (address === null) {
-        address = new Address();
-    }
-
-    congressPersonFinder = new CongressPersonFinder(address);
+    congressPersonFinder = new CongressPersonFinder();
+    
     setMySenators(congressPersonFinder.Senators);
     setMyRep(congressPersonFinder.Representative);
 

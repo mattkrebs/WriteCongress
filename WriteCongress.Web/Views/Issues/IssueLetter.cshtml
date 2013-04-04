@@ -123,8 +123,7 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated)
-    {
+    @if (User.Identity.IsAuthenticated) {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
@@ -132,47 +131,62 @@
         </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else
-    {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+    else {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
 
     <script type="text/javascript">
         $(function () {
-            
             $('.livepreview').on('keyup', updateLetter);
-            $('.livepreview').on('change', updateLetter); //handle the pull from the backend
 
             $('#zipcode').on('change', function () {
                 var input = $(this);
                 var zip = input.val();
                 input.tooltip('destroy');
                 geolocator.GetZipCodeInfo(zip).done(function (data) {
+                    var address = geolocator.LocateMe();
+
                     if (data !== null) {
                         input.tooltip({ title: data.City + ' ' + data.StateAbbreviation });
                         $('.zipautofill-city').val(data.City);
                         $('.zipautofill-state').val(data.StateAbbreviation);
 
-                        congressPersonFinder.Address.City = data.City;
-                        congressPersonFinder.Address.State = data.StateAbbreviation;
-                        congressPersonFinder.Address.Zip = zip;
-                        congressPersonFinder.Address.CongressionalDistrict = data.CongressionalDistrict;
+                        address.City = data.City;
+                        address.State = data.StateAbbreviation;
+                        address.Zip = zip;
+                        address.CongressionalDistrict = data.CongressionalDistrict;
+                        geolocator.SaveLocation(address);
+                        congressPersonFinder.Find(address);
                     }
-                    congressPersonFinder.Find();
                 });
             });
 
-            $('.address').on('change', function () {
-                var address = $('#address1').val();
+            $('.address').on('change', function() {
+                var address1 = $('#address1').val();
+                var address2 = $('#address2').val();
                 var city = $('#city').val();
                 var state = $('#state').val();
                 var zip = $('#zipcode').val();
+                
 
-                if (address.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
-                    if (typeof congressPersonFinder !== "undefined") {
-                        congressPersonFinder.Address.Address1 = address;
-                        congressPersonFinder.Address.City = city;
-                        congressPersonFinder.Address.State = state;
-                        congressPersonFinder.Address.Zip = zip;
-                    }
+                if (address1.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
+                    var address = new Address();
+                    address.Address1 = address1;
+                    address.Address2 = address2;
+                    address.City = city;
+                    address.State = state;
+                    address.Zip = zip;
+
+                    geolocator.NormalizeAddress(address).done(function (data) {
+                        $('#city').val(data.City);
+                        $('#state').val(data.State);
+                        address.City = data.City;
+                        address.State = data.State;
+                        address.Zip = data.Zip;
+                        address.CongressionalDistrict = data.CongressionalDistrict;
+                        geolocator.SaveLocation(address);
+
+                        congressPersonFinder.Find(address);
+                        
+                    });             
                 }
             });
 
