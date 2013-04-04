@@ -27,26 +27,30 @@ namespace WriteCongress.Web.Controllers
 
         protected override void OnAuthorization(AuthorizationContext filterContext) {
             var request = filterContext.RequestContext.HttpContext.Request;
-            
-            //redirect to https://wwww. as needed
-            if (!request.IsLocal) {
-                bool canonicalizeRedirect = false;
-                string host = request.Url.Host;
-                if (!host.StartsWith("www.", StringComparison.OrdinalIgnoreCase)) {
-                    canonicalizeRedirect = true;
-                    host = "www." + host;
-                }
+            ////redirect to https://wwww. as needed
+            //if (!request.IsLocal)
+            //{
+            //    bool canonicalizeRedirect = false;
+            //    string host = request.Url.Host;
+            //    if (!host.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        canonicalizeRedirect = true;
+            //        host = "www." + host;
+            //    }
 
-                if (!request.IsSecureConnection) {
-                    canonicalizeRedirect = true;
-                }
+            //    if (!canonicalizeRedirect && !request.IsSecureConnection)
+            //    {
+            //        canonicalizeRedirect = true;
+            //    }
 
-                if (canonicalizeRedirect) {
-                    string url = String.Format("https://{0}{1}", host, request.RawUrl);
-                    filterContext.Result = new RedirectResult(url);
-                    return;
-                }
-            }
+            //    if (canonicalizeRedirect)
+            //    {
+            //        string url = String.Format("https://{0}{1}", host, request.RawUrl);
+            //        filterContext.Result = new RedirectResult(url);
+            //        base.OnAuthorization(filterContext);
+            //        return;
+            //    }
+            //}
 
 
             if (User.Identity.IsAuthenticated) {
@@ -54,11 +58,13 @@ namespace WriteCongress.Web.Controllers
                 if (user != null) {
                     ViewBag.AuthenticatedUser = user;
                     AuthenticatedUser = user;
+                    base.OnAuthorization(filterContext);
                     return;
                 }
                 FormsAuthentication.SignOut();//you were marked as authenticated but that session is no longer valid
             }
             ViewBag.AuthenticatedUser = null;
+            base.OnAuthorization(filterContext);
         }
     }
 }
