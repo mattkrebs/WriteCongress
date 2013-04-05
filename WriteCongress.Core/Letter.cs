@@ -17,6 +17,7 @@ namespace WriteCongress.Core
         public Letter()
         {
             this.IssueLetters = new HashSet<IssueLetter>();
+            this.Bills = new HashSet<Bill>();
         }
     
         public int LetterId { get; set; }
@@ -29,5 +30,6 @@ namespace WriteCongress.Core
         public string Slug { get; set; }
     
         public virtual ICollection<IssueLetter> IssueLetters { get; set; }
+        public virtual ICollection<Bill> Bills { get; set; }
     }
 }
