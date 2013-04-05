@@ -34,5 +34,7 @@ namespace WriteCongress.Core
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<ZipCodeDistrict> ZipCodeDistricts { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

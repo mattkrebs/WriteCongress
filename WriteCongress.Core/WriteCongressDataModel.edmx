@@ -4,18 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="WriteCongressModelStoreContainer">
-          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BillLetter" EntityType="WriteCongressModel.Store.BillLetter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderDetails" EntityType="WriteCongressModel.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="WriteCongressModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_BillIssue_Bill" Association="WriteCongressModel.Store.FK_BillIssue_Bill">
             <End Role="Bill" EntitySet="Bill" />
             <End Role="BillIssue" EntitySet="BillIssue" />
@@ -23,6 +26,14 @@
           <AssociationSet Name="FK_BillIssue_Issue" Association="WriteCongressModel.Store.FK_BillIssue_Issue">
             <End Role="Issue" EntitySet="Issue" />
             <End Role="BillIssue" EntitySet="BillIssue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillLetter_Bill" Association="WriteCongressModel.Store.FK_BillLetter_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillLetter" EntitySet="BillLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillLetter_Letter" Association="WriteCongressModel.Store.FK_BillLetter_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="BillLetter" EntitySet="BillLetter" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueLetter_Issue" Association="WriteCongressModel.Store.FK_IssueLetter_Issue">
             <End Role="Issue" EntitySet="Issue" />
@@ -64,6 +75,14 @@
           <Property Name="BillId" Type="int" Nullable="false" />
           <Property Name="IssueId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="BillLetter">
+          <Key>
+            <PropertyRef Name="BillId" />
+            <PropertyRef Name="LetterId" />
+          </Key>
+          <Property Name="BillId" Type="int" Nullable="false" />
+          <Property Name="LetterId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Issue">
           <Key>
             <PropertyRef Name="IssueId" />
@@ -96,6 +115,39 @@
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="LetterId" Type="int" />
+          <Property Name="TryPaperBatch" Type="varchar" MaxLength="30" />
+          <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
+          <Property Name="Ip" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="UserAgent" Type="varchar" MaxLength="500" />
+          <Property Name="OrderTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="OrderStatusId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddressLineOne" Type="varchar" MaxLength="100" />
+          <Property Name="AddressLineTwo" Type="varchar" MaxLength="100" />
+          <Property Name="CityStateZip" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="80" />
+          <Property Name="StripeChargeId" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="PasswordResets">
           <Key>
@@ -158,9 +210,6 @@
           <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="District" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6005: The data type 'geography' is not supported for the target .NET Framework version. The column 'Point' in the table 'WriteCongress.dbo.ZipCodes' was excluded from the model. To use the data type 'geography', target the .NET Framework 4.5 or higher.
-      -->
         <EntityType Name="ZipCodes">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,6 +222,7 @@
           <Property Name="AdminCode" Type="varchar" MaxLength="20" />
           <Property Name="Latitude" Type="float" Nullable="false" />
           <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Point" Type="geography" />
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_BillIssue_Bill">
@@ -196,6 +246,30 @@
             </Principal>
             <Dependent Role="BillIssue">
               <PropertyRef Name="IssueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillLetter_Bill">
+          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="1" />
+          <End Role="BillLetter" Type="WriteCongressModel.Store.BillLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="BillId" />
+            </Principal>
+            <Dependent Role="BillLetter">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillLetter_Letter">
+          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="1" />
+          <End Role="BillLetter" Type="WriteCongressModel.Store.BillLetter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letter">
+              <PropertyRef Name="LetterId" />
+            </Principal>
+            <Dependent Role="BillLetter">
+              <PropertyRef Name="LetterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -238,7 +312,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WriteCongressModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WriteCongressModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" >
         <EntityContainer Name="WriteCongressConnection" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Issues" EntityType="WriteCongressModel.Issue" />
           <EntitySet Name="IssueLetters" EntityType="WriteCongressModel.IssueLetter" />
@@ -265,6 +339,12 @@
           </AssociationSet>
           <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
           <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.ZipCodeDistrict" />
+          <EntitySet Name="OrderDetails" EntityType="WriteCongressModel.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="WriteCongressModel.Order" />
+          <AssociationSet Name="BillLetter" Association="WriteCongressModel.BillLetter">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Letter" EntitySet="Letters" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -315,6 +395,7 @@
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
           <Property Type="String" Name="Slug" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillLetter" FromRole="Letter" ToRole="Bill" />
         </EntityType>
         <Association Name="FK_IssueLetter_Letter">
           <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="1" />
@@ -409,6 +490,7 @@
           <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
           <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Issues" Relationship="WriteCongressModel.BillIssue" FromRole="Bill" ToRole="Issue" />
+          <NavigationProperty Name="Letters" Relationship="WriteCongressModel.BillLetter" FromRole="Bill" ToRole="Letter" />
         </EntityType>
         <Association Name="BillIssue">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -441,6 +523,43 @@
           <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="District" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+          <Property Type="Int32" Name="LetterId" />
+          <Property Type="String" Name="TryPaperBatch" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
+          <Property Type="Decimal" Name="Cost" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Ip" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="OrderTotal" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="OrderStatusId" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AddressLineOne" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AddressLineTwo" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CityStateZip" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StripeChargeId" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="BillLetter">
+          <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
+          <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -591,6 +710,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="WriteCongressModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="CreateDateUtc" ColumnName="CreateDateUtc" />
+                <ScalarProperty Name="TryPaperBatch" ColumnName="TryPaperBatch" />
+                <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="WriteCongressModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="StripeChargeId" ColumnName="StripeChargeId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CityStateZip" ColumnName="CityStateZip" />
+                <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
+                <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="Ip" ColumnName="Ip" />
+                <ScalarProperty Name="CreateDateUtc" ColumnName="CreateDateUtc" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BillLetter" TypeName="WriteCongressModel.BillLetter" StoreEntitySet="BillLetter">
+            <EndProperty Name="Letter">
+              <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+            </EndProperty>
+            <EndProperty Name="Bill">
+              <ScalarProperty Name="BillId" ColumnName="BillId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
