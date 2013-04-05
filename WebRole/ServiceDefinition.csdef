@@ -11,7 +11,7 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="HTTP" protocol="http" port="80" />
-      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="www" />
+      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="SSL" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
