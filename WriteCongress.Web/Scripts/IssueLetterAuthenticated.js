@@ -16,7 +16,7 @@
             }
 
             if (window.location.hash === "#sendletter") {
-                $('#purchaseLetter').modal();
+                $('#beInvolved').click();
             }
 
             $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
