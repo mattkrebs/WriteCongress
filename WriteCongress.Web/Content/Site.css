@@ -170,3 +170,15 @@ div.contact-info > a {
     .photo-xsmall {
         width: 35px;
     }
+
+    ul.thumbnails li.span4:nth-child(3n + 4) {
+  margin-left : 0px;
+}
+
+ul.thumbnails li.span3:nth-child(4n + 5) {
+  margin-left : 0px;
+}
+
+ul.thumbnails li.span12 + li {
+  margin-left : 0px;
+}

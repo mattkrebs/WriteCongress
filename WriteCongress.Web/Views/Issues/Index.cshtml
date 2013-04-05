@@ -4,9 +4,9 @@
     ViewBag.Title = "Send mail to congress about issues including gun control, abortion, immigration, and more!";
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
-<div class="container-fluid">
-    <div class="row-fluid">
-        <ul class="thumbnails">
+<div class="container-fluid">    
+    <div class="row-fluid">    
+        <ul class="thumbnails">   
             @foreach (var issue in Model)
             {
                 <li class="span4">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </li>
-            }
-        </ul>
+            }  
+            </ul>     
     </div>
 </div>
