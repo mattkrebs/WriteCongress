@@ -4,28 +4,65 @@
 }
 
 <div class="container-fluid">
-    <div class="jumbotron">
-        <h1>Gun Ban!</h1>
-        <p class="lead">Congress set to vote on Assult Wepons Ban!  Where do you Stand?</p>
-        <a class="btn btn-large btn-success" href="/Issues/assult-weapons-ban-2013">Write your congressmen today</a>
-    </div>
-
-    <hr>
-        <div class="row-fluid">
-            <div class="span4">
-                <h2>Pick an issue</h2>
-                <p>Whether its the economy, healthcare, education, foreign policy or the environment, learn about the issues and what other people are saying.</p>
-                <p><a class="btn" href="#">Be involved</a></p>
+    <div id="myCarousel" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            
+            <div class="jumbotron active item">
+                
+                <h1>Gun Ban!</h1>
+                <p class="lead">Congress set to vote on Assult Wepons Ban!  Where do you Stand?</p>
+                <a class="btn btn-large btn-success" href="/Issues/assult-weapons-ban-2013">Write your congressmen today</a>
             </div>
-            <div class="span4">
-                <h2>Take a stance</h2>
-                <p>Don't just stand on the sidelines, take a stance and have your opinion read by your public servants</p>
-                <p><a class="btn" href="#">Be heard</a></p>
+            <div class="jumbotron item">
+                <h1>Gun Bannn!</h1>
+                <p class="lead">Congress set to vote on Assult Wepons Ban!  Where do you Stand?</p>
+                <a class="btn btn-large btn-success" href="/Issues/assult-weapons-ban-2013">Write your congressmen today</a>
             </div>
-            <div class="span4">
-                <h2>Mail a real letter!</h2>
-                <p>Did you know that your Senators and Representative have a formula that counts a mailed letter <strong>10 times</strong> more than a phone call and <strong>30 times</strong> more than an email?</p>
-                <p><a class="btn" href="#">Send a real letter online</a></p>
+            <div class="jumbotron item">
+                <h1>Gun Bannnnnn!</h1>
+                <p class="lead">Congress set to vote on Assult Wepons Ban!  Where do you Stand?</p>
+                <a class="btn btn-large btn-success" href="/Issues/assult-weapons-ban-2013">Write your congressmen today</a>
             </div>
         </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+
+
+    <hr>
+    <div class="row-fluid">
+        <div class="span4">
+            <h2>Pick an issue</h2>
+            <p>Whether its the economy, healthcare, education, foreign policy or the environment, learn about the issues and what other people are saying.</p>
+            <p><a class="btn" href="#">Be involved</a></p>
+        </div>
+        <div class="span4">
+            <h2>Take a stance</h2>
+            <p>Don't just stand on the sidelines, take a stance and have your opinion read by your public servants</p>
+            <p><a class="btn" href="#">Be heard</a></p>
+        </div>
+        <div class="span4">
+            <h2>Mail a real letter!</h2>
+            <p>Did you know that your Senators and Representative have a formula that counts a mailed letter <strong>10 times</strong> more than a phone call and <strong>30 times</strong> more than an email?</p>
+            <p><a class="btn" href="#">Send a real letter online</a></p>
+        </div>
+    </div>
 </div>
+@section Scripts{
+       <script>
+           !function ($) {
+               $(function () {
+                   // carousel demo
+                  
+                   $('#myCarousel').carousel()
+               })
+           }(window.jQuery)
+    </script>
+    }
