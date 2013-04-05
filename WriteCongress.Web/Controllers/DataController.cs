@@ -10,7 +10,6 @@ using WriteCongress.Web.Models.SmartyStreets;
 
 namespace WriteCongress.Web.Controllers
 {
-    [SSLRequired]
     public class DataController : BaseController {
         public const int OneDayCacheDuration = 60*60*24;
         public const int ThirtyMinuteCacheDuration = 60*30;
