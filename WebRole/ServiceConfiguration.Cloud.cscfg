@@ -5,5 +5,8 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=writecongress;AccountKey=Ee7ipevOgV0rMemuFdVEp9IKP8eBdVQmNvWrdQm14iqm0IcPvybXzqlsW427rSqXmQ48q26pYJcctHKsWRESMg==" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SSL" thumbprint="320719B4A38AB90AAB918E7BEEDC1F994359862F" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

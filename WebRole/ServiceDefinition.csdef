@@ -5,14 +5,19 @@
       <Site name="Web">
         <Bindings>
           <Binding name="Endpoint1" endpointName="HTTP" />
+          <Binding name="Endpoint1" endpointName="HTTPS" />
         </Bindings>
       </Site>
     </Sites>
     <Endpoints>
       <InputEndpoint name="HTTP" protocol="http" port="80" />
+      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="SSL" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
     </Imports>
+    <Certificates>
+      <Certificate name="SSL" storeLocation="LocalMachine" storeName="My" />
+    </Certificates>
   </WebRole>
 </ServiceDefinition>
