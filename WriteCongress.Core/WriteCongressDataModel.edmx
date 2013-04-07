@@ -43,6 +43,22 @@
             <End Role="Letter" EntitySet="Letter" />
             <End Role="IssueLetter" EntitySet="IssueLetter" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Letter" Association="WriteCongressModel.Store.FK_OrderDetails_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Order" Association="WriteCongressModel.Store.FK_OrderDetails_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Person" Association="WriteCongressModel.Store.FK_OrderDetails_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.Store.FK_Orders_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_PasswordResets_Users" Association="WriteCongressModel.Store.FK_PasswordResets_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="PasswordResets" EntitySet="PasswordResets" />
@@ -222,7 +238,6 @@
           <Property Name="AdminCode" Type="varchar" MaxLength="20" />
           <Property Name="Latitude" Type="float" Nullable="false" />
           <Property Name="Longitude" Type="float" Nullable="false" />
-          <Property Name="Point" Type="geography" />
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_BillIssue_Bill">
@@ -297,6 +312,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderDetails_Letter">
+          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letter">
+              <PropertyRef Name="LetterId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Order">
+          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Person">
+          <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
+          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_User">
+          <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
+          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PasswordResets_Users">
           <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
           <End Role="PasswordResets" Type="WriteCongressModel.Store.PasswordResets" Multiplicity="*" />
@@ -344,6 +407,22 @@
           <AssociationSet Name="BillLetter" Association="WriteCongressModel.BillLetter">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="Letter" EntitySet="Letters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Letter" Association="WriteCongressModel.FK_OrderDetails_Letter">
+            <End Role="Letter" EntitySet="Letters" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Order" Association="WriteCongressModel.FK_OrderDetails_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Person" Association="WriteCongressModel.FK_OrderDetails_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.FK_Orders_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Issue">
@@ -396,6 +475,7 @@
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Letter" FromRole="Letter" ToRole="IssueLetter" />
           <Property Type="String" Name="Slug" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillLetter" FromRole="Letter" ToRole="Bill" />
+          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Letter" FromRole="Letter" ToRole="OrderDetail" />
         </EntityType>
         <Association Name="FK_IssueLetter_Letter">
           <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="1" />
@@ -432,6 +512,7 @@
           <Property Type="String" Name="Ip" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PasswordResets" Relationship="WriteCongressModel.FK_PasswordResets_Users" FromRole="User" ToRole="PasswordReset" />
+          <NavigationProperty Name="Orders" Relationship="WriteCongressModel.FK_Orders_User" FromRole="User" ToRole="Order" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -513,6 +594,7 @@
           <Property Type="DateTime" Name="BirthDate" Precision="3" />
           <Property Type="String" Name="Party" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="Person" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="ZipCodeDistrict">
           <Key>
@@ -535,6 +617,9 @@
           <Property Type="String" Name="TryPaperBatch" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
           <Property Type="Decimal" Name="Cost" Precision="10" Scale="2" />
+          <NavigationProperty Name="Letter" Relationship="WriteCongressModel.FK_OrderDetails_Letter" FromRole="OrderDetail" ToRole="Letter" />
+          <NavigationProperty Name="Order" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
+          <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="OrderDetail" ToRole="Person" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -555,10 +640,60 @@
           <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="StripeChargeId" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_Orders_User" FromRole="Order" ToRole="User" />
         </EntityType>
         <Association Name="BillLetter">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
           <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OrderDetails_Letter">
+          <End Type="WriteCongressModel.Letter" Role="Letter" Multiplicity="0..1" />
+          <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Letter">
+              <PropertyRef Name="LetterId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="LetterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Order">
+          <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Person">
+          <End Type="WriteCongressModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_User">
+          <End Type="WriteCongressModel.User" Role="User" Multiplicity="1" />
+          <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

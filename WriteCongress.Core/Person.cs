@@ -14,6 +14,11 @@ namespace WriteCongress.Core
     
     public partial class Person
     {
+        public Person()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public int PersonId { get; set; }
         public string OpenCongressId { get; set; }
         public string FirstName { get; set; }
@@ -27,5 +32,7 @@ namespace WriteCongress.Core
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string Party { get; set; }
         public bool Active { get; set; }
+    
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

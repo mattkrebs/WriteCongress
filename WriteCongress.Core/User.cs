@@ -17,6 +17,7 @@ namespace WriteCongress.Core
         public User()
         {
             this.PasswordResets = new HashSet<PasswordReset>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,6 @@ namespace WriteCongress.Core
         public string UserAgent { get; set; }
     
         public virtual ICollection<PasswordReset> PasswordResets { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -21,6 +21,10 @@
         <EntityTypeShape EntityType="WriteCongressModel.OrderDetail" Width="1.5" PointX="1.3177766210016686" PointY="12.417136302412086" />
         <EntityTypeShape EntityType="WriteCongressModel.Order" Width="1.5" PointX="10.740847264761499" PointY="8.3749420979874873" />
         <AssociationConnector Association="WriteCongressModel.BillLetter" />
+        <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Letter" />
+        <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Order" />
+        <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Person" />
+        <AssociationConnector Association="WriteCongressModel.FK_Orders_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

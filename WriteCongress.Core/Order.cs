@@ -14,6 +14,11 @@ namespace WriteCongress.Core
     
     public partial class Order
     {
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public int Id { get; set; }
         public System.Guid Guid { get; set; }
         public int UserId { get; set; }
@@ -29,5 +34,8 @@ namespace WriteCongress.Core
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string StripeChargeId { get; set; }
+    
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual User User { get; set; }
     }
 }
