@@ -14,7 +14,9 @@
             
             <div class="letter">
                 <div class="letter-head">
-                @DateTime.Now.ToString("MMMM d, yyyy")<br /><br />
+                
+                <div class="date">@DateTime.Now.ToString("MMMM d, yyyy")</div>
+                    <div class="sender">
                 @(Model.UserName ?? "")<br />
                 @(Model.AddressLineOne ?? "")
                 @if(!String.IsNullOrEmpty(Model.AddressLineTwo))
@@ -28,9 +30,9 @@
                 @if(Model.PhoneNumber !=null && !String.IsNullOrWhiteSpace(Model.PhoneNumber)) {
                          @Model.PhoneNumber<br />
                  }
-                    <br />
+                        </div>
 
-                
+                 <div class="sender">
                 @(Model.PersonName ?? "")<br />
                 @(Model.PersonAddressLineOne ?? "")
                 @if(!String.IsNullOrEmpty(Model.PersonAddressLineTwo))
@@ -41,16 +43,16 @@
                 <br />
                 }
 
+                 
                 @(Model.PersonCityStateZip ?? "")
+                     </div>
 
-                <br /><br />
+                <div class="re">
                 RE: @(Model.RE ?? "")
-                    <br /><br />
-
+                    </div>
 
                  @Model.Salutation:
- 
- </div>
+             </div>
                 
                 <br />
 
