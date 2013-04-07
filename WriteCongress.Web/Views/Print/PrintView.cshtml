@@ -1,5 +1,8 @@
 ﻿@using WriteCongress.Core
-@model WriteCongress.Web.Models.LetterModel
+@model WriteCongress.Web.Models.PrintModel
+@section head{
+    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+}
 
 @{
     ViewBag.Title = "PrintView";
@@ -8,31 +11,47 @@
 
 <div class="container">
     <div class="row">
-            <h1>Guns are Sweet</h1>
-            <div>
-                <p>
-                    Guns are awesome, let me have some
-                </p>
-            </div>
+            
             <div class="letter">
                 <div class="letter-head">
-                <span id="date">@DateTime.Now.ToString("MMMM d, yyyy")</span><br /><br />
-                <span id="name">@(!String.IsNullOrWhiteSpace(Model.FullName)? Model.FullName :"[Your Name]")</span><br />
-                <span id="address">@(!String.IsNullOrWhiteSpace(Model.FormatAddress) ? Model.FormatAddress :"[Your Address]")</span><br />
-                <span id="city-state-zip">@(!String.IsNullOrWhiteSpace(Model.FormatLocation) ? Model.FormatLocation :"[Your City, State Zip]")</span><br />
-                <span id="email">@(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.Email) ? Model.User.Email : "[Your Email]") </span><br />
-               @if(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.PhoneNumber)) {
-                         <span id="phone">Model.User.PhoneNumber</span><br />
+                @DateTime.Now.ToString("MMMM d, yyyy")<br /><br />
+                @(Model.UserName ?? "")<br />
+                @(Model.AddressLineOne ?? "")
+                @if(!String.IsNullOrEmpty(Model.AddressLineTwo))
+                {
+                <br />@(Model.AddressLineTwo)<br />
+                } else {
+                    <br />
+                }
+                @(Model.CityStateZip ?? "")<br />
+                @(Model.Email ?? "")<br />
+                @if(Model.PhoneNumber !=null && !String.IsNullOrWhiteSpace(Model.PhoneNumber)) {
+                         @Model.PhoneNumber<br />
                  }
                     <br />
-                
 
-                The Honorable <span id="addressse">Joseph Spaur</span> <br />
                 
-                [Location] <br />
- <br />
+                @(Model.PersonName ?? "")<br />
+                @(Model.PersonAddressLineOne ?? "")
+                @if(!String.IsNullOrEmpty(Model.PersonAddressLineTwo))
+                {
+                <br />@(Model.PersonAddressLineTwo)<br />
+                } 
+                else {
+                <br />
+                }
+
+                @(Model.PersonCityStateZip ?? "")
+
+                <br /><br />
+                RE: @(Model.RE ?? "")
+                    <br /><br />
+
+
+                 @Model.Salutation:
+ 
  </div>
-                @*<div class="letter-reason">RE: @Issue.Name</div>*@
+                
                 <br />
 
                 <p>On a cold December night in 1797 our fore founders met to ratify The Bill of Rights.  The path to the adoption of these ten crucial amendments to the Constitution was hard fought, but those who were fighting for it knew it was crucial to our nascent, but burgeoning Union.  For an entire year leading up to the adoption of the Bill of Rights, courageous anti-Federalists wrote essays, volleying newspaper articles against the opposed Federalists, and vehemently argued their case in person.  Their message was this: that with no written guarantee of personal liberties, the Constitution was simply a list of enumerated powers for the Federal government to lord over its subjects.  The federal government will always have a great deal of power, we need not worry that it won’t, but often it seems that every day brings a new struggle to keep secure our individual freedoms.  So, today I am writing to you, asking that you oppose the passage of s.150 as it directly infringes upon citizens’ Second Amendment rights.</p>

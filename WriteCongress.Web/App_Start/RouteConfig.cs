@@ -16,7 +16,7 @@ namespace WriteCongress.Web
             routes.MapRoute("Issue", "Issues/{slug}", new { controller = "Issues", action = "Details" });
             routes.MapRoute("IssueLetter", "Issues/{issueSlug}/{letterSlug}", new { controller = "Issues", action = "IssueLetter" });
 
-            routes.MapRoute("Print", "Print/PrintView/{letter}", new { controller = "Print", action = "PrintView" });
+            routes.MapRoute("Print", "Print/PrintView/{orderItemGuid}", new { controller = "Print", action = "PrintView" });
 
             routes.MapRoute("About", "about", new { controller = "Home", action = "About" });
             routes.MapRoute("Contact", "contact-us", new { controller = "Home", action = "Contact" });
