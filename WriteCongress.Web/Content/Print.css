@@ -1,12 +1,11 @@
 ﻿body, container,.content, .row,.letter, h1, div {
-    
+ 
     background-image: none;
     background:none;
     padding:0px;
     margin:0px;
     max-width:none;
     max-height:none;
-    
 }
 
 .container

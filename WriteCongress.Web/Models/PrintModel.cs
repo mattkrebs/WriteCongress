@@ -44,7 +44,7 @@ namespace WriteCongress.Web.Models
                 model.AddressLineOne = order.AddressLineOne ?? "";
                 model.AddressLineOne = order.AddressLineOne ?? "";
                 model.CityStateZip = String.Format("{0}, {1} {2}", order.City, order.State, order.ZipCode.Left(5));
-                model.PersonName = String.Format("The Honorable {0} {1}", person.FirstName ?? "", person.LastName ?? "");
+                
 
                 if(!String.IsNullOrEmpty(user.PhoneNumber))
                     model.PhoneNumber = Regex.Replace(user.PhoneNumber, @"^\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*(\d)\D*$","($1$2$3) $4$5$6-$7$8$9$10");
@@ -56,11 +56,13 @@ namespace WriteCongress.Web.Models
 
                 if (person.Title.ToLower().Contains("sen") && !String.IsNullOrEmpty(person.Address))
                 {
-                    model.Salutation = String.Format("Dear Senator {0} {1}", person.FirstName ?? "", person.LastName ?? "");
+                    model.PersonName = FormatHelper.FormatSenatorName(person.FirstName ?? "", person.LastName ?? "");
+                    model.Salutation = FormatHelper.FormatSenatorSalutation(person.FirstName ?? "", person.LastName ?? "");
                 }
                 else
                 {
-                    model.Salutation = String.Format("Dear Representative {0} {1}", person.FirstName ?? "", person.LastName ?? "");
+                    model.PersonName = FormatHelper.FormatRepName(person.FirstName ?? "", person.LastName ?? "");
+                    model.Salutation = FormatHelper.FormatRepSalutation(person.FirstName ?? "", person.LastName ?? "");
                 }
 
                 model.PersonAddressLineOne = person.MailingAddressOne ?? "";

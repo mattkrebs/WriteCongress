@@ -8,5 +8,6 @@ namespace WriteCongress.Core
 {
     public class TryPaperHelper
     {
+       
     }
 }

@@ -56,6 +56,7 @@
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CryptoHelper.cs" />
+    <Compile Include="FormatHelper.cs" />
     <Compile Include="Issue.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>

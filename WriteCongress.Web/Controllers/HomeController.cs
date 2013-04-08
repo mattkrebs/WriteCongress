@@ -17,6 +17,8 @@ namespace WriteCongress.Web.Controllers
         {
             HomeModel model = new HomeModel();
             model.TopIssues = db.Issues.Take(3).ToList();
+
+            
             return View(model);
         }
 
