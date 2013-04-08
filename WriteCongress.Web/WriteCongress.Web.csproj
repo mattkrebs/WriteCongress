@@ -174,6 +174,7 @@
     <Compile Include="Controllers\EmailManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Models\JsonServiceResult.cs" />
     <Compile Include="Controllers\LetterController.cs" />
     <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Controllers\PrintController.cs" />

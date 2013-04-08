@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WriteCongress.Core;
+using WriteCongress.Web.Models;
 
 namespace WriteCongress.Web.Controllers
 {
