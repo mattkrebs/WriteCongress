@@ -31,25 +31,24 @@ namespace WriteCongress.Web.Controllers
             
             var letter = Db.IssueLetters.Where(il => il.Issue.Slug == issueSlug && il.Letter.Slug == letterSlug).Select(l => l.Letter).SingleOrDefault();
             if (letter == null) {
-                
-                
-
-
-
                 return RedirectToAction("Index", new {slug = issueSlug});
             }
-            LetterModel letterModel = new LetterModel()
-            {
-                Letter = letter,
-                User = this.AuthenticatedUser
-                
-            };
 
-            
-
-            ViewBag.Issue = Db.Issues.FirstOrDefault(i => i.Slug == issueSlug);
-            return View("IssueLetter", letterModel);
-
+            IssueLetterViewModel model = new IssueLetterViewModel();
+            if (this.AuthenticatedUser != null) {
+                model.FirstName = AuthenticatedUser.FirstName;
+                model.LastName = AuthenticatedUser.LastName;
+                model.Address1 = AuthenticatedUser.AddressOne;
+                model.Address2 = AuthenticatedUser.AddressTwo;
+                model.City = AuthenticatedUser.City;
+                model.State = AuthenticatedUser.State;
+                model.PhoneNumber = AuthenticatedUser.PhoneNumber;
+                model.Email = AuthenticatedUser.Email;
+                model.ZipCode = AuthenticatedUser.ZipCode;
+            }
+            model.Letter = letter;
+            model.Issue =Db.Issues.FirstOrDefault(i => i.Slug == issueSlug);
+            return View("IssueLetter", model);
         }
 
     }

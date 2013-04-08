@@ -1,12 +1,11 @@
 ﻿@using WriteCongress.Core
-@model WriteCongress.Web.Models.LetterModel
+@using WriteCongress.Web.Models
+@model WriteCongress.Web.Models.IssueLetterViewModel
 @section head{
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 }
 @{
-    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
-    var Issue = (Issue)ViewBag.Issue;
-    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Issue.Name, Model.Letter.Name);    
+    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);    
 }
 
 
@@ -14,7 +13,7 @@
     <div class="row-fluid">
         <div class="span8">
             <h1>@Model.Letter.Name</h1>
-            <h2><a href="/Issues/@Issue.Slug">@Issue.Name</a></h2>
+            <h2><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></h2>
             <div>
                 <p>
                     @Model.Letter.Description
@@ -23,18 +22,23 @@
             <div class="letter">
                 <div class="letter-head">
                 <span id="date">@DateTime.Now.ToString("MMMM d, yyyy")</span><br /><br />
-                <span id="name">@(!String.IsNullOrWhiteSpace(Model.FullName)? Model.FullName :"[Your Name]")</span><br />
-                <span id="address">@(!String.IsNullOrWhiteSpace(Model.FormatAddress) ? Model.FormatAddress :"[Your Address]")</span><br />
-                <span id="city-state-zip">@(!String.IsNullOrWhiteSpace(Model.FormatLocation) ? Model.FormatLocation :"[Your City, State Zip]")</span><br />
-                <span id="email">@(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.Email) ? Model.User.Email : "[Your Email]") </span><br />
-                <span id="phone">@(Model.User!=null && !String.IsNullOrWhiteSpace(Model.User.PhoneNumber) ? Model.User.PhoneNumber : "[Your Phone]") </span><br /> <br />
+                <span id="name">@Model.FirstName @Model.LastName</span><br />
+                    <span id="address">
+                        @Model.Address1<br />
+                        @if (!String.IsNullOrWhiteSpace(Model.Address2)) {
+                            @Model.Address2<br />
+                        }
+                    </span>
+                <span id="city-state-zip">@Model.City @Model.State @Model.ZipCode</span><br />
+                <span id="email">@Model.Email</span><br />
+                <span id="phone">@Model.PhoneNumber</span><br /> <br />
 
                 The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span> <br />
                 
                 [Location] <br />
  <br />
  </div>
-                <div class="letter-reason">RE: @Issue.Name</div>
+                <div class="letter-reason">RE: @Model.Issue.Name</div>
                 <br />
 
                 @Html.Raw(Model.Letter.Body)
@@ -52,66 +56,17 @@
                         <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>
                     }
                 </h5>
-                <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" /><br />
-                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" />
-                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" /><br />
-                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" /><br />
-                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" /><br />
-                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" />
-                <select name="state" id="state" class="span6 zipautofill-state address" size="1" placeholder="State">
-                    <option value="" selected="selected">State</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">Dist of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                </select>
+                <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" value="@Model.ZipCode" /><br />
+                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" value="@Model.FirstName" />
+                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" value="@Model.LastName" /><br />
+                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" value="@Model.Address1" /><br />
+                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" value="@Model.Address2" /><br />
+                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" value="@Model.City" />
+                @{
+                    var states = StateSelectorModel.States;
+                    states.Where(s => s.Value == Model.State).Select(i => i.Selected == true);
+                }
+                @Html.DropDownList("state",@states,new{@class="span6 zipautofill-state address",size=1,placeholder="State"})
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
                 <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
