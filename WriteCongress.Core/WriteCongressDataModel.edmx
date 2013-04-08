@@ -635,7 +635,6 @@
           <Property Type="DateTime" Name="BirthDate" Precision="3" />
           <Property Type="String" Name="Party" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="Person" ToRole="OrderDetail" />
           <Property Type="String" Name="MailingAddressOne" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="MailingCity" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="MailingZip" MaxLength="10" FixedLength="false" Unicode="false" />
