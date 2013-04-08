@@ -214,6 +214,7 @@
           <Property Name="MailingCity" Type="varchar" MaxLength="50" />
           <Property Name="MailingZip" Type="varchar" MaxLength="10" />
           <Property Name="LastUpdatedDateUtc" Type="datetime" />
+          <Property Name="MailingState" Type="varchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -639,6 +640,7 @@
           <Property Type="String" Name="MailingCity" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="MailingZip" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="LastUpdatedDateUtc" Precision="3" />
+          <Property Type="String" Name="MailingState" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ZipCodeDistrict">
           <Key>
@@ -890,6 +892,7 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="WriteCongressModel.Person">
               <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="MailingState" ColumnName="MailingState" />
                 <ScalarProperty Name="LastUpdatedDateUtc" ColumnName="LastUpdatedDateUtc" />
                 <ScalarProperty Name="MailingZip" ColumnName="MailingZip" />
                 <ScalarProperty Name="MailingCity" ColumnName="MailingCity" />

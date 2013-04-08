@@ -36,6 +36,7 @@ namespace WriteCongress.Core
         public string MailingCity { get; set; }
         public string MailingZip { get; set; }
         public Nullable<System.DateTime> LastUpdatedDateUtc { get; set; }
+        public string MailingState { get; set; }
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
