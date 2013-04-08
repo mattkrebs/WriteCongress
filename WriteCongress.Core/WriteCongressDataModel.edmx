@@ -143,7 +143,7 @@
           <Property Name="LetterId" Type="int" />
           <Property Name="TryPaperBatch" Type="varchar" MaxLength="30" />
           <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
-          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -160,10 +160,12 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="AddressLineOne" Type="varchar" MaxLength="100" />
           <Property Name="AddressLineTwo" Type="varchar" MaxLength="100" />
-          <Property Name="CityStateZip" Type="varchar" MaxLength="100" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="80" />
           <Property Name="StripeChargeId" Type="varchar" MaxLength="20" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PasswordResets">
           <Key>
@@ -403,7 +405,6 @@
           <EntitySet Name="People" EntityType="WriteCongressModel.Person" />
           <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.ZipCodeDistrict" />
           <EntitySet Name="OrderDetails" EntityType="WriteCongressModel.OrderDetail" />
-          <EntitySet Name="Orders" EntityType="WriteCongressModel.Order" />
           <AssociationSet Name="BillLetter" Association="WriteCongressModel.BillLetter">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="Letter" EntitySet="Letters" />
@@ -412,12 +413,13 @@
             <End Role="Letter" EntitySet="Letters" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Order" Association="WriteCongressModel.FK_OrderDetails_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Person" Association="WriteCongressModel.FK_OrderDetails_Person">
             <End Role="Person" EntitySet="People" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <EntitySet Name="Orders" EntityType="WriteCongressModel.Order" />
+          <AssociationSet Name="FK_OrderDetails_Order" Association="WriteCongressModel.FK_OrderDetails_Order">
+            <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.FK_Orders_User">
@@ -616,32 +618,10 @@
           <Property Type="Int32" Name="LetterId" />
           <Property Type="String" Name="TryPaperBatch" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
-          <Property Type="Decimal" Name="Cost" Precision="10" Scale="2" />
           <NavigationProperty Name="Letter" Relationship="WriteCongressModel.FK_OrderDetails_Letter" FromRole="OrderDetail" ToRole="Letter" />
-          <NavigationProperty Name="Order" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="OrderDetail" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="Guid" Name="Guid" Nullable="false" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
-          <Property Type="String" Name="Ip" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="OrderTotal" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="OrderStatusId" Nullable="false" />
-          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="AddressLineOne" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AddressLineTwo" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CityStateZip" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="StripeChargeId" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
-          <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_Orders_User" FromRole="Order" ToRole="User" />
+          <Property Type="Decimal" Name="Price" Precision="10" Scale="2" />
+          <NavigationProperty Name="Order" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
         </EntityType>
         <Association Name="BillLetter">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -659,18 +639,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetails_Order">
-          <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderDetails_Person">
           <End Type="WriteCongressModel.Person" Role="Person" Multiplicity="1" />
           <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
@@ -680,6 +648,42 @@
             </Principal>
             <Dependent Role="OrderDetail">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Ip" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="OrderTotal" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="OrderStatusId" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AddressLineOne" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AddressLineTwo" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StripeChargeId" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ZipCode" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_Orders_User" FromRole="Order" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_OrderDetails_Order">
+          <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="WriteCongressModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -848,7 +852,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="WriteCongressModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="CreateDateUtc" ColumnName="CreateDateUtc" />
                 <ScalarProperty Name="TryPaperBatch" ColumnName="TryPaperBatch" />
                 <ScalarProperty Name="LetterId" ColumnName="LetterId" />
@@ -859,13 +863,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="BillLetter" TypeName="WriteCongressModel.BillLetter" StoreEntitySet="BillLetter">
+            <EndProperty Name="Letter">
+              <ScalarProperty Name="LetterId" ColumnName="LetterId" />
+            </EndProperty>
+            <EndProperty Name="Bill">
+              <ScalarProperty Name="BillId" ColumnName="BillId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WriteCongressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="StripeChargeId" ColumnName="StripeChargeId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="CityStateZip" ColumnName="CityStateZip" />
                 <ScalarProperty Name="AddressLineTwo" ColumnName="AddressLineTwo" />
                 <ScalarProperty Name="AddressLineOne" ColumnName="AddressLineOne" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -880,14 +894,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="BillLetter" TypeName="WriteCongressModel.BillLetter" StoreEntitySet="BillLetter">
-            <EndProperty Name="Letter">
-              <ScalarProperty Name="LetterId" ColumnName="LetterId" />
-            </EndProperty>
-            <EndProperty Name="Bill">
-              <ScalarProperty Name="BillId" ColumnName="BillId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

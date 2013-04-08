@@ -30,10 +30,12 @@ namespace WriteCongress.Core
         public string Name { get; set; }
         public string AddressLineOne { get; set; }
         public string AddressLineTwo { get; set; }
-        public string CityStateZip { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string StripeChargeId { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }

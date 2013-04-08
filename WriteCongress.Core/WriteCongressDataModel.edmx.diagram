@@ -19,11 +19,11 @@
         <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="10.060254803886757" PointY="4.7239984146896745" />
         <EntityTypeShape EntityType="WriteCongressModel.ZipCodeDistrict" Width="1.5" PointX="9" PointY="10.5" />
         <EntityTypeShape EntityType="WriteCongressModel.OrderDetail" Width="1.5" PointX="1.3177766210016686" PointY="12.417136302412086" />
-        <EntityTypeShape EntityType="WriteCongressModel.Order" Width="1.5" PointX="10.740847264761499" PointY="8.3749420979874873" />
         <AssociationConnector Association="WriteCongressModel.BillLetter" />
         <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Letter" />
-        <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Order" />
         <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Person" />
+        <EntityTypeShape EntityType="WriteCongressModel.Order" Width="1.5" PointX="7.9796361736858437" PointY="4.2243710477949916" />
+        <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Order" />
         <AssociationConnector Association="WriteCongressModel.FK_Orders_User" />
       </Diagram>
     </edmx:Diagrams>

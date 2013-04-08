@@ -43,7 +43,7 @@ namespace WriteCongress.Web.Models
                 model.UserName = order.Name ?? "";
                 model.AddressLineOne = order.AddressLineOne ?? "";
                 model.AddressLineOne = order.AddressLineOne ?? "";
-                model.CityStateZip = order.CityStateZip;
+                model.CityStateZip = String.Format("{0} {1} {2}", order.City, order.State, order.ZipCode.Left(5));
                 model.PersonName = String.Format("The Honorable {0} {1}", person.FirstName ?? "", person.LastName ?? "");
 
                 if(!String.IsNullOrEmpty(user.PhoneNumber))

@@ -21,10 +21,10 @@ namespace WriteCongress.Core
         public Nullable<int> LetterId { get; set; }
         public string TryPaperBatch { get; set; }
         public System.DateTime CreateDateUtc { get; set; }
-        public Nullable<decimal> Cost { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
         public virtual Letter Letter { get; set; }
-        public virtual Order Order { get; set; }
         public virtual Person Person { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
