@@ -1,20 +1,22 @@
 ﻿var CheckoutModalView = function () {
     this.stripeHelper = new PaymentHelper();
     this.PaymentInfo = null;
-    
-    $('.recipientSelector').click(function () {
-        this.showPrice(this.calculatePrice());
-    });
+    $('#card-number').payment('formatCardNumber');
 };
 CheckoutModalView.prototype = {
-    Show:function() {
+    Show: function () {
+        var me = this;
         var senators = congressPersonFinder.Senators;
         var rep = congressPersonFinder.Representative;
 
         if (this.PaymentInfo != null) {
             $('#card-name').val(this.PaymentInfo.Name);
+            $('#card-zip').val(this.PaymentInfo.Zip);
+        } else {
+            var name = $('#firstname').val() + ' ' + $('#lastname').val();
+            $('#card-name').val(name);
+            $('#card-zip').val($('#zipcode').val());
         }
-        $('#card-zip').val($('#zipcode').val());
 
         var html = '';
         if(senators.length==2){
@@ -26,6 +28,13 @@ CheckoutModalView.prototype = {
         }
         
         $('#congressPersonsToSendTo').html(html);
+
+        this.showPrice(this.calculatePrice());
+        
+        $('.recipientSelector').click(function () {
+            me.showPrice(me.calculatePrice());
+        });
+        
         $('#purchaseLetter').modal();
     },
     UseDifferentCard:function() {
@@ -49,7 +58,7 @@ CheckoutModalView.prototype = {
     },
     CreateToken: function(cardInfo) {
         var deferrred = new jQuery.Deferred();
-        stripeHelper.CreatePaymentToken(cardInfo, function(status, response) {
+        this.stripeHelper.CreatePaymentToken(cardInfo, function(status, response) {
             if (response.error) {
                 deferrred.rejectWith(this, [response.error]);
             } else {
@@ -64,7 +73,7 @@ CheckoutModalView.prototype = {
         this.hideError();
 
         var cardInfo = this.getCardInfo();
-        var errors = this.validateCard();
+        var errors = this.validateCard(cardInfo);
         
         if (errors.length > 0) {
             for (var i = 0; i < errors.length; i++) {
@@ -75,25 +84,14 @@ CheckoutModalView.prototype = {
             document.body.style.cursor = 'default';
             return;
         }
-        
+
         var promise = this.CreateToken(cardInfo);
-        promise.done(function(context, customerId) {
-            $('#payment-errors').show().html(data);
-            $(this).removeAttr('disabled').removeClass('disabled');
-            document.body.style.cursor = 'default';
-            
-
-            var congresspersons = $('.recipientSelector:checked').val();
-            var letterSlug = $('#letterslug').val();
-
-            var promise = $.post('/Account/PlaceOrder', { persons: congresspersons, letterslug: letterSlug });
-            promise.done(function(data) {
+        promise.done(function (customerId) {
+            me.UpdateToken(customerId).done(function (data) {
                 if (data.Success === true) {
-                    var order = data.Data;
-                    window.location.href = '/Account/' + order;
+                    me.PlaceOrder();
                 } else {
-                    console.log(JSON.stringify(data));
-                    //TODO: handle an r
+                    me.showError(data.Message);
                 }
             });
         });
@@ -101,6 +99,28 @@ CheckoutModalView.prototype = {
             //TODO: track this?
             me.showError(error.message);
         });
+    },
+    PlaceOrder: function () {
+        var me = this;
+        var congresspersons = $('.recipientSelector:checked');
+        var personIds = [];
+        for (var i = 0; i < congresspersons.length; i++) {
+            personIds.push(congresspersons[i].value);
+        }
+        var letterSlug = $('#letterslug').val();
+
+        var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug});
+        orderpromise.done(function(data) {
+            if (data.Success === true) {
+                var order = data.Data;
+                window.location.href = '/Account/' + order;
+            } else {
+                me.showError(data.Message);
+            }
+        });
+    },
+    UpdateToken: function (token) {
+        return $.post('/User/UpdatePaymentToken', { token: token });
     },
     showError: function (message) {
         $('#payment-errors').show().html(message);
@@ -117,6 +137,7 @@ CheckoutModalView.prototype = {
         if (recipients == 0) {
             price = 0;
         }
+        return price;
     },
     showPrice: function (price) {
         $('#checkout').html('<i class="icon-lock"></i> Checkout ($' + price.toFixed(2) + ')');
@@ -135,8 +156,8 @@ var issueLetterAuthenticated = function () {
     $(function() {
         var checkoutModal = new CheckoutModalView();
 
-        $.post('/User/GetPaymentDetails', function (data) {
-            if (data != null) {
+        $.post('/User/GetPaymentDetails').done(function (data) {
+            if (data !==false) {
                 checkoutModal.PaymentInfo = new PaymentInfo();
                 checkoutModal.PaymentInfo.Name = data.Name;
                 checkoutModal.PaymentInfo.Last4 = data.Last4;

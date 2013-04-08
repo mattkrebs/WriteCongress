@@ -8,7 +8,7 @@
     ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);    
 }
 
-
+<input type="hidden" id="letterslug" value="@Model.Letter.Slug" />
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
@@ -50,12 +50,7 @@
             <div class="well letterinfo">
                 <h4>Send this letter</h4>
                 <hr />
-                <h5>Constituent Info 
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>
-                    }
-                </h5>
+                <h5>Constituent Info @if (!User.Identity.IsAuthenticated){<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
                 <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" value="@Model.ZipCode" /><br />
                 <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" value="@Model.FirstName" />
                 <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" value="@Model.LastName" /><br />
@@ -67,9 +62,9 @@
                     states.Where(s => s.Value == Model.State).Select(i => i.Selected == true);
                 }
                 @Html.DropDownList("state",@states,new{@class="span6 zipautofill-state address",size=1,placeholder="State"})
-                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" />
-                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" /><br />
-                <button id="beInvolved" disabled="disabled" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
+                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" value="@Model.Email" />
+                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" value="@Model.PhoneNumber" /><br />
+                <button id="beInvolved" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
             </div>
         </div>
     </div>
@@ -138,10 +133,8 @@
                         address.Zip = data.Zip;
                         address.CongressionalDistrict = data.CongressionalDistrict;
                         geolocator.SaveLocation(address);
-
                         congressPersonFinder.Find(address);
-                        
-                    });             
+                    });
                 }
             });
 

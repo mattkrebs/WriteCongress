@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Stripe;
 using WriteCongress.Core;
 using WriteCongress.Web.Models;
 
@@ -16,11 +17,36 @@ namespace WriteCongress.Web.Controllers
 
         public ActionResult Index()
         {
-            
             return View();
         }
 
-        public JsonResult PlaceOrder(string[] persons,string letterslug) {
+        private List<Person> GetPersons(string personIds) {
+            var people = new List<Person>();
+            foreach (var personId in personIds.Split(',')) {
+                var person = Db.People.SingleOrDefault(p => p.OpenCongressId == personId);
+                if(person!=null) {
+                    people.Add(person);
+                }
+            }
+            return people;
+        }
+        private decimal CalculatePrice(int numberOfLetters) {
+            decimal price = 0m;
+            if (numberOfLetters >= 1) {
+                price += 1.99m;
+            }
+            if (numberOfLetters >= 2) {
+                price += (1.49m*(numberOfLetters - 1));
+            }
+            return price;
+        }
+
+        public JsonResult PlaceOrder(string persons,string letterslug) {
+            //get some pieces so we can charge
+            var people = GetPersons(persons);
+            var totalPrice = CalculatePrice(people.Count);
+            var letter = Db.Letters.Where(l => l.Slug == letterslug).Single();
+
             try {
                 var user = AuthenticatedUser;
 
@@ -28,6 +54,7 @@ namespace WriteCongress.Web.Controllers
                 o.Guid = Guid.NewGuid();
                 o.UserId = user.Id;
                 o.CreateDateUtc = DateTime.UtcNow;
+                o.StripeChargeId = o.StripeChargeId;
                 o.Ip = Request.UserHostAddress;
                 o.UserAgent = Request.UserAgent;
                 o.OrderTotal = 0; //TODO: calculate this
@@ -40,46 +67,60 @@ namespace WriteCongress.Web.Controllers
                 o.ZipCode = user.ZipCode;
                 o.PhoneNumber = user.PhoneNumber;
                 o.Email = user.Email;
+                o.OrderTotal = totalPrice;
 
                 int personsReceivingLetter = 0;
-                decimal totalPrice = 0;
-
-                var letterId = Db.Letters.Where(l => l.Slug == letterslug).Select(li => li.LetterId).Single();
-                foreach (var personId in persons) {
-                    var person = Db.People.FirstOrDefault(p => p.OpenCongressId == personId);
-                    
+                
+                foreach (var person in people) {
                     if (person != null) {
                         personsReceivingLetter++;
 
                         OrderDetail od = new OrderDetail();
                         od.Guid = Guid.NewGuid();
-                        od.Person = person;
+                        od.PersonId = person.PersonId;
                         od.CreateDateUtc = DateTime.UtcNow;
-                        od.LetterId = letterId;
+                        od.LetterId = letter.LetterId;
                         o.OrderDetails.Add(od);
-                        
-
-                        //TODO: refactor this somewhere, but it's fine for now
                         if (personsReceivingLetter == 1) {
                             od.Price = 1.99m;
-                            totalPrice += od.Price.Value;
                         }
                         else {
                             od.Price = 1.49m;
-                            totalPrice += od.Price.Value;
                         }
-
                     }
                 }
                 o.OrderTotal = totalPrice;
+                
+
+                try
+                {
+                    //try charging their card
+                    var charge = new StripeChargeCreateOptions();
+                    charge.Description = String.Format("WriteCongress.us: {0}", letter.Name);
+                    charge.CustomerId = AuthenticatedUser.StripeCustomerId;
+                    charge.AmountInCents = (int)(totalPrice * 100m);
+                    charge.Currency = "usd";
+                    var chargeService = new StripeChargeService();
+                    var chargeResult = chargeService.Create(charge);
+
+                    o.StripeChargeId = chargeResult.Id;
+                }
+                catch (Stripe.StripeException se) {
+                    var jsr = new JsonServiceResult<bool>(false);
+                    jsr.Message = se.Message;
+                    return Json(jsr);
+                }
+
+                Db.Orders.Add(o);
                 Db.SaveChanges();
                 var result = new JsonServiceResult<Guid>(o.Guid, true);
                 return Json(result);
             }
             catch (System.Exception ex) {
                 ///TODO: log this
-                var result = new JsonServiceResult<Guid>(false, "An error occured");
-                return Json(result);
+                var r = new JsonServiceResult<bool>(false);
+                r.Message = "An error occured while saving your order. Please contact support.";
+                return Json(r);
             }
         }
     }

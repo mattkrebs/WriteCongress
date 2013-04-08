@@ -111,8 +111,6 @@
                         </select>
                         <i class="icon-info-sign error hidden"></i>
                     </div>
-                    <br />
-                    <span id="payment-errors" class="alert alert-danger" style="display: none"></span>
                 </div>
             </form>
         </div>
@@ -122,7 +120,7 @@
                 <div class="control-group">
                     <label class="control-label">Send To:</label>
                     <div id="congressPersonsToSendTo"  class="controls">
-                    @*    <label id="checkout-senator-0" class="checkbox">
+                        @*    <label id="checkout-senator-0" class="checkbox">
                             <input class="recipientSelector" type="checkbox" checked="checked" value="tos">
                             <img src="https://d1f0ywl7f2vxwh.cloudfront.net/r-a7c83f6/images/photos/thumbs_50/300076-50px.jpeg?1329296647" />
                             Senator Patty Murray</label>
@@ -141,6 +139,7 @@
         </div>
     </div>
     <div class="modal-footer">
+        <span id="payment-errors" class="alert alert-danger" style="display: none"></span>
         <a href="javascript:void(0);" id="checkout" class="btn btn-success btn-xlarge">Checkout</a>
     </div>
 </div>

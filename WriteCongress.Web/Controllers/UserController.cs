@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WriteCongress.Web.Models;
 
 namespace WriteCongress.Web.Controllers
 {
@@ -47,7 +48,7 @@ namespace WriteCongress.Web.Controllers
                     return Json(new {customer.StripeCard.Last4, customer.StripeCard.Type,customer.StripeCard.Name});
                 }
             }
-            return Json(null);
+            return Json(false);
 
         }
 
@@ -61,23 +62,31 @@ namespace WriteCongress.Web.Controllers
                 customerUpdate.Description = String.Format("{0} {1}", AuthenticatedUser.FirstName, AuthenticatedUser.LastName);
                 customerUpdate.TokenId = token;
 
-                
-                service.Update(AuthenticatedUser.StripeCustomerId, customerUpdate);
+                try {
+                    service.Update(AuthenticatedUser.StripeCustomerId, customerUpdate);
+                }
+                catch (Stripe.StripeException se) {
+                    //TODO: log this;
+                    return Json(new JsonServiceResult<bool>(false, se.Message));
+                }
             }
             else {
                 var newCustomer = new Stripe.StripeCustomerCreateOptions();
                 newCustomer.Email = AuthenticatedUser.Email;
                 newCustomer.Description = String.Format("{0} {1}", AuthenticatedUser.FirstName, AuthenticatedUser.LastName);
                 newCustomer.TokenId = token;
-
-                var stripeCustomer = service.Create(newCustomer);
-                AuthenticatedUser.StripeCustomerId = stripeCustomer.Id;
-                Db.SaveChanges();
+                try {
+                    var stripeCustomer = service.Create(newCustomer);
+                    AuthenticatedUser.StripeCustomerId = stripeCustomer.Id;
+                    Db.SaveChanges();
+                }
+                catch (Stripe.StripeException se) {
+                    //TODO: log this;
+                    return Json(new JsonServiceResult<bool>(false, se.Message));
+                }
             }
-
-            return Json(true);
+            //TODO: log this;
+            return Json(new JsonServiceResult<bool>(true));
         }
-
-
     }
 }
