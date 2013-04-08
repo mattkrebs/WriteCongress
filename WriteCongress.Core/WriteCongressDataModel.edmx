@@ -14,6 +14,7 @@
           <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="OrderDetails" EntityType="WriteCongressModel.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Orders" EntityType="WriteCongressModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderStatus" EntityType="WriteCongressModel.Store.OrderStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
@@ -54,6 +55,10 @@
           <AssociationSet Name="FK_OrderDetails_Person" Association="WriteCongressModel.Store.FK_OrderDetails_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_OrderStatusId" Association="WriteCongressModel.Store.FK_Orders_OrderStatusId">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.Store.FK_Orders_User">
             <End Role="Users" EntitySet="Users" />
@@ -144,6 +149,8 @@
           <Property Name="TryPaperBatch" Type="varchar" MaxLength="30" />
           <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+          <Property Name="TryPaperRequestDateUtc" Type="datetime" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -166,6 +173,14 @@
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="varchar" MaxLength="2" />
           <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="OrderStatusId" />
+          </Key>
+          <Property Name="OrderStatusId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="CreatedDateUtc" Type="datetime" />
         </EntityType>
         <EntityType Name="PasswordResets">
           <Key>
@@ -195,6 +210,10 @@
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="Party" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="MailingAddressOne" Type="varchar" MaxLength="100" />
+          <Property Name="MailingCity" Type="varchar" MaxLength="50" />
+          <Property Name="MailingZip" Type="varchar" MaxLength="10" />
+          <Property Name="LastUpdatedDateUtc" Type="datetime" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -351,6 +370,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_OrderStatusId">
+          <End Role="OrderStatus" Type="WriteCongressModel.Store.OrderStatus" Multiplicity="1" />
+          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="OrderStatusId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="OrderStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Orders_User">
           <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
           <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="*" />
@@ -425,6 +456,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.FK_Orders_User">
             <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="OrderStatus" EntityType="WriteCongressModel.OrderStatus" />
+          <AssociationSet Name="FK_Orders_OrderStatusId" Association="WriteCongressModel.FK_Orders_OrderStatusId">
+            <End Role="OrderStatu" EntitySet="OrderStatus" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
@@ -599,6 +635,10 @@
           <Property Type="String" Name="Party" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="Person" ToRole="OrderDetail" />
+          <Property Type="String" Name="MailingAddressOne" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MailingCity" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MailingZip" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastUpdatedDateUtc" Precision="3" />
         </EntityType>
         <EntityType Name="ZipCodeDistrict">
           <Key>
@@ -624,6 +664,8 @@
           <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="OrderDetail" ToRole="Person" />
           <Property Type="Decimal" Name="Price" Precision="10" Scale="2" />
           <NavigationProperty Name="Order" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
+          <Property Type="Boolean" Name="Processed" Nullable="false" />
+          <Property Type="DateTime" Name="TryPaperRequestDateUtc" Precision="3" />
         </EntityType>
         <Association Name="BillLetter">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -676,6 +718,7 @@
           <Property Type="String" Name="ZipCode" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_Orders_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderStatus" Relationship="WriteCongressModel.FK_Orders_OrderStatusId" FromRole="Order" ToRole="OrderStatu" />
         </EntityType>
         <Association Name="FK_OrderDetails_Order">
           <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="1" />
@@ -698,6 +741,27 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="OrderStatusId" />
+          </Key>
+          <Property Type="Int32" Name="OrderStatusId" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
+          <NavigationProperty Name="Orders" Relationship="WriteCongressModel.FK_Orders_OrderStatusId" FromRole="OrderStatu" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Orders_OrderStatusId">
+          <End Type="WriteCongressModel.OrderStatus" Role="OrderStatu" Multiplicity="1" />
+          <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatu">
+              <PropertyRef Name="OrderStatusId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="OrderStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -826,6 +890,10 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="WriteCongressModel.Person">
               <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="LastUpdatedDateUtc" ColumnName="LastUpdatedDateUtc" />
+                <ScalarProperty Name="MailingZip" ColumnName="MailingZip" />
+                <ScalarProperty Name="MailingCity" ColumnName="MailingCity" />
+                <ScalarProperty Name="MailingAddressOne" ColumnName="MailingAddressOne" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Party" ColumnName="Party" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
@@ -855,6 +923,8 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="WriteCongressModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="TryPaperRequestDateUtc" ColumnName="TryPaperRequestDateUtc" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="CreateDateUtc" ColumnName="CreateDateUtc" />
                 <ScalarProperty Name="TryPaperBatch" ColumnName="TryPaperBatch" />
@@ -894,6 +964,15 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="WriteCongressModel.OrderStatus">
+              <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

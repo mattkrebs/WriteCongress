@@ -32,6 +32,10 @@ namespace WriteCongress.Core
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string Party { get; set; }
         public bool Active { get; set; }
+        public string MailingAddressOne { get; set; }
+        public string MailingCity { get; set; }
+        public string MailingZip { get; set; }
+        public Nullable<System.DateTime> LastUpdatedDateUtc { get; set; }
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

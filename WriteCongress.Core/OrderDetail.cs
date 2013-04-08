@@ -22,6 +22,8 @@ namespace WriteCongress.Core
         public string TryPaperBatch { get; set; }
         public System.DateTime CreateDateUtc { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public bool Processed { get; set; }
+        public Nullable<System.DateTime> TryPaperRequestDateUtc { get; set; }
     
         public virtual Letter Letter { get; set; }
         public virtual Person Person { get; set; }

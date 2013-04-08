@@ -39,5 +39,6 @@ namespace WriteCongress.Core
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
     }
 }

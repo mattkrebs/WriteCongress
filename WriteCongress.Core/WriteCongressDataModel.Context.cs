@@ -36,5 +36,6 @@ namespace WriteCongress.Core
         public DbSet<ZipCodeDistrict> ZipCodeDistricts { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
     }
 }

@@ -71,6 +71,9 @@
     <Compile Include="OrderDetail.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderStatus.cs">
+      <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PasswordReset.cs">
       <DependentUpon>WriteCongressDataModel.tt</DependentUpon>
     </Compile>
