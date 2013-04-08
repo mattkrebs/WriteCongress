@@ -1,114 +1,163 @@
-﻿var issueLetterAuthenticated = function() {
-    $(function() {
-        var stripeHelper = new PaymentHelper();
-        $.post('/User/GetLetterPrefill', function(user) {
-            if (user !== null) {
-                $('#email').val(user.Email);
-                $('#firstname').val(user.FirstName);
-                $('#lastname').val(user.LastName).change();
-                $('#address1').val(user.AddressOne);
-                $('#address2').val(user.AddressTwo);
-                $('#city').val(user.City);
-                $('#state').val(user.State);
-                $('#zipcode').val(user.ZipCode).change();
-                $('#phonenumber').val(user.PhoneNumber);
-                $('#beInvolved').removeAttr('disabled');
-            }
+﻿var CheckoutModalView = function () {
+    this.stripeHelper = new PaymentHelper();
+    this.PaymentInfo = null;
+    
+    $('.recipientSelector').click(function () {
+        this.showPrice(this.calculatePrice());
+    });
+};
+CheckoutModalView.prototype = {
+    Show:function() {
+        var senators = congressPersonFinder.Senators;
+        var rep = congressPersonFinder.Representative;
 
-            if (window.location.hash === "#sendletter") {
-                $('#beInvolved').click();
-            }
+        if (this.PaymentInfo != null) {
+            $('#card-name').val(this.PaymentInfo.Name);
+        }
+        $('#card-zip').val($('#zipcode').val());
 
-            $('#card-name').val($('#firstname').val() + ' ' + $('#lastname').val());
-            $('#card-zip').val($('#zipcode').val());
-            CalculateAndDisplayPrice();
+        var html = '';
+        if(senators.length==2){
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+senators[1].OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+senators[1].OpenCongressId+'-50px.jpg" /> '+ senators[1].FullNameAndTitle+'</label>';
+        }
+        if (rep != null) {
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+rep.OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+rep.OpenCongressId+'-50px.jpg" /> '+rep.FullNameAndTitle+'</label>';
+        }
+        
+        $('#congressPersonsToSendTo').html(html);
+        $('#purchaseLetter').modal();
+    },
+    UseDifferentCard:function() {
+        $('#cardOnFile').hide();
+        $('#payment-form').show();
+    },
+    getCardInfo:function() {
+          return{
+            name: $('#card-name').val(),
+            number: $('#card-number').val(),
+            cvc: $('#card-cvc').val(),
+            exp_month: $('#card-expiry-month').val(),
+            exp_year: $('#card-expiry-year').val(),
+            address_zip: $('#card-zip').val()
+        };
+    },
+    validateCard:function(cardInfo) {
+        $('i.error').addClass('hidden');
+        $('#payment-errors').hide();
+        return this.stripeHelper.ValidateCard(cardInfo);
+    },
+    CreateToken: function(cardInfo) {
+        var deferrred = new jQuery.Deferred();
+        stripeHelper.CreatePaymentToken(cardInfo, function(status, response) {
+            if (response.error) {
+                deferrred.rejectWith(this, [response.error]);
+            } else {
+                deferrred.resolveWith(this, [response.id]);
+            }
         });
+        return deferrred.promise();
+    },
+    Checkout: function () {
+        var me = this;
+
+        this.hideError();
+
+        var cardInfo = this.getCardInfo();
+        var errors = this.validateCard();
+        
+        if (errors.length > 0) {
+            for (var i = 0; i < errors.length; i++) {
+                var parent = $(errors[i].field).parent();
+                $('i', parent).show().removeClass('hidden').tooltip({ title: errors[i].message });
+            }
+            $(this).removeAttr('disabled').removeClass('disabled');
+            document.body.style.cursor = 'default';
+            return;
+        }
+        
+        var promise = this.CreateToken(cardInfo);
+        promise.done(function(context, customerId) {
+            $('#payment-errors').show().html(data);
+            $(this).removeAttr('disabled').removeClass('disabled');
+            document.body.style.cursor = 'default';
+            
+
+            var congresspersons = $('.recipientSelector:checked').val();
+            var letterSlug = $('#letterslug').val();
+
+            var promise = $.post('/Account/PlaceOrder', { persons: congresspersons, letterslug: letterSlug });
+            promise.done(function(data) {
+                if (data.Success === true) {
+                    var order = data.Data;
+                    window.location.href = '/Account/' + order;
+                } else {
+                    console.log(JSON.stringify(data));
+                    //TODO: handle an r
+                }
+            });
+        });
+        promise.fail(function (context, error) {
+            //TODO: track this?
+            me.showError(error.message);
+        });
+    },
+    showError: function (message) {
+        $('#payment-errors').show().html(message);
+    },
+    hideError:function(message) {
+        $('#payment-errors').hide().html('');
+    },
+    calculatePrice:function() {
+        var recipients = $('.recipientSelector:checked').length;
+        var price = 1.99;
+        if (recipients > 1) {
+            price += (recipients - 1) * 1.49;
+        }
+        if (recipients == 0) {
+            price = 0;
+        }
+    },
+    showPrice: function (price) {
+        $('#checkout').html('<i class="icon-lock"></i> Checkout ($' + price.toFixed(2) + ')');
+    }
+};
+
+var PaymentInfo = function () {
+    this.Name = null;
+    this.PaymentZip = null;
+    this.CardType = null;
+    this.Last4 = null;
+};
+
+
+var issueLetterAuthenticated = function () {
+    $(function() {
+        var checkoutModal = new CheckoutModalView();
 
         $.post('/User/GetPaymentDetails', function (data) {
             if (data != null) {
-                $('#payment-form').hide();
-                $('#card-on-file-name').val(data.Name);
-                $('#card-on-file-last4').val(data.Last4);
-                $('#card-on-file-img').attr('src', 'https://checkout.stripe.com/assets/cards/' + data.Type.toLowerCase() + '.png');
-                $('#cardOnFile').show();
+                checkoutModal.PaymentInfo = new PaymentInfo();
+                checkoutModal.PaymentInfo.Name = data.Name;
+                checkoutModal.PaymentInfo.Last4 = data.Last4;
+                checkoutModal.PaymentInfo.CardType = data.Type;
+            }
+            if (window.location.hash === "#sendletter") {
+                checkoutModal.Show();
             }
         });
 
         $('#beInvolved').on('click', function () {
-            var senators = congressPersonFinder.Senators;
-            var rep = congressPersonFinder.Representative;
-            var html = '';
-            if(senators.length==2){
-                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
-                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+senators[1].OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+senators[1].OpenCongressId+'-50px.jpg" /> '+ senators[1].FullNameAndTitle+'</label>';
-            }
-            if (rep != null) {
-                html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+rep.OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+rep.OpenCongressId+'-50px.jpg" /> '+rep.FullNameAndTitle+'</label>';
-            }
-            $('#congressPersonsToSendTo').html(html);
-            
-            $('.recipientSelector').click(function() {
-                CalculateAndDisplayPrice();
-            });
-                            
-            $('#purchaseLetter').modal();
+            checkoutModal.Show();
         });
 
         $('#useDifferentCard').on('click', function() {
-            $('#cardOnFile').hide();
-            $('#payment-form').show();
+            checkoutModal.UseDifferentCard();
         });
 
-        $('#checkout').on('click', function() {
-            $('i.error').addClass('hidden');
-            $('#payment-errors').hide();
-            var cardInfo = {
-                name: $('#card-name').val(),
-                number: $('#card-number').val(),
-                cvc: $('#card-cvc').val(),
-                exp_month: $('#card-expiry-month').val(),
-                exp_year: $('#card-expiry-year').val(),
-                address_zip: $('#card-zip').val()
-            };
-
-            var errors = stripeHelper.ValidateCard(cardInfo);
-            if (errors.length > 0) {
-                for (var i = 0; i < errors.length; i++) {
-                    var parent = $(errors[i].field).parent();
-                    $('i', parent).show().removeClass('hidden').tooltip({ title: errors[i].message });
-                }
-                $(this).removeAttr('disabled').removeClass('disabled');
-                document.body.style.cursor = 'default';
-            } else {
-                stripeHelper.CreatePaymentToken(cardInfo, function(status, response) {
-                    if (response.error) {
-                        $('#payment-errors').show().html(response.error.message);
-                    } else {
-                        stripeHelper.UpdateCustomerToken(response.id, function(data) {
-                            if (data === true) {
-                                alert('should process the order and queue the charge. customer has been saved');
-                            } else {
-                                $('#payment-errors').show().html(data);
-                                $(this).removeAttr('disabled').removeClass('disabled');
-                                document.body.style.cursor = 'default';
-                            }
-                        });
-                    }
-                });
-            }
+        $('#checkout').on('click', function () {
+            checkoutModal.Checkout();
         });
+
     });
 }();
-
-function CalculateAndDisplayPrice() {
-    var recipients = $('.recipientSelector:checked').length;
-    var price = 1.99;
-    if (recipients > 1) {
-        price += (recipients - 1) * 1.49;
-    }
-    if (recipients == 0) {
-        price = 0;
-    }
-
-    $('#checkout').html('<i class="icon-lock"></i> Checkout ($' + price.toFixed(2) + ')');
-}
