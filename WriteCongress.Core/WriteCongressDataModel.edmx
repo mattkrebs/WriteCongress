@@ -218,6 +218,7 @@
           <Property Name="StripeCustomerId" Type="varchar" MaxLength="50" />
           <Property Name="Ip" Type="varchar" MaxLength="15" />
           <Property Name="UserAgent" Type="varchar" MaxLength="500" />
+          <Property Name="CongressionalDistrict" Type="int" />
         </EntityType>
         <EntityType Name="ZipCodeDistricts">
           <Key>
@@ -515,6 +516,7 @@
           <Property Type="String" Name="UserAgent" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PasswordResets" Relationship="WriteCongressModel.FK_PasswordResets_Users" FromRole="User" ToRole="PasswordReset" />
           <NavigationProperty Name="Orders" Relationship="WriteCongressModel.FK_Orders_User" FromRole="User" ToRole="Order" />
+          <Property Type="Int32" Name="CongressionalDistrict" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -744,6 +746,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="WriteCongressModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CongressionalDistrict" ColumnName="CongressionalDistrict" />
                 <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
                 <ScalarProperty Name="Ip" ColumnName="Ip" />
                 <ScalarProperty Name="StripeCustomerId" ColumnName="StripeCustomerId" />

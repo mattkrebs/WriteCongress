@@ -38,6 +38,7 @@ namespace WriteCongress.Core
         public string StripeCustomerId { get; set; }
         public string Ip { get; set; }
         public string UserAgent { get; set; }
+        public Nullable<int> CongressionalDistrict { get; set; }
     
         public virtual ICollection<PasswordReset> PasswordResets { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

@@ -26,6 +26,7 @@
         $('#signup-state').val($('#state').val());
         $('#signup-zipcode').val($('#zipcode').val());
         $('#signup-phonenumber').val($('#phonenumber').val());
+        $('#signup-congressionaldistrict').va('-1'); //TODO: get this from the geo-located
         
         validateEmail();
         $('#createAccount').modal();

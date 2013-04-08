@@ -142,12 +142,12 @@ namespace WriteCongress.Web.Controllers
     
 
         [HttpPost]
-        public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string redirect) {
+        public ActionResult CreateAccount(string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string password,string congressionalDistrict,string redirect) {
             if (Db.Users.Any(u => u.Email == email)) {
                 return Redirect(redirect ?? Request.UrlReferrer.ToString());
             }
         
-            WriteCongress.Core.User newUser = new User();
+            var newUser = new User();
             newUser.Identity = CryptoHelper.GenerateRandomString(64);
             newUser.CreatedDateUtc = DateTime.UtcNow;
             newUser.Email = email.Trim();
@@ -160,6 +160,13 @@ namespace WriteCongress.Web.Controllers
             newUser.ZipCode = zipcode.Trim();
             newUser.Ip = Request.UserHostAddress.Left(15);
             newUser.UserAgent = Request.UserAgent.Left(500);
+
+            newUser.CongressionalDistrict = -1;
+            int districtNumber = -1;
+            if(int.TryParse(congressionalDistrict,out districtNumber))
+            {
+                newUser.CongressionalDistrict = districtNumber;
+            }
 
             var salt = CryptoHelper.GenerateRandomString();
             newUser.Salt = salt;
