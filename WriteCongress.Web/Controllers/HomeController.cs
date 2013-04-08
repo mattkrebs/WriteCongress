@@ -47,6 +47,12 @@ namespace WriteCongress.Web.Controllers
         {
             return View();
         }
+        public ActionResult Privacy() {
+            return View();
+        }
+        public ActionResult TOS() {
+            return View();
+        }
 
     }
 }

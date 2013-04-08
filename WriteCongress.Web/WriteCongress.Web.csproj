@@ -283,6 +283,8 @@
     <Content Include="Views\Print\PrintView.cshtml" />
     <Content Include="Scripts\site.Geolocator.js" />
     <Content Include="Scripts\plugins\jquery.payment.js" />
+    <Content Include="Views\Home\Privacy.cshtml" />
+    <Content Include="Views\Home\TOS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
