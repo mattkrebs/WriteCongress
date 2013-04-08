@@ -1,7 +1,21 @@
 ﻿var CheckoutModalView = function () {
+    var me = this;
     this.stripeHelper = new PaymentHelper();
     this.PaymentInfo = null;
     $('#card-number').payment('formatCardNumber');
+
+    $('#beInvolved').on('click', function () {
+        me.Show();
+    });
+
+    $('#useDifferentCard').on('click', function () {
+        me.UseDifferentCard();
+    });
+
+    $('#checkout').on('click', function () {
+        $(this).attr('disabled', 'disabled');
+        me.Checkout();
+    });
 };
 CheckoutModalView.prototype = {
     Show: function () {
@@ -19,30 +33,30 @@ CheckoutModalView.prototype = {
         }
 
         var html = '';
-        if(senators.length==2){
+        if (senators.length == 2) {
             html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
-            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+senators[1].OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+senators[1].OpenCongressId+'-50px.jpg" /> '+ senators[1].FullNameAndTitle+'</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[1].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[1].OpenCongressId + '-50px.jpg" /> ' + senators[1].FullNameAndTitle + '</label>';
         }
         if (rep != null) {
-            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="'+rep.OpenCongressId+'"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/'+rep.OpenCongressId+'-50px.jpg" /> '+rep.FullNameAndTitle+'</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + rep.OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + rep.OpenCongressId + '-50px.jpg" /> ' + rep.FullNameAndTitle + '</label>';
         }
-        
+
         $('#congressPersonsToSendTo').html(html);
 
         this.showPrice(this.calculatePrice());
-        
+
         $('.recipientSelector').click(function () {
             me.showPrice(me.calculatePrice());
         });
-        
+
         $('#purchaseLetter').modal();
     },
-    UseDifferentCard:function() {
+    UseDifferentCard: function () {
         $('#cardOnFile').hide();
         $('#payment-form').show();
     },
-    getCardInfo:function() {
-          return{
+    getCardInfo: function () {
+        return {
             name: $('#card-name').val(),
             number: $('#card-number').val(),
             cvc: $('#card-cvc').val(),
@@ -51,14 +65,14 @@ CheckoutModalView.prototype = {
             address_zip: $('#card-zip').val()
         };
     },
-    validateCard:function(cardInfo) {
+    validateCard: function (cardInfo) {
         $('i.error').addClass('hidden');
         $('#payment-errors').hide();
         return this.stripeHelper.ValidateCard(cardInfo);
     },
-    CreateToken: function(cardInfo) {
+    CreateToken: function (cardInfo) {
         var deferrred = new jQuery.Deferred();
-        this.stripeHelper.CreatePaymentToken(cardInfo, function(status, response) {
+        this.stripeHelper.CreatePaymentToken(cardInfo, function (status, response) {
             if (response.error) {
                 deferrred.rejectWith(this, [response.error]);
             } else {
@@ -74,7 +88,7 @@ CheckoutModalView.prototype = {
 
         var cardInfo = this.getCardInfo();
         var errors = this.validateCard(cardInfo);
-        
+
         if (errors.length > 0) {
             for (var i = 0; i < errors.length; i++) {
                 var parent = $(errors[i].field).parent();
@@ -109,8 +123,8 @@ CheckoutModalView.prototype = {
         }
         var letterSlug = $('#letterslug').val();
 
-        var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug});
-        orderpromise.done(function(data) {
+        var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug });
+        orderpromise.done(function (data) {
             if (data.Success === true) {
                 var order = data.Data;
                 window.location.href = '/Account/' + order;
@@ -124,11 +138,12 @@ CheckoutModalView.prototype = {
     },
     showError: function (message) {
         $('#payment-errors').show().html(message);
+        $('#checkout').removeAttr('disabled');
     },
-    hideError:function(message) {
+    hideError: function (message) {
         $('#payment-errors').hide().html('');
     },
-    calculatePrice:function() {
+    calculatePrice: function () {
         var recipients = $('.recipientSelector:checked').length;
         var price = 1.99;
         if (recipients > 1) {
@@ -153,11 +168,10 @@ var PaymentInfo = function () {
 
 
 var issueLetterAuthenticated = function () {
-    $(function() {
+    $(function () {
         var checkoutModal = new CheckoutModalView();
-
         $.post('/User/GetPaymentDetails').done(function (data) {
-            if (data !==false) {
+            if (data !== false) {
                 checkoutModal.PaymentInfo = new PaymentInfo();
                 checkoutModal.PaymentInfo.Name = data.Name;
                 checkoutModal.PaymentInfo.Last4 = data.Last4;
@@ -167,18 +181,5 @@ var issueLetterAuthenticated = function () {
                 checkoutModal.Show();
             }
         });
-
-        $('#beInvolved').on('click', function () {
-            checkoutModal.Show();
-        });
-
-        $('#useDifferentCard').on('click', function() {
-            checkoutModal.UseDifferentCard();
-        });
-
-        $('#checkout').on('click', function () {
-            checkoutModal.Checkout();
-        });
-
     });
 }();
