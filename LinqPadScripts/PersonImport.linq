@@ -12,6 +12,7 @@
   </Connection>
 </Query>
 
+//takes about 45-60 seconds
 var wc = new System.Net.WebClient();
 var xml = wc.DownloadString("http://www.govtrack.us/data/us/113/people.xml");
 
@@ -28,13 +29,21 @@ var persons = (from p in doc.Descendants("person")
 					District = (string)p.Attribute("district"),					
 					Address = (string)(p.Descendants("role").OrderByDescending (o => DateTime.Parse((string)o.Attribute("startdate"))).FirstOrDefault().Attribute("address")),
 					Party = (string)(p.Descendants("role").OrderByDescending (o => DateTime.Parse((string)o.Attribute("startdate"))).FirstOrDefault().Attribute("party")),
-				}).ToList();
-				
-				persons.Dump();
-foreach(var person in persons){
+				}).ToList();				
+persons.Dump();
+
+var zipcodeMatch = new System.Text.RegularExpressions.Regex(@"\d{5}(?:[-\s]\d{4})?");
+
+foreach(var person in persons){	
+	bool alreadyExists = true;
+	//look this person up based on the open congress id
+	var p = Persons.Where (pe =>pe.OpenCongressId==person.Id ).FirstOrDefault();
+	if(p==null){
+	 p = new Person();
+	 p.OpenCongressId = person.Id;
+	 alreadyExists = false;
+	}
 	
-	var p = new Person();
-	p.OpenCongressId = person.Id;
 	p.FirstName = person.FirstName;
 	p.LastName = person.LastName;
 	p.FullNameAndTitle = person.FullNameAndTitle;
@@ -52,13 +61,21 @@ foreach(var person in persons){
 		p.District = district;
 	}
 	p.Session = 113;
+	p.Party = person.Party;
 	
 	p.Address = person.Address;
-	p.Party = person.Party;
-	Persons.InsertOnSubmit(p);
+	if(p.Address!=null && p.Address.IndexOf("Washington DC",StringComparison.OrdinalIgnoreCase)>-1){
+		p.MailingAddressOne = p.Address.Substring(0,p.Address.IndexOf("Washington",StringComparison.OrdinalIgnoreCase)).Replace(";",String.Empty).ToUpper();
+		p.MailingCity = "WASHINGTON";
+		p.MailingState = "DC";
+		p.MailingZip = zipcodeMatch.Match(p.Address).Value;
+	}
+	
+	if(!alreadyExists){
+		//this was a new one
+		Persons.InsertOnSubmit(p);
+	}
+	p.LastUpdatedDateUtc = DateTime.UtcNow;
 }
 SubmitChanges();
 Console.WriteLine("done");
-				
-				
-				
