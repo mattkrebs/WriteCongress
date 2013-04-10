@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WriteCongress.Core.User
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
@@ -16,25 +17,30 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Letter</th>
+                                <th>Date</th>
                                 <th>Count</th>
                                 <th>Status</th>
-                                <th>Price</th>
+                                <th>Total</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tr class="success">
-                            <td><b>Gun Control</b>- Guns are sweet</td>
-                            <td>3</td>
-                            <td>Sent</td>
-                            <td>$4.95</td>
-                        </tr>
-
-                        <tr class="warning">
-                            <td><b>Education</b>- Mo-money for the childern</td>
-                            <td>3</td>
-                            <td>Printing</td>
-                            <td>$4.95</td>
-                        </tr>
+                        @if (Model.Orders.Count > 0){
+                            foreach (var order in Model.Orders )
+                            {                            
+                                <tr class="@order.OrderStatus.Name">
+                                    <td>@order.CreateDateUtc</td>
+                                    <td>@order.OrderDetails.Count</td>
+                                    <td>@order.OrderStatus.Name</td>
+                                    <td>$@order.OrderTotal</td>
+                                    <td><a href="#">PDF</a></td>
+                                </tr>    
+                            }
+                             
+                        }else{
+                         <tr class="success">
+                                <td colspan="5">No Orders</td>
+                            </tr>  
+                        }
                     </table>
                 </div>
                 @if(User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null){
@@ -57,7 +63,6 @@
                                 <dd>@user.ZipCode</dd>
                                 <dt>Newsletter</dt>
                                 <dd>@Html.CheckBox("newsletter")</dd>
-
                             </dl>
                         </div>
                         <div class="span5">

@@ -17,8 +17,13 @@ namespace WriteCongress.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            //User user = AuthenticatedUser.Orders
+
+            return View(AuthenticatedUser);
         }
+
+      
+
 
         private List<Person> GetPersons(string personIds) {
             var people = new List<Person>();
