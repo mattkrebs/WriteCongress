@@ -36,6 +36,7 @@ namespace WriteCongress.Core
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public string Note { get; set; }
     
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual User User { get; set; }

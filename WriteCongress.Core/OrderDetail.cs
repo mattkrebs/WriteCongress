@@ -24,6 +24,7 @@ namespace WriteCongress.Core
         public Nullable<decimal> Price { get; set; }
         public bool Processed { get; set; }
         public Nullable<System.DateTime> TryPaperRequestDateUtc { get; set; }
+        public string Note { get; set; }
     
         public virtual Letter Letter { get; set; }
         public virtual Person Person { get; set; }

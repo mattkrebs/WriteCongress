@@ -151,6 +151,7 @@
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Processed" Type="bit" Nullable="false" />
           <Property Name="TryPaperRequestDateUtc" Type="datetime" />
+          <Property Name="Note" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -173,6 +174,7 @@
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="varchar" MaxLength="2" />
           <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="Note" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -668,6 +670,7 @@
           <NavigationProperty Name="Order" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
           <Property Type="Boolean" Name="Processed" Nullable="false" />
           <Property Type="DateTime" Name="TryPaperRequestDateUtc" Precision="3" />
+          <Property Type="String" Name="Note" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="BillLetter">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -721,6 +724,7 @@
           <NavigationProperty Name="OrderDetails" Relationship="WriteCongressModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="User" Relationship="WriteCongressModel.FK_Orders_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderStatus" Relationship="WriteCongressModel.FK_Orders_OrderStatusId" FromRole="Order" ToRole="OrderStatu" />
+          <Property Type="String" Name="Note" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_OrderDetails_Order">
           <End Type="WriteCongressModel.Order" Role="Order" Multiplicity="1" />
@@ -927,6 +931,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="WriteCongressModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="TryPaperRequestDateUtc" ColumnName="TryPaperRequestDateUtc" />
                 <ScalarProperty Name="Processed" ColumnName="Processed" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -951,6 +956,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="WriteCongressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />

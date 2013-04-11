@@ -21,50 +21,88 @@ namespace WriteCongress.Test
         [TestMethod]
         public void SendJobToTryPaper()
         {
-            string key = System.Configuration.ConfigurationManager.AppSettings["TryPaperKey"];
-            string personName = "";
-            string printUrl = "";
-            WriteCongressConnection db = new WriteCongressConnection();
-            Guid id = new Guid("51F3DCE4-D1A4-4EF8-8D85-7AE19A4BA911");
-
-            var lineItem = db.OrderDetails.Where(x => x.Guid == id).FirstOrDefault();
-            var order = lineItem.Order;
-            var person = lineItem.Person;
-
-            if (person.Title.ToLower().Contains("sen"))
+            try
             {
-                personName = FormatHelper.FormatSenatorName(person.FirstName ?? "", person.LastName ?? "");
+                WriteCongressConnection db = new WriteCongressConnection();
+                //create new user
+                User userItem = new User();
+
+                userItem.FirstName = "Test";
+                userItem.LastName = "User";
+                userItem.Email = "test@writecongress.us";
+                userItem.Identity = CryptoHelper.GenerateRandomString(64);
+
+                userItem.AddressOne = "6628 Kingsview Lane N";
+                userItem.City = "Maple Grove";
+                userItem.State = "MN";
+                userItem.ZipCode = "55311";
+
+                db.Users.Add(userItem);
+                //db.SaveChanges();
+
+                //create new order
+
+                Order order = new Order();
+
+                order.OrderStatusId = 1;
+                order.State = userItem.State;
+                order.AddressLineOne = userItem.AddressOne;
+                order.ZipCode = userItem.ZipCode;
+                order.Name = String.Format("{0} {1}", userItem.FirstName, userItem.LastName);
+                order.Email = userItem.Email;
+                order.Guid = Guid.NewGuid();
+                order.User = userItem;
+                order.City = userItem.City;
+                order.CreateDateUtc = DateTime.UtcNow;
+                order.Ip = "127.0.0.1";
+                db.Orders.Add(order);
+
+
+                int[] persons = new int[] { 303, 293, 364 };
+                Decimal[] price = new Decimal[] { 1.99m, 1.49m, 1.49m };
+
+                for (int i = 0; i < persons.Length; i++)
+                {
+                    OrderDetail od = new OrderDetail();
+                    int id = persons[i];
+                    var peep = db.People.Where(x => x.PersonId == id).FirstOrDefault();
+
+                    od.Person = peep;
+                    od.Price = price[i];
+                    od.Order = order;
+                    od.LetterId = 3;
+                    od.Guid = Guid.NewGuid();
+                    od.CreateDateUtc = DateTime.UtcNow;
+                    db.OrderDetails.Add(od);
+
+                }
+
+                db.SaveChanges();
+
+
+                //call try paper
+                TryPaperHelper.SendOrderToTryPaper(order);
+
+
+
+
+                //cleanup
+                //foreach (var od in order.OrderDetails)
+                //{
+                  //  db.OrderDetails.Remove(od);
+               // }
+                db.Orders.Remove(order);
+                db.Users.Remove(userItem);
+                db.SaveChanges();
+
+                Assert.IsTrue(true);
             }
-            if (person.Title.ToLower().Contains("rep"))
+            catch (Exception ex)
             {
-                personName = FormatHelper.FormatRepName(person.FirstName ?? "", person.LastName ?? "");
+                Assert.IsTrue(false);
             }
 
-            printUrl = "https://www.writecongress.us/";
-
-
-            TryPaperClient client = new TryPaperClient(key);
-            var batch = new Batch() { Id = "Test - Batch" + Guid.NewGuid().ToString() };
-            var batchResponse = client.AddBatch(batch);
-
-            Mailing m = new Mailing();
-            m.Id = Guid.NewGuid().ToString();
-
-            //set up the recipient
-            m.Recipient = new Address()
-            {
-                Name = personName,
-                AddressLineOne = person.MailingAddressOne,
-                City = person.MailingCity,
-                Province = person.MailingState,
-                PostalCode = person.MailingZip
-            };
-            //m.Content = Content.FromUrl(
-            m.ReturnAddressId = "CorporateHQ";
-            //m.Batch = "Feb 2013 Invoices";
-
-
-            Assert.IsTrue(true);
+            
 
         }
 
