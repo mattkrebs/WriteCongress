@@ -21,11 +21,11 @@ namespace WriteCongress.Web.Controllers
             return View(AuthenticatedUser);
         }
 
-        public ActionResult Index(Guid Id)
+        public ActionResult OrderDetail(string orderId)
         {
-            var order = Db.Orders.Find(Id);
-
-            return View("OrderDetail", order);
+            Guid id = Guid.Parse(orderId);
+            var order = Db.Orders.Where(o => o.Guid == id).FirstOrDefault();
+            return View(order);
         }
 
         //Show Order status and Description

@@ -183,3 +183,12 @@ ul.thumbnails li.span12 + li {
   margin-left : 0px;
 }
 
+ul.statuses .well
+{
+    color:#e2e2e2;
+}
+ul.statuses .well:hover
+{
+    color:#494848;
+}
+

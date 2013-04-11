@@ -1,11 +1,64 @@
-﻿@model WriteCongress.Core.User
+﻿@model WriteCongress.Core.Order
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
 <div class="container-fluid">
+    
     <div class="row-fluid">
-      
+
+
+        <div class="span5">
+            <h3>Order Detail</h3>
+            <h4>Order Date: <small>@Model.CreateDateUtc</small></h4>
+            @foreach (var od in Model.OrderDetails)
+            {
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="img-polaroid" src="https://writecongress.blob.core.windows.net/congress-photos/@od.Person.OpenCongressId-50px.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading">@od.Person.FullNameAndTitle</h5> 
+                        <h5 class="media-heading">Price:  <small>@od.Price</small></h5>  
+                        <h5 class="media-heading"><i class="icon-download"></i> <a href="#">Download PDF</a></h5>                       
+                                             
+                    </div>
+                </div>
+            }
+            <h4>Total: <small>$@Model.OrderTotal</small></h4>
+        </div>
+        <div class="span7">
+            <h3>Order Status</h3>
+            <ul class="statuses unstyled">
+                <li>
+                    <div id="status-1" class="alert alert-success">
+                        <h3>Paid & Processing</h3>
+                        <p>We here at WriteCongress.us are currently in the process of sending your personalized letter to our printing facility.</p>
+                    </div>
+                </li>
+                <li>
+                    <div id="status-2" class="well">
+                        <h3>Printing & Mailing</h3>
+                        <p>Are printers are hard at work getting your letter printed, folded, and mailed.</p>
+                    </div>
+                </li>
+                <li>
+                    <div id="status-3" class="well">
+                        <h3>Sent</h3>
+                        <p>Your Letter(s) have been printed, stamped and mailed.</p>
+                    </div>
+                </li>
+                <li>
+                    <div id="status-4" class="well">
+                        <h3>Complete</h3>
+                        <p>By this time, your letter has made it to its destination and is on the desk of your representitve.</p>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+
     </div>
 </div>
 
