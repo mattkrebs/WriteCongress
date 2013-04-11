@@ -181,6 +181,7 @@
           <Property Name="OrderStatusId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="CreatedDateUtc" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="PasswordResets">
           <Key>
@@ -753,6 +754,7 @@
           <Property Type="String" Name="Name" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreatedDateUtc" Precision="3" />
           <NavigationProperty Name="Orders" Relationship="WriteCongressModel.FK_Orders_OrderStatusId" FromRole="OrderStatu" ToRole="Order" />
+          <Property Type="String" Name="Description" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Orders_OrderStatusId">
           <End Type="WriteCongressModel.OrderStatus" Role="OrderStatu" Multiplicity="1" />
@@ -972,6 +974,7 @@
           <EntitySetMapping Name="OrderStatus">
             <EntityTypeMapping TypeName="WriteCongressModel.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedDateUtc" ColumnName="CreatedDateUtc" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
