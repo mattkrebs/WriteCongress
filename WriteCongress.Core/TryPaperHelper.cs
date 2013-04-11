@@ -12,10 +12,12 @@ namespace WriteCongress.Core
 
         public static void SendOrderToTryPaper(Order order)
         {
-            SendOrderToTryPaper(order, "https://www.writecongress.us/print/printview");
+            SendOrderToTryPaper(order,"https://www.writecongress.us/print/printview");
         }
         public static void SendOrderToTryPaper(Order order, string printViewEndPoint)
         {
+            WriteCongressConnection db = new WriteCongressConnection();
+
 
             string key = System.Configuration.ConfigurationManager.AppSettings["TryPaperKey"];
             string printUrl = "";
@@ -56,18 +58,31 @@ namespace WriteCongress.Core
                         {
                             add.AddressLineTwo = order.AddressLineTwo;
                         }
-                        ReturnAddress retAddress = new ReturnAddress();
-                        retAddress.Address = add;
-                        retAddress.Id = batchAddressId;
-                        var addAddressResponse = client.AddReturnAddress(retAddress);
+
+
+                        var addAddressResponse = client.GetReturnAddress(batchAddressId);
+
+                        if (addAddressResponse.Result == null)
+                        {
+                            ReturnAddress retAddress = new ReturnAddress();
+                            retAddress.Address = add;
+                            retAddress.Id = batchAddressId;
+                            addAddressResponse = client.AddReturnAddress(retAddress);
+                        }
 
                         if (addAddressResponse.Success)
                         {
                             foreach (var lineItem in order.OrderDetails)
                             {
                                 string personName = "";
-                                var person = lineItem.Person;
+                                Person person = new Person();
 
+                                //look up person
+                                
+                                person = db.People.Where(x => x.PersonId == lineItem.PersonId).FirstOrDefault();
+
+                                ///TODO: handle null perosn
+                                
                                 if (person.Title.ToLower().Contains("sen"))
                                 {
                                     personName = FormatHelper.FormatSenatorName(person.FirstName ?? "", person.LastName ?? "");
@@ -120,6 +135,7 @@ namespace WriteCongress.Core
                 catch (System.Exception ex)
                 {
                     order.Note = ex.Message + "::" + ex.Source + "::" + ex.StackTrace.ToString();
+                    throw;
                 }
             }
         }

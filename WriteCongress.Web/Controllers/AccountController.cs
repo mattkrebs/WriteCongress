@@ -124,6 +124,24 @@ namespace WriteCongress.Web.Controllers
                     return Json(jsr);
                 }
 
+
+                //send order to trypaper if CC succesfull
+
+                if (!string.IsNullOrEmpty(o.StripeChargeId))
+                {
+                    try
+                    {
+                        //TryPaperHelper.SendOrderToTryPaper(o);
+                        //o.OrderStatusId = 2;
+                    }
+                    catch (Exception ex)
+                    {
+                        ///TODO: log/handle error
+                        ///Will appear to user as successful order
+                        ///Will need to dig into why TryPaper request did not work
+                    }
+                }
+
                 Db.Orders.Add(o);
                 Db.SaveChanges();
                 var result = new JsonServiceResult<Guid>(o.Guid, true);
