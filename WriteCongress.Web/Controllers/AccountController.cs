@@ -18,12 +18,20 @@ namespace WriteCongress.Web.Controllers
         public ActionResult Index()
         {
             //User user = AuthenticatedUser.Orders
-
             return View(AuthenticatedUser);
         }
 
-      
+        public ActionResult Index(Guid Id)
+        {
+            var order = Db.Orders.Find(Id);
 
+            return View("OrderDetail", order);
+        }
+
+        //Show Order status and Description
+        //Who it was sent to with pictures
+        //PDF Link, Tab for each one?
+        //
 
         private List<Person> GetPersons(string personIds) {
             var people = new List<Person>();
