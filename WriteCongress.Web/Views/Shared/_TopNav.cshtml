@@ -9,7 +9,7 @@
                       <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i> Sign In</a></li>
                   }
                   else {
-                      <li><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
+                      <li  class="@(Request.Url.AbsolutePath.ToLower().Contains("account") ? "active" : "")"><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName @ViewBag.AuthenticatedUser.LastName</a></li>
                       <li><a href="/Authentication/Signout"><i class="icon-signout"></i> Logout</a></li>
                   }
               </ul>
