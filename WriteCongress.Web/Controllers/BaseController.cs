@@ -4,12 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using NLog;
 using WriteCongress.Core;
 
 namespace WriteCongress.Web.Controllers
 {
-    public class BaseController : Controller
-    {
+    public class BaseController : Controller {
+        private Logger _logger;
+        public Logger Logger
+        {
+            get
+            {
+                if (_logger == null)
+                {
+                    _logger = LogManager.GetCurrentClassLogger();
+                }
+                return _logger;
+            }
+        }
+
         private WriteCongressConnection _db;
         public WriteCongress.Core.WriteCongressConnection Db
         {

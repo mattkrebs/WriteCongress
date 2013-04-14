@@ -134,9 +134,9 @@ namespace WriteCongress.Web.Controllers
                         //TryPaperHelper.SendOrderToTryPaper(o);
                         //o.OrderStatusId = 2;
                     }
-                    catch (Exception ex)
-                    {
-                        ///TODO: log/handle error
+                    catch (Exception ex) {
+                        Logger.FatalException("error while sending to trypaper", ex);
+                        //TODO: do something with this?
                         ///Will appear to user as successful order
                         ///Will need to dig into why TryPaper request did not work
                     }
@@ -148,7 +148,7 @@ namespace WriteCongress.Web.Controllers
                 return Json(result);
             }
             catch (System.Exception ex) {
-                ///TODO: log this
+                Logger.FatalException("error while saving an order", ex);
                 var r = new JsonServiceResult<bool>(false);
                 r.Message = "An error occured while saving your order. Please contact support.";
                 return Json(r);

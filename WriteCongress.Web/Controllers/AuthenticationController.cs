@@ -26,6 +26,7 @@ namespace WriteCongress.Web.Controllers
         
         [HttpPost]
         public ActionResult CheckEmailAddress(string email) {
+            Logger.Info("check email: {0}", email);
             if (Db.Users.Any(u => u.Email == email)) {
                 return Json(new JsonServiceResult<bool>(true) {Data = true, Message = "Email already exists."});
             }else {
@@ -45,6 +46,7 @@ namespace WriteCongress.Web.Controllers
                 return Json(new JsonServiceResult<string>(true){Data = ma.Address});
             }
             catch {
+                Logger.Trace("validate email: invalid {0}", email);
                 return Json(new JsonServiceResult<bool>(false));
             }
         }
@@ -59,13 +61,16 @@ namespace WriteCongress.Web.Controllers
                     user.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays", StringEncodingFormat.Base64).Left(128);
                     FormsAuthentication.SetAuthCookie(user.SessionId, true);
                     Db.SaveChanges();
+                    Logger.Info("login: successfull login for userid: {0}", user.Id);
                     return Redirect(redirect ?? Request.UrlReferrer.ToString());
                 }
                 else {
+                    Logger.Warn("login: password didn't match for userid: {0}", user.Id);
                     return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
                 }
             }
             else {
+                Logger.Warn("login: couldn't find user for email: {1}", email);
                 return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
             }
         
@@ -80,6 +85,7 @@ namespace WriteCongress.Web.Controllers
             email = email.Trim();
             var user = Db.Users.FirstOrDefault(u => u.Email == email);
             if (user == null) {
+                Logger.Error("password reset: couldn't find a user with email: {0}", email);
                 return Json(false, JsonRequestBehavior.DenyGet);
             }
             else {
@@ -92,8 +98,13 @@ namespace WriteCongress.Web.Controllers
                 Db.PasswordResets.Add(r);
                 Db.SaveChanges();
 
-                EmailManager em = new EmailManager();
-                em.SendMessage(user.Email, EmailManager.Support, "Password Reset - WriteCongress.us", this.RenderPartialViewToString("~/Views/Email/PasswordReset.cshtml",r));
+                try {
+                    EmailManager em = new EmailManager();
+                    em.SendMessage(user.Email, EmailManager.Support, "Password Reset - WriteCongress.us", this.RenderPartialViewToString("~/Views/Email/PasswordReset.cshtml", r));
+                }
+                catch (System.Exception ex) {
+                    Logger.FatalException(String.Format("password reset: couldn't send an email. user:{0}", user.Email), ex);
+                }
 
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -104,7 +115,7 @@ namespace WriteCongress.Web.Controllers
             var dayAgo = DateTime.UtcNow.AddHours(-24);
             var passwordReset = Db.PasswordResets.FirstOrDefault(r => r.Guid == token && r.UserHostAddress == Request.UserHostAddress && r.DateUsed==null && r.DateRequestedUtc>=dayAgo);
             if (passwordReset == null) {
-                //TODO: log this?
+                Logger.Warn("password reset: request of {0} was not found or was expired/used previously", token);
                 return View("InvalidPasswordResetToken");
             }
             else {
@@ -121,7 +132,8 @@ namespace WriteCongress.Web.Controllers
             }
             else {
                 if (!passwordReset.User.Email.Equals(email.Trim(), StringComparison.OrdinalIgnoreCase)) {
-                    //TODO: should log this and probably give them a message, but its low priority and i don't want to handle it at the moment
+                    Logger.Error("password reset: valid token but email entered didn't match account. user:{0}, entered:{1}",passwordReset.User.Email,email);
+                    //TODO: should probably give them a message, but its low priority and i don't want to handle it at the moment
                     return View("InvalidPasswordResetToken");
                 }
                 else {
@@ -186,9 +198,10 @@ namespace WriteCongress.Web.Controllers
             try {
                 EmailManager em = new EmailManager();
                 em.SendMessage(newUser.Email, EmailManager.Support, "Get involved - WriteCongress.us", this.RenderPartialViewToString("~/Views/Email/SignupConfirm.cshtml", newUser));
+                Logger.Trace("create user: created {0}", newUser.Email);
             }
             catch (System.Exception ex) {
-                //TODO: log this but don't prevent them from logging in
+                Logger.Error("create user: unable to send a welcome email to {0}", newUser.Email);
             }
             
 

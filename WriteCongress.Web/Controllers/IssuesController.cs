@@ -10,17 +10,16 @@ namespace WriteCongress.Web.Controllers
 {
     public class IssuesController : BaseController
     {
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             var issues = Db.Issues;
             return View(issues.Where(x => x.Active == true).ToList());
         }
         public ActionResult Details(string slug) {
             var issue = Db.Issues.SingleOrDefault(i => i.Slug == slug);
             
-            if (issue == null)
-            {
-                return View("CreateIssue");//TODO: create a view to let people create an issue?
+            if (issue == null) {
+                Logger.Warn("unknown issue slug: {0}", slug);
+                return View("CreateIssue");
             }
 
             ViewBag.Letters = issue.IssueLetters.Select(l => l.Letter).ToList();
@@ -31,6 +30,7 @@ namespace WriteCongress.Web.Controllers
             
             var letter = Db.IssueLetters.Where(il => il.Issue.Slug == issueSlug && il.Letter.Slug == letterSlug).Select(l => l.Letter).SingleOrDefault();
             if (letter == null) {
+                Logger.Warn("no issue letter found. issue:{0}, letter:", issueSlug,letterSlug);
                 return RedirectToAction("Index", new {slug = issueSlug});
             }
 

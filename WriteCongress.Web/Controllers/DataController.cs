@@ -52,6 +52,7 @@ namespace WriteCongress.Web.Controllers
 
         [HttpPost]
         public JsonResult NormalizedAddress(string address1,string address2, string city, string state, string zip) {
+            Logger.Info("normalizing address: {0} {1}", address1, zip);
             var client = new SmartyStreetClient();
             var recipient = new Recipient() {
                 AddressLineOne = address1,
@@ -79,9 +80,8 @@ namespace WriteCongress.Web.Controllers
         public JsonResult ZipCodeInfo(string zipcode)
         {
             var result = Db.ZipCodes.FirstOrDefault(z => z.PostalCode == zipcode);
-            if (result == null)
-            {
-                //TODO: log this
+            if (result == null) {
+                Logger.Info("zipcode lookup yielded no results. zip:{0}", zipcode);
                 return Json(null, JsonRequestBehavior.DenyGet);
             }
             else

@@ -66,7 +66,7 @@ namespace WriteCongress.Web.Controllers
                     service.Update(AuthenticatedUser.StripeCustomerId, customerUpdate);
                 }
                 catch (Stripe.StripeException se) {
-                    //TODO: log this;
+                    Logger.ErrorException(String.Format("updating a payment token failed. user:{0}", AuthenticatedUser.Email), se);
                     return Json(new JsonServiceResult<bool>(false, se.Message));
                 }
             }
@@ -81,11 +81,11 @@ namespace WriteCongress.Web.Controllers
                     Db.SaveChanges();
                 }
                 catch (Stripe.StripeException se) {
-                    //TODO: log this;
+                    Logger.ErrorException(String.Format("creating a payment token failed. user:{0}", AuthenticatedUser.Email), se);
                     return Json(new JsonServiceResult<bool>(false, se.Message));
                 }
             }
-            //TODO: log this;
+            Logger.Trace("updated a payment token. user:{0}", AuthenticatedUser.Email);
             return Json(new JsonServiceResult<bool>(true));
         }
     }
