@@ -1,56 +1,52 @@
 ﻿@using WriteCongress.Core
 @using WriteCongress.Web.Models
 @model WriteCongress.Web.Models.IssueLetterViewModel
-@section head{
-    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-}
-@{
-    ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);    
-}
-
+@section head{<link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>}
+@{ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);}
 <input type="hidden" id="letterslug" value="@Model.Letter.Slug" />
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
             <h1>@Model.Letter.Name</h1>
             <h2><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></h2>
-            <div>
-                <p>
-                    @Model.Letter.Description
-                </p>
-            </div>
+            <p>
+                @Model.Letter.Description
+            </p>
+
             <div class="letter">
-                <div class="letter-head">
-                <span id="date">@DateTime.Now.ToString("MMMM d, yyyy")</span><br /><br />
-                <span id="name">@Model.FirstName @Model.LastName</span><br />
-                    <span id="address">
-                        @Model.Address1<br />
-                        @if (!String.IsNullOrWhiteSpace(Model.Address2)) {
-                            @Model.Address2<br />
+                <div class="letter-header">
+                    <div id="letter-date">@DateTime.Now.ToString("MMMM d, yyyy")</div>
+                    <div class="livepreview" data-empty="[Fill Name on Right]" id="letter-name">@Model.FirstName @Model.LastName</div>
+                    <div class="livepreview" id="letter-address" data-empty="[Fill Address on Right]">@Model.Address1
+                        @if (!String.IsNullOrWhiteSpace(Model.Address2))
+                        {
+                                <br />@Model.Address2
                         }
-                    </span>
-                <span id="city-state-zip">@Model.City @Model.State @Model.ZipCode</span><br />
-                <span id="email">@Model.Email</span><br />
-                <span id="phone">@Model.PhoneNumber</span><br /> <br />
+                    </div>
+                    <div class="livepreview" data-empty="[Fill Address on Right]" id="letter-city-state-zip">@Model.City @Model.State @Model.ZipCode</div>
+                    <div class="livepreview" id="letter-email">@Model.Email</div>
+                    <div class="livepreview" id="letter-phone">@Model.PhoneNumber</div>
+                </div>
 
-                The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span> <br />
-                
-                [Location] <br />
- <br />
- </div>
-                <div class="letter-reason">RE: @Model.Issue.Name</div>
-                <br />
-
-                @Html.Raw(Model.Letter.Body)
+                <div class="letter-recipients">
+                    The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span>
+                </div>
+                <div class="letter-subject">RE: @Model.Issue.Name</div>
+                <div class="letter-body">
+                    @Html.Raw(Model.Letter.Body)
+                </div>
+                <div class="letter-signature">
                 Sincerely<br />
-                <span class="signature" id="letter-signature">[Fill out form on right]</span>
+                    <span id="letter-signature">[Fill out form on right]</span>
+                </div>
             </div>
         </div>
         <div class="span4">
             <div class="well letterinfo">
                 <h4>Send this letter</h4>
                 <hr />
-                <h5>Constituent Info @if (!User.Identity.IsAuthenticated){<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
+                <h5>Constituent Info @if (!User.Identity.IsAuthenticated)
+                                     {<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
                 <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" value="@Model.ZipCode" /><br />
                 <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" value="@Model.FirstName" />
                 <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" value="@Model.LastName" /><br />
@@ -61,7 +57,7 @@
                     var states = StateSelectorModel.States;
                     states.Where(s => s.Value == Model.State).Select(i => i.Selected == true);
                 }
-                @Html.DropDownList("state",@states,new{@class="span6 zipautofill-state address",size=1,placeholder="State"})
+                @Html.DropDownList("state", @states, new { @class = "span6 zipautofill-state address", size = 1, placeholder = "State" })
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" value="@Model.Email" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" value="@Model.PhoneNumber" /><br />
                 <button id="beInvolved" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
@@ -73,7 +69,8 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated) {
+    @if (User.Identity.IsAuthenticated)
+    {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript">
@@ -81,11 +78,19 @@
         </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+    else
+    {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
 
     <script type="text/javascript">
         $(function () {
             $('.livepreview').on('keyup', updateLetter);
+            $('div.livepreview').each(function (item) {
+                var j = $(this);
+                if (j.html().trim().length == 0) {
+                    j.html(j.attr('data-empty'));
+                }
+            });
+            updateLetter();
 
             $('#zipcode').on('change', function () {
                 var input = $(this);
@@ -109,13 +114,13 @@
                 });
             });
 
-            $('.address').on('change', function() {
+            $('.address').on('change', function () {
                 var address1 = $('#address1').val();
                 var address2 = $('#address2').val();
                 var city = $('#city').val();
                 var state = $('#state').val();
                 var zip = $('#zipcode').val();
-                
+
 
                 if (address1.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
                     var address = new Address();
@@ -134,6 +139,7 @@
                         address.CongressionalDistrict = data.CongressionalDistrict;
                         geolocator.SaveLocation(address);
                         congressPersonFinder.Find(address);
+                        updateLetter();
                     });
                 }
             });
@@ -141,14 +147,30 @@
             function updateLetter() {
                 var firstname = $('#firstname').val();
                 var lastname = $('#lastname').val();
-                if (firstname.length === 0 && lastname.length === 0) {
-                    $('#letter-signature').html('[Fill out form on right]');
+                var name = firstname + ' ' + lastname;
+                
+                var address1 = $('#address1').val();
+                var address2 = $('#address2').val();
+                var city = $('#city').val();
+                var state = $('#state').val();
+                var zip = $('#zipcode').val();
+                
+                if (name.trim().length == 0) {
+                    $('#letter-name').html('[Fill Name on Right]');
+                    $('#letter-signature').html('[Fill out form on Right]');
                 } else {
-                    $('#letter-signature').html(firstname + ' ' + lastname);
+                    $('#letter-name').html(name);
+                    $('#letter-signature').html(name);
                 }
-            }
 
-            ;
+                var addressHtml = address1;
+                if (address2.trim().length > 0) {
+                    addressHtml+='<br/>'+address2;
+                }
+                $('#letter-address').html(addressHtml);
+                $('#letter-city-state-zip').html(city + ', ' + state + ' ' + zip);
+                $('#letter-date').html((new Date()).toDateString());
+            };
         });
     </script>
 }

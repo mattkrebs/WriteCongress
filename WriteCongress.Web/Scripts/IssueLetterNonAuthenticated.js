@@ -20,8 +20,8 @@
 
     $('#signup-email').on('blur', function () {
         validateEmail();
-
     });
+    
     $('#beInvolved').removeAttr('disabled');
     $('#beInvolved').on('click', function () {
         $('#signup-email').val($('#email').val());

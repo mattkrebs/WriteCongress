@@ -1,0 +1,47 @@
+﻿.letter {
+    background-image: url('/content/images/lightpaperfibers.png');
+    font-family: Calibri;
+    padding: 15px;
+    border:1px solid black;
+}
+
+.sender, .date, .addressee,.re
+{
+    padding-bottom:12px;
+}
+
+.date {
+    padding-top:10px;
+}
+
+.letter-header {
+    border:none;
+    /*font-weight:bold;*/
+    margin-bottom: 10px;
+}
+
+.letter-recipients {
+    margin-bottom: 10px;
+}
+.letter-subject {
+    font-family: Pacifico;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.letter-head {
+    font-weight: bold;
+}
+
+.letter-reason {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#letter-signature {
+    margin-top: 10px;
+    font-family: Pacifico;
+    font-weight: 400;
+    font-size: 28px;
+}
