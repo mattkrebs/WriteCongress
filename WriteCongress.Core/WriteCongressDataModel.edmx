@@ -146,12 +146,13 @@
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="LetterId" Type="int" />
-          <Property Name="TryPaperBatch" Type="varchar" MaxLength="30" />
+          <Property Name="TryPaperBatch" Type="varchar" MaxLength="100" />
           <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Processed" Type="bit" Nullable="false" />
           <Property Name="TryPaperRequestDateUtc" Type="datetime" />
           <Property Name="Note" Type="varchar(max)" />
+          <Property Name="TryPaperStatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -662,7 +663,7 @@
           <Property Type="Int32" Name="OrderId" Nullable="false" />
           <Property Type="Int32" Name="PersonId" Nullable="false" />
           <Property Type="Int32" Name="LetterId" />
-          <Property Type="String" Name="TryPaperBatch" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TryPaperBatch" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="CreateDateUtc" Nullable="false" Precision="3" />
           <NavigationProperty Name="Letter" Relationship="WriteCongressModel.FK_OrderDetails_Letter" FromRole="OrderDetail" ToRole="Letter" />
           <NavigationProperty Name="Person" Relationship="WriteCongressModel.FK_OrderDetails_Person" FromRole="OrderDetail" ToRole="Person" />
@@ -671,6 +672,7 @@
           <Property Type="Boolean" Name="Processed" Nullable="false" />
           <Property Type="DateTime" Name="TryPaperRequestDateUtc" Precision="3" />
           <Property Type="String" Name="Note" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TryPaperStatusId" Nullable="false" />
         </EntityType>
         <Association Name="BillLetter">
           <End Type="WriteCongressModel.Bill" Role="Bill" Multiplicity="*" />
@@ -931,6 +933,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="WriteCongressModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="TryPaperStatusId" ColumnName="TryPaperStatusId" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="TryPaperRequestDateUtc" ColumnName="TryPaperRequestDateUtc" />
                 <ScalarProperty Name="Processed" ColumnName="Processed" />

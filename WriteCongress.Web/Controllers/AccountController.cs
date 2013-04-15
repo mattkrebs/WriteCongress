@@ -125,25 +125,35 @@ namespace WriteCongress.Web.Controllers
                 }
 
 
-                //send order to trypaper if CC succesfull
+                //if CC successfull commit order, if TryPaper errors will handle offline
+                Db.Orders.Add(o);
+                Db.SaveChanges();
 
+                //send order to trypaper if CC successfull
                 if (!string.IsNullOrEmpty(o.StripeChargeId))
                 {
                     try
                     {
-                        //TryPaperHelper.SendOrderToTryPaper(o);
-                        //o.OrderStatusId = 2;
+                        TryPaperHelper.SendOrderToTryPaper(o);
+                        o.OrderStatusId = 2;
                     }
                     catch (Exception ex) {
                         Logger.FatalException("error while sending to trypaper", ex);
                         //TODO: do something with this?
                         ///Will appear to user as successful order
                         ///Will need to dig into why TryPaper request did not work
+                        if (o.Note != null)
+                        {
+                            o.Note += String.Format("[error while sending to trypaper][{0}", ex.Message);
+                        }
+                        
                     }
                 }
 
-                Db.Orders.Add(o);
+                //save order  after try paper updates
+
                 Db.SaveChanges();
+                
                 var result = new JsonServiceResult<Guid>(o.Guid, true);
                 return Json(result);
             }

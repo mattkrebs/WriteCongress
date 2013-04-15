@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace WriteCongress.Core
 
         public static void SendOrderToTryPaper(Order order)
         {
-            SendOrderToTryPaper(order,"https://www.writecongress.us/print/printview");
+
+            SendOrderToTryPaper(order, "https://www.writecongress.us/print/printview");
         }
         public static void SendOrderToTryPaper(Order order, string printViewEndPoint)
         {
-            WriteCongressConnection db = new WriteCongressConnection();
-
+            //WriteCongressConnection db = new WriteCongressConnection();
+            Logger log = LogManager.GetCurrentClassLogger();
+                    
 
             string key = System.Configuration.ConfigurationManager.AppSettings["TryPaperKey"];
             string printUrl = "";
@@ -40,8 +43,11 @@ namespace WriteCongress.Core
                     var batch = new Batch() { Id = "wc-batch" + Guid.NewGuid().ToString() };
                     var batchResponse = client.AddBatch(batch);
 
+                    
+
                     if (batchResponse.Success)
                     {
+                        log.Trace(String.Format("TryPaper Batch Created Successfully:{0} {1}",batchResponse.Result.Id,order.Id));                     
                         string batchAddressId = "wc-order" + order.Id;
 
                         //create return address
@@ -59,7 +65,6 @@ namespace WriteCongress.Core
                             add.AddressLineTwo = order.AddressLineTwo;
                         }
 
-
                         var addAddressResponse = client.GetReturnAddress(batchAddressId);
 
                         if (addAddressResponse.Result == null)
@@ -72,17 +77,22 @@ namespace WriteCongress.Core
 
                         if (addAddressResponse.Success)
                         {
+                            log.Trace(String.Format("TryPaper Return Address Created Successfully:{0} {1}", addAddressResponse.Result.Id, order.Id));                     
+
                             foreach (var lineItem in order.OrderDetails)
                             {
                                 string personName = "";
                                 Person person = new Person();
+                                person = lineItem.Person;
 
-                                //look up person
-                                
-                                person = db.People.Where(x => x.PersonId == lineItem.PersonId).FirstOrDefault();
+                                //go get if null
+                                if (person == null)
+                                {
+                                    WriteCongressConnection db = new WriteCongressConnection();
+                                    person = db.People.Where(x => x.PersonId == lineItem.PersonId).FirstOrDefault();
+                                }
 
-                                ///TODO: handle null perosn
-                                
+                                ///TODO: handle null person
                                 if (person.Title.ToLower().Contains("sen"))
                                 {
                                     personName = FormatHelper.FormatSenatorName(person.FirstName ?? "", person.LastName ?? "");
@@ -92,9 +102,7 @@ namespace WriteCongress.Core
                                     personName = FormatHelper.FormatRepName(person.FirstName ?? "", person.LastName ?? "");
                                 }
                                 printUrl = String.Format("{0}/{1}", printViewEndPoint.TrimEnd('/'), lineItem.Guid);
-
                                 lineItem.TryPaperBatch = batchResponse.Result.Id;
-
 
                                 Mailing m = new Mailing();
                                 m.Id = Guid.NewGuid().ToString();
@@ -116,24 +124,34 @@ namespace WriteCongress.Core
 
                                 if (!mailingReference.Success)
                                 {
+                                    lineItem.TryPaperStatusId = 5;
+                                    log.Error(String.Format("TryPaper mailing failed {0} {1}", mailingReference != null ? (mailingReference.Message ?? "") :"", order.Id));
                                     lineItem.Note = "Mailing Failed";
                                 }
-
+                                else
+                                {
+                                    lineItem.TryPaperStatusId = 1;
+                                    log.Info("Try Paper Lineitem successfull {0} {1}", order.Id, lineItem.Id);
+                                }
                             }
                         }
                         else
                         {
-                            order.Note = "Unable to create return address";
+                            log.Error(String.Format("TryPaper could not create return address:{0} {1}", addAddressResponse !=null ? (addAddressResponse.Message ?? "") : "", order.Id));
+                            order.Note = String.Format("Unable to create return address:{0}", addAddressResponse.Message); ;
                         }
                     }
                     else
                     {
+                        log.Error(String.Format("TryPaper could not create batch:{0} {1}", (batchResponse!= null)  ? (batchResponse.Message ?? "") : "", order.Id));
                         order.Note = "Error unable to create batch ID";
+                        order.Note = String.Format("Unable to create batch:{0}", batchResponse !=null ? (batchResponse.Message ?? "") : "");
                     }
 
                 }
                 catch (System.Exception ex)
                 {
+                    log.FatalException(String.Format("TryPaper Error{0}",order.Id),ex);
                     order.Note = ex.Message + "::" + ex.Source + "::" + ex.StackTrace.ToString();
                     throw;
                 }
