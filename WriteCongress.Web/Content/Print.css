@@ -1,40 +1,49 @@
-﻿body, container,.content, .row,.letter, h1, div {
- 
+﻿body, container, .content, .row, .letter, h1, div {
     background-image: none;
-    background:none;
-    padding:0px;
-    margin:0px;
-    max-width:none;
-    max-height:none;
+    background: none;
+    padding: 0px;
+    margin: 0px;
+    max-width: none;
+    max-height: none;
+    font-family: Calibri;
 }
 
-.container
-{
-    margin-left:15px;
+
+.container {
+    margin-left: 0px;
+    margin-top: 10px;
 }
 
 .letter {
-    border:none;
-    font-size:12.5px;
-
+    font-size: 20px;
+    font-family: Calibri;
 }
+
 .letter-head {
- font-size:14px;
-}
+    font-size: 22px;
     
+}
 
 
-.sender, .date, .addressee,.re
-{
-    padding-bottom:12px;
+
+.sender, .date, .addressee, .re {
+    padding-bottom: 12px;
 }
 
 .date {
-    padding-top:10px;
+    padding-top: 10px;
+    font-size: 22px;
 }
 
 .letter-head {
-    border:none;
-    font-weight:bold;
+    border: none;
+    font-weight: bold;
 }
 
+
+#letter-signature {
+    margin-top: 10px;
+    font-family: Pacifico;
+    font-weight: 400;
+    font-size: 28px;
+}

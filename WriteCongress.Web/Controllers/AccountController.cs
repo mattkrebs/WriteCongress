@@ -15,11 +15,21 @@ namespace WriteCongress.Web.Controllers
         //
         // GET: /Account/
 
-        public ActionResult Index()
+        public ActionResult Index(string f)
         {
             //User user = AuthenticatedUser.Orders
             return View(AuthenticatedUser);
         }
+
+
+        public ActionResult Index(Guid orderId)
+        {
+            //Guid id = Guid.Parse(orderId);
+            var order = Db.Orders.Where(o => o.Guid == orderId).FirstOrDefault();
+            return View(order);
+        }
+
+        
 
         public ActionResult OrderDetail(string orderId)
         {
