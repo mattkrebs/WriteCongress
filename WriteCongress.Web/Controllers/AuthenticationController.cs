@@ -50,11 +50,26 @@ namespace WriteCongress.Web.Controllers
                 return Json(new JsonServiceResult<bool>(false));
             }
         }
+        [HttpGet]
+        public ActionResult SignIn(string redirect, bool? failedLogin,string email) {
+            ViewBag.FailedLogin = failedLogin.HasValue && failedLogin.Value;
+            ViewBag.Email = email;
+            ViewBag.Redirect = redirect;
+            return View();
+        }
 
 
         [HttpPost]
         public ActionResult SignIn(string email, string password, string redirect) {
             var user = Db.Users.SingleOrDefault(u => u.Email == email);
+            if (String.IsNullOrWhiteSpace(redirect)) {
+                if (Request.UrlReferrer != null) {
+                    redirect = Request.UrlReferrer.AbsolutePath;
+                }
+                else {
+                    redirect = "/";
+                }
+            }
             if (user != null) {
                 var hashedPassword = CryptoHelper.HashAndSalt(password, user.Salt);
                 if (hashedPassword == user.Password) {
@@ -65,13 +80,13 @@ namespace WriteCongress.Web.Controllers
                     return Redirect(redirect ?? Request.UrlReferrer.ToString());
                 }
                 else {
-                    Logger.Warn("login: password didn't match for userid: {0}", user.Id);
-                    return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
+                    Logger.Info("login: password didn't match for userid: {0}", user.Id);
+                    return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect,Email=email});
                 }
             }
             else {
                 Logger.Warn("login: couldn't find user for email: {1}", email);
-                return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect ?? Request.UrlReferrer.ToString() });
+                return RedirectToAction("Signin", "Authentication", new { FailedLogin = true, Redirect = redirect});
             }
         
         }

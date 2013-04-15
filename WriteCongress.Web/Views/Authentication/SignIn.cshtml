@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "WriteCongress.us Login";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Sign In</h2>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span7">
+            @if(ViewBag.FailedLogin){<div class="alert alert-danger">Your email/password were incorrect. Please try again.</div>}
+            <div class="well">
+                <form id="login-modal-loginform" method="POST" action="/Authentication/Signin" class="form-horizontal">
+                    <input type="hidden" name="redirect" value="@ViewBag.Redirect" />
+                    <div class="control-group">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            <input id="signin-email" type="text" name="email" placeholder="Email" value="@ViewBag.Email">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Password</label>
+                        <div class="controls">
+                            <input id="signin-password" type="password" name="password" placeholder="Password">
+                            <div><a href="/Authentication/PasswordReset">Forgot your password?</a></div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn btn-primary btn-large">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
