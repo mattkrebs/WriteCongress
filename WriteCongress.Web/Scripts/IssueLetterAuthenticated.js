@@ -96,6 +96,7 @@ CheckoutModalView.prototype = {
             }
             $(this).removeAttr('disabled').removeClass('disabled');
             document.body.style.cursor = 'default';
+            this.showError('Please correct your card information');
             return;
         }
 
