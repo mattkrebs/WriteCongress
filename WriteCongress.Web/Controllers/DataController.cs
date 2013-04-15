@@ -21,6 +21,11 @@ namespace WriteCongress.Web.Controllers
             var senators = Db.People.Where(p => p.State == state && p.District == null).ToList();
             return Json(senators, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult LogException() {
+            Logger.WarnException("Test Warn Exception", new ArgumentOutOfRangeException());
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
 
 
