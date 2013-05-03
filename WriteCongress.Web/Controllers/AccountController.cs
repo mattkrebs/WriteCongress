@@ -15,6 +15,11 @@ namespace WriteCongress.Web.Controllers
         //
         // GET: /Account/
 
+        //public ActionResult Index()
+        //{
+            //User user = AuthenticatedUser.Orders
+          //  return View(AuthenticatedUser);
+        //}
         public ActionResult Index(string f)
         {
             //User user = AuthenticatedUser.Orders
@@ -22,21 +27,29 @@ namespace WriteCongress.Web.Controllers
         }
 
 
-        public ActionResult Index(Guid orderId)
+        //public ActionResult Index(Guid orderId)
+        //{
+            //Guid id = Guid.Parse(orderId);
+          //  var order = Db.Orders.Where(o => o.Guid == orderId).FirstOrDefault();
+            //return View(order);
+        //}
+
+
+        public ActionResult OrderDetail(Guid id)
         {
             //Guid id = Guid.Parse(orderId);
-            var order = Db.Orders.Where(o => o.Guid == orderId).FirstOrDefault();
-            return View(order);
-        }
-
-        
-
-        public ActionResult OrderDetail(string orderId)
-        {
-            Guid id = Guid.Parse(orderId);
             var order = Db.Orders.Where(o => o.Guid == id).FirstOrDefault();
             return View(order);
         }
+
+
+
+        //public ActionResult OrderDetail(string orderId)
+        //{
+        //    Guid id = Guid.Parse(orderId);
+        //    var order = Db.Orders.Where(o => o.Guid == id).FirstOrDefault();
+        //    return View(order);
+        //}
 
         //Show Order status and Description
         //Who it was sent to with pictures

@@ -1,6 +1,6 @@
 ﻿@model WriteCongress.Core.User
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Account Detail";
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
 <div class="container-fluid">
@@ -32,7 +32,7 @@
                                     <td>@order.OrderDetails.Count</td>
                                     <td>@order.OrderStatus.Name</td>
                                     <td>$@order.OrderTotal</td>
-                                    <td><a href="/Account/@order.Guid">Details</a></td>
+                                    <td><a href="/Account/OrderDetail/@order.Guid">Details</a></td>
                                 </tr>    
                             }
                              
