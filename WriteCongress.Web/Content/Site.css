@@ -2,6 +2,14 @@
     padding-bottom: 60px;
     background-image: url('/content/images/bg_linen.png');
 }
+p, a, li {
+color: #555;
+line-height: 1.6;
+}
+
+ a:hover {
+    text-decoration:none;
+}
 
 /* Custom container */
 .container {
@@ -142,6 +150,19 @@ div.contact-info > a {
         font-size: 14px;
     }
 
+div.contact-info > h2 > a {
+    margin-left:30px;
+}
+.contact-info a:hover {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.contact-info a.twitter:hover {
+    color:#03b9c4;
+   
+}
     .container-fluid {
         min-height: 700px;
     }
@@ -170,3 +191,22 @@ ul.statuses .well:hover
     color:#494848;
 }
 
+.letter-block .span4:hover {
+    text-decoration:none;
+    background-color:#e9e9e9;
+}
+.letter-block .span4 i {
+    font-size:40px;
+}
+.letter-block .span4 {
+    padding: 20px 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    /*margin-right:20px;*/
+    background: #cfcfcf;
+    border-radius: 2px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
