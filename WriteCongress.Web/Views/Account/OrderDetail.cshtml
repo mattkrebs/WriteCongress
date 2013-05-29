@@ -1,13 +1,10 @@
 ﻿@model WriteCongress.Core.Order
 @{
-    ViewBag.Title = "Order Detail - " + Model.Id;
+    ViewBag.Title = "Order Detail - " + Model.OrderDetails.First().Letter.Name;
     Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
 }
 <div class="container-fluid">
-    
     <div class="row-fluid">
-
-
         <div class="span5">
             <h3>Order Detail</h3>
             <h4>Order Date: <small>@Model.CreateDateUtc</small></h4>
@@ -18,10 +15,9 @@
                         <img class="img-polaroid" src="https://writecongress.blob.core.windows.net/congress-photos/@od.Person.OpenCongressId-50px.jpg">
                     </a>
                     <div class="media-body">
-                        <h5 class="media-heading">@od.Person.FullNameAndTitle</h5> 
-                        <h5 class="media-heading">Price:  <small>@od.Price</small></h5>  
-                        <h5 class="media-heading"><i class="icon-download"></i> <a href="#">Download PDF</a></h5>                       
-                                             
+                        <h5 class="media-heading">@od.Person.FullNameAndTitle</h5>
+                        <h5 class="media-heading">Price:  <small>@od.Price</small></h5>
+                        @*<h5 class="media-heading"><i class="icon-download"></i> <a href="#">Download PDF</a></h5>*@
                     </div>
                 </div>
             }
@@ -31,28 +27,37 @@
             <h3>Order Status</h3>
             <ul class="statuses unstyled">
                 <li>
-                    <div id="status-1" class="alert alert-success">
-                        <h3>Paid & Processing</h3>
+                    <div id="status-1" class="@if (Model.OrderStatusId == 1) {<text>alert alert-success</text>
+                                              }
+                                              else {
+                                                  <text>well</text>
+                                              }">
+                        <h3>Paid & Order Review</h3>
                         <p>We here at WriteCongress.us are currently in the process of sending your personalized letter to our printing facility.</p>
                     </div>
                 </li>
                 <li>
-                    <div id="status-2" class="well">
-                        <h3>Printing & Mailing</h3>
-                        <p>Are printers are hard at work getting your letter printed, folded, and mailed.</p>
+                <div id="status-2" class="@if (Model.OrderStatusId == 2 || Model.OrderStatusId == 3) {<text>alert alert-success</text>
+                                              }
+                                              else {
+                                                  <text>well</text>
+                                              }">
+                        <h3>Processing, Printing & Folding</h3>
+                        <p>We're preparing print, mail, stamp, and mail your letter, this is typically less than 1 business day.</p>
                     </div>
                 </li>
                 <li>
-                    <div id="status-4" class="well">
-                        <h3>Complete</h3>
-                        <p>By this time, your letter has made it to its destination and is on the desk of your representitve.</p>
+                    <div id="status-4" class="@if (Model.OrderStatusId == 4) {<text>alert alert-success</text>
+                                              }
+                                              else {
+                                                  <text>well</text>
+                                              }">
+                        <h3>Printed, Stamped and Mailed</h3>
+                        <p>We've printed and mailed your letters! Your order is now complete.</p>
                     </div>
                 </li>
             </ul>
-
         </div>
-
-
     </div>
 </div>
 

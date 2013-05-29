@@ -158,7 +158,7 @@ namespace WriteCongress.Web.Controllers
                     try
                     {
                         TryPaperHelper.SendOrderToTryPaper(o);
-                        o.OrderStatusId = 2;
+                        o.OrderStatusId = 1;
                     }
                     catch (Exception ex) {
                         Logger.FatalException("error while sending to trypaper", ex);

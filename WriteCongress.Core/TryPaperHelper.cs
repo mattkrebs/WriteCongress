@@ -40,7 +40,7 @@ namespace WriteCongress.Core
 
                     TryPaperClient client = new TryPaperClient(key);
 
-                    var batch = new Batch() { Id = "wc-batch" + Guid.NewGuid().ToString() };
+                    var batch = new Batch() {Id = String.Format("wc-batch{0}", order.Guid)};
                     var batchResponse = client.AddBatch(batch);
 
                     
@@ -105,7 +105,7 @@ namespace WriteCongress.Core
                                 lineItem.TryPaperBatch = batchResponse.Result.Id;
 
                                 Mailing m = new Mailing();
-                                m.Id = Guid.NewGuid().ToString();
+                                m.Id = lineItem.Guid.ToString();
 
                                 //set up the recipient
                                 m.Recipient = new Address()

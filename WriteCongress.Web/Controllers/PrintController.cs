@@ -11,9 +11,31 @@ namespace WriteCongress.Web.Controllers
     public class PrintController : BaseController
     {
 
-        public ActionResult Index()
-        {
-            return View();
+        [HttpPost]
+        public ActionResult HandleHook(TryPaper.WebHookEvent e) {
+            string batchId = String.Format("wc-batch{0}", e.Key);
+
+            var details = Db.OrderDetails.Where(od => od.TryPaperBatch == batchId).ToList();
+            Order order = null;
+            if (details.Count > 0) {
+                order = details[0].Order;
+            }
+            else {
+                return Json(false, JsonRequestBehavior.DenyGet);
+            }
+
+            if (e.EventType == TryPaper.ApiEventType.BatchSpooled) {
+                order.OrderStatusId = 2; //In Progress
+            }else if (e.EventType == TryPaper.ApiEventType.BatchPrinted) {
+                order.OrderStatusId = 3;//Printed
+            }
+            else if (e.EventType == TryPaper.ApiEventType.BatchMailed) {
+                order.OrderStatusId = 4;//Mailed
+            }
+
+            Db.SaveChanges();
+
+            return Json(true, JsonRequestBehavior.DenyGet);
         }
 
         public ActionResult PrintView(Guid orderItemGuid)
