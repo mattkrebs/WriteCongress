@@ -128,7 +128,7 @@ CheckoutModalView.prototype = {
         orderpromise.done(function (data) {
             if (data.Success === true) {
                 var order = data.Data;
-                window.location.href = '/Account/' + order;
+                window.location.href = '/Account/OrderDetail' + order;
             } else {
                 me.showError(data.Message);
             }
