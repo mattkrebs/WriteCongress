@@ -240,6 +240,8 @@
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\knockout-2.2.1.debug.js" />
+    <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\plugins\jquery.placeholder.js" />
     <Content Include="Scripts\site.CongressPersonFinder.js" />
     <Content Include="Scripts\site.core.js" />
