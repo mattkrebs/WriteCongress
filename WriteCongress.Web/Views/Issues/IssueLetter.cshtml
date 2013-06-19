@@ -17,11 +17,11 @@
             <div id="letter" class="letter">
                 <div id="letterHeader" class="letter-header">
                     <div>@DateTime.Now.ToString("MMMM d, yyyy")</div>
-                    <div><span data-bind="{text:User().FirstName}"></span><span data-bind="{text:User().LastName}"></span></div>
+                    <div><span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span></div>
                     <div>
                         <div data-bind="{text:User().AddressOne}"></div>
                         <div data-bind="{text:User().AddressTwo}"></div>
-                        <span data-bind="{text:User().City}"></span><span data-bind="{text:User().State}"></span><span data-bind="{text:User().Zip}"></span>
+                        <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{text:User().Zip}"></span>
                         <br />
                     </div>
                     <div data-bind="{text:User().Email}"></div>
@@ -144,6 +144,7 @@
 
         var LetterViewModel = function() {
             var self = this;
+            var geolocator = new Geolocator();
 
             self.User = ko.observable(new User(null, null, null, null, null, null, null, null, null));
             self.Authenticated = ko.observable(false);
@@ -157,11 +158,20 @@
                 });
             });
 
-            this.Save = function() {
-                window.location.setItem("user", ko.toJSON(self.User));
+            this.Save = function() {                
+                localStorage.setItem("user", ko.toJSON(self.User));
             };
 
-            self.User().CongressionalDistrict.subscribe(self.Save);
+
+            self.User().State.subscribe(function(state){
+                //update the global variable
+                myCongressionalDistrict.State(state);
+            });
+            self.User().CongressionalDistrict.subscribe(function(district){
+                //update the global variable
+                myCongressionalDistrict.CongressionalDistrict(district);
+            });
+                
 
             self.User().AddressOne.subscribe(function(address) {
                 var user = self.User();

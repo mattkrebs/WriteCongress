@@ -1,4 +1,5 @@
 ﻿/// <reference path="site.Geolocator.js" />
+/// <reference path="knockout-2.2.1.debug.js" />
 /// <reference path="site.CongressPersonFinder.js" />
 var setSection = function (selector, html) {
     var section = $(selector);
@@ -27,24 +28,68 @@ function setMyRep(data) {
     } else if (data == null) {
         html = '';
     } else {
-        html = '<img class="img-polaroid" title="' + data.FullNameAndTitle + '" src="https://writecongress.blob.core.windows.net/congress-photos/' + data.OpenCongressId + '-50px.jpg"/>';
+        html = '<img class="img-polaroid" title="' + data.FullNameAndTitle + '" src=""/>';
     }
     setSection('#myrep', html);
 }
 
 
 $(function () {
-    //some globals
-    geolocator = new Geolocator();
-    congressPersonFinder = new CongressPersonFinder();
-    
-    setMySenators(congressPersonFinder.Senators);
-    setMyRep(congressPersonFinder.Representative);
+    var CongressPerson = function (fullNameAndTitle, openCongressId) {
+        var self = this;
+        this.FullNameAndTitle = ko.observable(fullNameAndTitle);
+        this.OpenCongressId = ko.observable(openCongressId);
+        this.Photo50 = ko.computed(function () {
+            if (self.OpenCongressId() != -1) {
+                return 'https://writecongress.blob.core.windows.net/congress-photos/' + self.OpenCongressId() + '-50px.jpg';
+            } else {
+                return 'https://writecongress.blob.core.windows.net/congress-photos/unknown.jpg';
+            }
+        });
+    };
 
-    congressPersonFinder.RepresentativeLookupComplete = function () {
-        setMyRep(congressPersonFinder.Representative);
+    var CongressPersonDisplayViewModel = function (state, district) {
+        var emptyPerson = new CongressPerson(null, -1);
+        var self = this;
+        this.State = ko.observable(state);
+        this.CongressionalDistrict = ko.observable(district);
+        
+        this.Senators = ko.observableArray([emptyPerson,emptyPerson]);
+        this.Representative = ko.observable(emptyPerson);
+
+        this.DisplayMyCongressPersons = ko.computed(function () {
+            return self.Senators()[0].OpenCongressId() != 1 && self.Senators()[1].OpenCongressId() != -1;
+        });
+
+        self.State.subscribe(function () {
+            self.CongressionalDistrict(-1);
+            $.get('/Data/SenatorsByState', { state: self.State() }).done(function(data) {
+                if (data.length == 2) {
+                    self.Senators([new CongressPerson(data[0].FullNameAndTitle, data[0].OpenCongressId), new CongressPerson(data[1].FullNameAndTitle, data[1].OpenCongressId)]);
+                    self.CongressionalDistrict(-1);
+                }
+            });
+        });
+        //self.CongressionalDistrict.subscribe(function (district) {
+        //    if ((district !== -1 && district !== null) && self.State() != null) {
+        //        $.get('/Data/RepresentativeByStateAndDistrict', { state: self.State(), district: district }, function (data) {
+        //            if (data.length == 0) {
+        //                self.Representative(data[0]);
+        //            } else {
+        //                self.Representative(emptyPerson);
+        //            }
+        //        });
+        //    } else {
+        //        self.Representative(emptyPerson);                
+        //    }
+        //});
     };
-    congressPersonFinder.SenatorLookupComplete = function () {
-        setMySenators(congressPersonFinder.Senators);
-    };
+
+    myCongressionalDistrict = new CongressPersonDisplayViewModel(null, -1);
+    var district = window.localStorage.getItem("congressionalDistrict");
+    if (district != null) {
+        var info = JSON.parse(district);
+        myCongressionalDistrict = new CongressPersonDisplayViewModel(info.State, info.District);
+    }
+    ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
 });

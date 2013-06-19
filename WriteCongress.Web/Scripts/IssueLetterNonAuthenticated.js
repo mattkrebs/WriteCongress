@@ -1,10 +1,10 @@
 ﻿$(function () {
-    var address = geolocator.LocateMe();
-    $('#zipcode').val(address.Zip);
-    $('#address1').val(address.Address1);
-    $('#address2').val(address.Address2);
-    $('#city').val(address.City);
-    $('#state').val(address.State);
+    //var address = geolocator.LocateMe();
+    //$('#zipcode').val(address.Zip);
+    //$('#address1').val(address.Address1);
+    //$('#address2').val(address.Address2);
+    //$('#city').val(address.City);
+    //$('#state').val(address.State);
     
     $('#beInvolved').html('<i class="icon-envelope"></i> Sign Up &amp; Send!');
     $('#email').on('blur', function () {
