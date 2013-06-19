@@ -44,7 +44,7 @@ Geolocator.prototype = {
 	    return deferred.promise();
 	},
 	NormalizeAddress: function (address) {
-		return $.post('/Data/NormalizedAddress', address);
+		return $.post('/Data/NormalizedAddress', {address1:address.AddressOne,city:address.City,state:address.State,zip:address.Zip});
 	},
 	GetZipCodeInfo: function (zip) {
 		var deferred = new jQuery.Deferred();

@@ -16,15 +16,16 @@
 
             <div id="letter" class="letter">
                 <div id="letterHeader" class="letter-header">
-                    <div id="letter-date">@DateTime.Now.ToString("MMMM d, yyyy")</div>
-                    <div><span data-bind="{text:User.FirstName}"></span> <span data-bind="{text:User.LastName}"></span></div>
+                    <div>@DateTime.Now.ToString("MMMM d, yyyy")</div>
+                    <div><span data-bind="{text:User().FirstName}"></span><span data-bind="{text:User().LastName}"></span></div>
                     <div>
-                        <span data-bind="{text:User.AddressOne}"></span><br />                        
-                        <span data-bind="{text:User.AddressTwo}"></span><br />
-                        <span data-bind="{text:User.City}"></span> <span data-bind="{text:User.State}"></span> <span data-bind="{text:User.Zip}"></span><br />
-                    </div>                                                                              
-                    <div class="livepreview" id="letter-email" data-bind="{text:User.Email}"></div>
-                    <div class="livepreview" id="letter-phone" data-bind="{text:User.PhoneNumber}"></div>
+                        <div data-bind="{text:User().AddressOne}"></div>
+                        <div data-bind="{text:User().AddressTwo}"></div>
+                        <span data-bind="{text:User().City}"></span><span data-bind="{text:User().State}"></span><span data-bind="{text:User().Zip}"></span>
+                        <br />
+                    </div>
+                    <div data-bind="{text:User().Email}"></div>
+                    <div data-bind="{text:User().PhoneNumber}"></div>
                 </div>
 
                 <div class="letter-recipients">
@@ -35,8 +36,8 @@
                     @Html.Raw(Model.Letter.Body)
                 </div>
                 <div class="letter-signature">
-                Sincerely<br />
-                    <span id="letter-signature"><span data-bind="{text:User.FirstName}"></span> <span data-bind="{text:User.LastName}"></span></span>
+                    Sincerely<br />
+                    <span id="letter-signature"><span data-bind="{text:User.FirstName}"></span><span data-bind="{text:User.LastName}"></span></span>
                 </div>
             </div>
         </div>
@@ -46,70 +47,70 @@
                 <hr />
                 <h5>Constituent Info @if (!User.Identity.IsAuthenticated)
                                      {<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
-                <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User.Zip}" /><br />
-                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User.FirstName, valueUpdate: 'afterkeydown'}"/>
-                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User.LastName, valueUpdate: 'afterkeydown'}" /><br />
-                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User.AddressOne,valueUpdate: 'afterkeydown'}" /><br />
-                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User.AddressTwo,valueUpdate: 'afterkeydown'}" /><br />
-                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User.City,valueUpdate: 'afterkeydown'}" />
-                 <select data-bind="value:User.State" class="span6 zipautofill-state address" id="state" name="state" placeholder="State" size="1">
-                     <option value="">State</option>
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option value="CA">California</option>
-        <option value="CO">Colorado</option>
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="DC">District of Columbia</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="HI">Hawaii</option>
-        <option value="ID">Idaho</option>
-        <option value="IL">Illinois</option>
-        <option value="IN">Indiana</option>
-        <option value="IA">Iowa</option>
-        <option value="KS">Kansas</option>
-        <option value="KY">Kentucky</option>
-        <option value="LA">Louisiana</option>
-        <option value="ME">Maine</option>
-        <option value="MD">Maryland</option>
-        <option value="MA">Massachusetts</option>
-        <option value="MI">Michigan</option>
-        <option value="MN">Minnesota</option>
-        <option value="MS">Mississippi</option>
-        <option value="MO">Missouri</option>
-        <option value="MT">Montana</option>
-        <option value="NE">Nebraska</option>
-        <option value="NV">Nevada</option>
-        <option value="NH">New Hampshire</option>
-        <option value="NJ">New Jersey</option>
-        <option value="NM">New Mexico</option>
-        <option value="NY">New York</option>
-        <option value="NC">North Carolina</option>
-        <option value="ND">North Dakota</option>
-        <option value="OH">Ohio</option>
-        <option value="OK">Oklahoma</option>
-        <option value="OR">Oregon</option>
-        <option value="PA">Pennsylvania</option>
-        <option value="RI">Rhode Island</option>
-        <option value="SC">South Carolina</option>
-        <option value="SD">South Dakota</option>
-        <option value="TN">Tennessee</option>
-        <option value="TX">Texas</option>
-        <option value="UT">Utah</option>
-        <option value="VT">Vermont</option>
-        <option value="VA">Virginia</option>
-        <option value="WA">Washington</option>
-        <option value="WV">West Virginia</option>
-        <option value="WI">Wisconsin</option>
-        <option value="WY">Wyoming</option>
-        </select>
-                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="value:User.Email"/>
-                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="value:User.PhoneNumber" /><br />
-                <button id="beInvolved" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send</button>
-            </di>
+                <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User().Zip}" /><br />
+                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown'}" />
+                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown'}" /><br />
+                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne}" /><br />
+                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo}" /><br />
+                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City}" />
+                <select data-bind="value:User().State" class="span6 zipautofill-state address" id="state" name="state" placeholder="State" size="1">
+                    <option value="">State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="value:User().Email" />
+                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="value:User().PhoneNumber" /><br />
+                <button id="beInvolved" class="btn btn-large btn-primary"><i class="icon-envelope"></i>Send</button>
+            </div>
         </div>
     </div>
 </div>
@@ -117,18 +118,18 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
-    @if (User.Identity.IsAuthenticated)
-    {
+    @if (User.Identity.IsAuthenticated) {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
-        <script type="text/javascript">Stripe.setPublishableKey('@ConfigurationManager.AppSettings["StripePublishableKey"]');</script>
+        <script type="text/javascript"> Stripe.setPublishableKey('@ConfigurationManager.AppSettings["StripePublishableKey"]'); </script>
         <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
     }
-    else
-    {<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>}
+    else {
+        <script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>
+    }
 
-    <script type="text/javascript">        
-        var User = function (firstname, lastname, address1, address2, city, state, zip,email,phoneNumber) {
+    <script type="text/javascript">
+        var User = function(firstname, lastname, address1, address2, city, state, zip, email, phoneNumber) {
             this.FirstName = ko.observable(firstname);
             this.LastName = ko.observable(lastname);
             this.AddressOne = ko.observable(address1);
@@ -138,94 +139,47 @@
             this.Zip = ko.observable(zip);
             this.Email = ko.observable(email);
             this.PhoneNumber = ko.observable(phoneNumber);
+            this.CongressionalDistrict = ko.observable(-1);
         };
 
-        var LetterViewModel = function(){
+        var LetterViewModel = function() {
             var self = this;
 
-            self.User = ko.observable(new User(null, null, null, null, null, null, null,null,null));
+            self.User = ko.observable(new User(null, null, null, null, null, null, null, null, null));
+            self.Authenticated = ko.observable(false);
 
-            self.User().subscribe(function(){
-                geolocator.GetZipCodeInfo(zip).done(function (data) {                    
-                    self.User.City(data.City);
-                    self.User.State(data.StateAbbreviation);
 
-                    var address = geolocator.LocateMe();
-                    address.City = data.City;
-                    address.State = data.StateAbbreviation;
-                    address.Zip = zip;
-                    address.CongressionalDistrict = data.CongressionalDistrict;
-                    geolocator.SaveLocation(address);
-                    congressPersonFinder.Find(address);
+            self.User().Zip.subscribe(function(zip) {
+                geolocator.GetZipCodeInfo(zip).done(function(data) {
+                    self.User().City(data.City);
+                    self.User().State(data.StateAbbreviation);
+                    self.User().CongressionalDistrict(data.CongressionalDistrict);
                 });
             });
-            
-        };
 
-        var vm = new LetterViewModel();
-        ko.applyBindings(vm, document.getElementById('senderInfo'));
-        ko.applyBindings(vm, document.getElementById('letter'));
+            this.Save = function() {
+                window.location.setItem("user", ko.toJSON(self.User));
+            };
 
+            self.User().CongressionalDistrict.subscribe(self.Save);
 
-        $(function () {           
-
-            $('.address').on('change', function () {
-                var address1 = $('#address1').val();
-                var address2 = $('#address2').val();
-                var city = $('#city').val();
-                var state = $('#state').val();
-                var zip = $('#zipcode').val();
-
-
-                if (address1.length > 4 && city.length > 2 && state.length == 2 && zip.length == 5) {
-                    var address = new Address();
-                    address.Address1 = address1;
-                    address.Address2 = address2;
-                    address.City = city;
-                    address.State = state;
-                    address.Zip = zip;
-
-                    geolocator.NormalizeAddress(address).done(function (data) {
-                        $('#city').val(data.City);
-                        $('#state').val(data.State);
-                        address.City = data.City;
-                        address.State = data.State;
-                        address.Zip = data.Zip;
-                        address.CongressionalDistrict = data.CongressionalDistrict;
-                        geolocator.SaveLocation(address);
-                        congressPersonFinder.Find(address);
-                        updateLetter();
-                    });
+            self.User().AddressOne.subscribe(function(address) {
+                var user = self.User();
+                if (user.CongressionalDistrict() == -1) {
+                    if (address.length > 4 && user.City().length > 2 && user.State().length == 2 && user.Zip().length == 5) {
+                        geolocator.NormalizeAddress(ko.toJS(user)).done(function(data) {
+                            self.User().CongressionalDistrict(parseInt(data.CongressionalDistrict));
+                        });
+                    }
                 }
             });
+        };
 
-            function updateLetter() {
-                var firstname = $('#firstname').val();
-                var lastname = $('#lastname').val();
-                var name = firstname + ' ' + lastname;
-                
-                var address1 = $('#address1').val();
-                var address2 = $('#address2').val();
-                var city = $('#city').val();
-                var state = $('#state').val();
-                var zip = $('#zipcode').val();
-                
-                if (name.trim().length == 0) {
-                    $('#letter-name').html('[Fill Name on Right]');
-                    $('#letter-signature').html('[Fill out form on Right]');
-                } else {
-                    $('#letter-name').html(name);
-                    $('#letter-signature').html(name);
-                }
-
-                var addressHtml = address1;
-                if (address2.trim().length > 0) {
-                    addressHtml+='<br/>'+address2;
-                }
-                $('#letter-address').html(addressHtml);
-                $('#letter-city-state-zip').html(city + ', ' + state + ' ' + zip);
-                $('#letter-date').html((new Date()).toDateString());
-            };
+        $(function() {
+            var vm = new LetterViewModel();
+            ko.applyBindings(vm, document.getElementById('senderInfo'));
+            ko.applyBindings(vm, document.getElementById('letter'));
         });
+
     </script>
 }
