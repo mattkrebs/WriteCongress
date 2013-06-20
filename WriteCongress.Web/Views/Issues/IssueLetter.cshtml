@@ -136,10 +136,13 @@
             this.AddressTwo = ko.observable(address2);
             this.City = ko.observable(city);
             this.State = ko.observable(state);
+            this.previousState = null;
+            
             this.Zip = ko.observable(zip);
             this.Email = ko.observable(email);
             this.PhoneNumber = ko.observable(phoneNumber);
             this.CongressionalDistrict = ko.observable(-1);
+            
         };
 
         var LetterViewModel = function() {
@@ -158,30 +161,42 @@
                 });
             });
 
-            this.Save = function() {                
+            this.Save = function() {
                 localStorage.setItem("user", ko.toJSON(self.User));
             };
+            
 
-
-            self.User().State.subscribe(function(state){
-                //update the global variable
-                myCongressionalDistrict.State(state);
+            self.User().State.subscribe(function(state) {
+                if (self.User().previousState != state) {
+                    //update the global variable
+                    myCongressionalDistrict.State(state);
+                    
+                    //the state changed, good odds that the congressional district changed too
+                    self.User().CongressionalDistrict(-1);
+                }
             });
-            self.User().CongressionalDistrict.subscribe(function(district){
+            
+            self.User().CongressionalDistrict.subscribe(function(district) {
                 //update the global variable
                 myCongressionalDistrict.CongressionalDistrict(district);
             });
-                
 
-            self.User().AddressOne.subscribe(function(address) {
+            var getCongressionalDistrictWithAddress = function() {
                 var user = self.User();
                 if (user.CongressionalDistrict() == -1) {
-                    if (address.length > 4 && user.City().length > 2 && user.State().length == 2 && user.Zip().length == 5) {
+                    if (user.AddressOne().length > 4 && user.City().length > 2 && user.State().length == 2 && user.Zip().length == 5) {
                         geolocator.NormalizeAddress(ko.toJS(user)).done(function(data) {
                             self.User().CongressionalDistrict(parseInt(data.CongressionalDistrict));
                         });
                     }
                 }
+            };
+
+            self.User().AddressOne.subscribe(function() {
+                getCongressionalDistrictWithAddress();
+            });
+            self.User().City.subscribe(function() {
+                getCongressionalDistrictWithAddress();
             });
         };
 

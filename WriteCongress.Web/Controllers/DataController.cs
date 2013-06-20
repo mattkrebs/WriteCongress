@@ -86,6 +86,7 @@ namespace WriteCongress.Web.Controllers
         {
             var result = Db.ZipCodes.FirstOrDefault(z => z.PostalCode == zipcode);
             if (result == null) {
+                //TODO: try getting something from: https://api.smartystreets.com/zipcode?zipcode=90023&auth-id=b81b9b4a-eb17-48af-9c90-f01d2dde1596&auth-token=S26yptq0VEo92SOqlzWCFKdvnQKbrN898n78JMM2igWs4pkkrsAO4HGBoYzPotGcQo8NiDf83K0nNH%2F63CqINw%3D%3D
                 Logger.Info("zipcode lookup yielded no results. zip:{0}", zipcode);
                 return Json(null, JsonRequestBehavior.DenyGet);
             }
