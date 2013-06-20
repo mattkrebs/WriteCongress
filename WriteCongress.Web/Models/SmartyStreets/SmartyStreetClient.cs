@@ -58,6 +58,10 @@ namespace WriteCongress.Web.Models.SmartyStreets
         }
 
         public static Recipient MergeFirstCandidate(Recipient r,CandidateAddress[] suggestions) {
+            if (suggestions.Length == 0)
+            {
+                return null;
+            }
             r.DeliverySuggestionsCount = suggestions.Length;
             r.DeliverySuggestionDate = DateTime.Now;
             //if (suggestions.Length >2) {
