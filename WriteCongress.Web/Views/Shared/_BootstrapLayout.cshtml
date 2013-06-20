@@ -21,15 +21,12 @@
     <div class="container">
         <div class="masthead">
             <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
-                <div class="pull-right" id="mydistrict">
-                    <span data-bind="text:State"></span>(<span data-bind="text:CongressionalDistrict"></span>)
+                <div class="pull-right" id="mydistrict">                    
                     <span data-bind="visible:DisplayMyCongressPersons">
                         <img data-bind="attr:{title: Senators()[0].FullNameAndTitle,src:Senators()[0].Photo50()}" class="img-polaroid"/>
-                        <img data-bind="attr:{title: Senators()[1].FullNameAndTitle,src:Senators()[1].Photo50()}" class="img-polaroid"/>     
+                        <img data-bind="attr:{title: Senators()[1].FullNameAndTitle,src:Senators()[1].Photo50()}" class="img-polaroid"/>
+                        <img data-bind="attr:{title: Representative().FullNameAndTitle,src:Representative().Photo50()}" class="img-polaroid"/>
                     </span>
-@*                    <span data-bind="if:Senators.length,text:Senators()[0].FullNameAndTitle"></span><br />
-                    <span data-bind="if:Senators.length,text:Senators()[1].FullNameAndTitle"></span><br />*@
-                    <span data-bind="text:Representative().FullNameAndTitle"></span>                    
                 </div>
                 <div class="pull-right" id="myrep"></div>
                 <div class="pull-right" style="margin-right: 5px;" id="mysenators"></div>
@@ -45,7 +42,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-    <script src="~/Scripts/knockout-2.2.1.debug.js"></script>
+    <script src="~/scripts/knockout-2.2.1.debug.js"></script>
     @Scripts.Render("~/js/site")
     @Scripts.Render("~/js/plugins")
     @Html.Partial("_Analytics")
