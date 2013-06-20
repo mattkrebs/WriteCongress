@@ -56,6 +56,7 @@ namespace WriteCongress.Web.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration=ThirtyMinuteCacheDuration,VaryByParam="address1;city;state")]
         public JsonResult NormalizedAddress(string address1,string address2, string city, string state, string zip) {
             Logger.Info("normalizing address: {0} {1}", address1, zip);
             var client = new SmartyStreetClient();
@@ -69,16 +70,22 @@ namespace WriteCongress.Web.Controllers
             var suggestions = client.GetSuggestions(recipient);
 
             var scrubbedAddress = SmartyStreetClient.MergeFirstCandidate(recipient, suggestions);
-
-            return Json(new
+            if (scrubbedAddress != null)
             {
-                Address1 =scrubbedAddress.DeliveryLineOne,
-                Address2=scrubbedAddress.DeliveryLineTwo,
-                City=scrubbedAddress.DeliveryCity,
-                State=scrubbedAddress.DeliveryState,
-                Zip=scrubbedAddress.DeliveryZipCode,
-                scrubbedAddress.CongressionalDistrict
-            }, JsonRequestBehavior.DenyGet);
+                return Json(new
+                {
+                    Address1 = scrubbedAddress.DeliveryLineOne,
+                    Address2 = scrubbedAddress.DeliveryLineTwo,
+                    City = scrubbedAddress.DeliveryCity,
+                    State = scrubbedAddress.DeliveryState,
+                    Zip = scrubbedAddress.DeliveryZipCode,
+                    scrubbedAddress.CongressionalDistrict
+                }, JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.DenyGet);
+            }
         }
 
         [HttpPost]
@@ -92,6 +99,7 @@ namespace WriteCongress.Web.Controllers
             }
             else
             {
+                //try getting the district based on the zipcode
                 var district = Db.ZipCodeDistricts.Where(z => z.PostalCode == zipcode).ToList();
                 int districtNumber = -1;
                 
