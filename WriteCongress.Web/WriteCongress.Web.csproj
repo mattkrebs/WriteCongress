@@ -238,21 +238,23 @@
     <None Include="Properties\PublishProfiles\writecongress - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy.pubxml" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\knockout-2.2.1.debug.js" />
-    <Content Include="Scripts\knockout-2.2.1.js" />
-    <Content Include="Scripts\plugins\jquery.placeholder.js" />
-    <Content Include="Scripts\site.CongressPersonFinder.js" />
-    <Content Include="Scripts\site.core.js" />
-    <Content Include="Scripts\holder.js" />
-    <Content Include="Scripts\IssueLetterAuthenticated.js" />
-    <Content Include="Scripts\IssueLetterNonAuthenticated.js" />
-    <Content Include="Scripts\plugins\jquery.cookie.js" />
-    <Content Include="Scripts\plugins\jquery.kicksend.js" />
-    <Content Include="Scripts\plugins\jquery.timeago.js" />
-    <Content Include="Scripts\site.Utils.js" />
-    <Content Include="Scripts\StripeHelper.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\knockout-2.2.1.debug.js" />
+    <Content Include="scripts\knockout-2.2.1.js" />
+    <Content Include="scripts\Models\User.js" />
+    <Content Include="scripts\plugins\jquery.placeholder.js" />
+    <Content Include="scripts\site.CongressPersonFinder.js" />
+    <Content Include="scripts\site.core.js" />
+    <Content Include="scripts\holder.js" />
+    <Content Include="scripts\IssueLetterAuthenticated.js" />
+    <Content Include="scripts\IssueLetterNonAuthenticated.js" />
+    <Content Include="scripts\plugins\jquery.cookie.js" />
+    <Content Include="scripts\plugins\jquery.kicksend.js" />
+    <Content Include="scripts\plugins\jquery.timeago.js" />
+    <Content Include="scripts\site.Utils.js" />
+    <Content Include="scripts\StripeHelper.js" />
+    <Content Include="scripts\ViewModels\LetterViewModel.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -263,7 +265,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -302,8 +304,8 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Shared\_BasicLayout.cshtml" />
     <Content Include="Views\Print\PrintView.cshtml" />
-    <Content Include="Scripts\site.Geolocator.js" />
-    <Content Include="Scripts\plugins\jquery.payment.js" />
+    <Content Include="scripts\site.Geolocator.js" />
+    <Content Include="scripts\plugins\jquery.payment.js" />
     <Content Include="Views\Home\Privacy.cshtml" />
     <Content Include="Views\Home\TOS.cshtml" />
     <Content Include="Views\Account\OrderDetail.cshtml" />

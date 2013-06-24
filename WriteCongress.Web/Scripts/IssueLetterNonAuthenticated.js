@@ -6,38 +6,40 @@
     //$('#city').val(address.City);
     //$('#state').val(address.State);
     
-    $('#beInvolved').html('<i class="icon-envelope"></i> Sign Up &amp; Send!');
-    $('#email').on('blur', function () {
-        var emailInput = $(this);
-        $.post('/Authentication/CheckEmailAddress', { email: emailInput.val() }, function (data) {
-            if (data.Data === true) {
-                $('#signin-email').val(emailInput.val());
-                $('#login-modal').modal();
-                $('#signin-password').focus();
-            }
-        });
-    });
+    //$('#beInvolved').html('<i class="icon-envelope"></i> Sign Up &amp; Send!');
+    
+
+    //$('#email').on('blur', function () {
+    //    var emailInput = $(this);
+    //    $.post('/Authentication/CheckEmailAddress', { email: emailInput.val() }, function (data) {
+    //        if (data.Data === true) {
+    //            $('#signin-email').val(emailInput.val());
+    //            $('#login-modal').modal();
+    //            $('#signin-password').focus();
+    //        }
+    //    });
+    //});
 
     $('#signup-email').on('blur', function () {
         validateEmail();
     });
     
     $('#beInvolved').removeAttr('disabled');
-    $('#beInvolved').on('click', function () {
-        $('#signup-email').val($('#email').val());
-        $('#signup-firstname').val($('#firstname').val());
-        $('#signup-lastname').val($('#lastname').val());
-        $('#signup-address1').val($('#address1').val());
-        $('#signup-address2').val($('#address2').val());
-        $('#signup-city').val($('#city').val());
-        $('#signup-state').val($('#state').val());
-        $('#signup-zipcode').val($('#zipcode').val());
-        $('#signup-phonenumber').val($('#phonenumber').val());
-        $('#signup-congressionaldistrict').val(geolocator.CongressionalDistrict);
+    //$('#beInvolved').on('click', function () {
+    //    $('#signup-email').val($('#email').val());
+    //    $('#signup-firstname').val($('#firstname').val());
+    //    $('#signup-lastname').val($('#lastname').val());
+    //    $('#signup-address1').val($('#address1').val());
+    //    $('#signup-address2').val($('#address2').val());
+    //    $('#signup-city').val($('#city').val());
+    //    $('#signup-state').val($('#state').val());
+    //    $('#signup-zipcode').val($('#zipcode').val());
+    //    $('#signup-phonenumber').val($('#phonenumber').val());
+    //    $('#signup-congressionaldistrict').val(geolocator.CongressionalDistrict);
         
-        validateEmail();
-        $('#createAccount').modal();
-    });
+    //    validateEmail();
+    //    $('#createAccount').modal();
+    //});
 
     function validateEmail() {
         var emailInput = $('#signup-email');
@@ -120,6 +122,5 @@
         if (info.tos !== true) {
             errors.push({ field: '#signup-tos', message: 'You must agree to the Terms of Service' });
         }
-
     });
 });

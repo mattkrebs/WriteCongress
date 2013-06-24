@@ -75,11 +75,41 @@ $(function () {
         return vm;
     };
 
-    myCongressionalDistrict = new CongressPersonDisplayViewModel(null, -1);
+
+
+
+
+    //start of the actual code execute on page load
+    var myCongressionalDistrict = new CongressPersonDisplayViewModel(null, -1);
     var district = window.localStorage.getItem("myCongressionalDistrict");
     if (district != null) {
         var info = JSON.parse(district);
         myCongressionalDistrict = CongressPersonDisplayViewModel.Load(info);
     }
     ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
+
+
+    var SigninViewModel = function () {
+        var self = this;
+        this.Email = ko.observable(null);
+        this.Password = ko.observable(null);
+
+        this.Show = function () {
+            var loginModal =$('#login-modal');
+            if (loginModal !== null && typeof loginModal !== "undefined") {
+                loginModal.modal();
+                if (self.Email().length > 0) {
+                    $('#signin-password').focus();
+                }
+            }
+        };
+    };
+
+    var signin = new SigninViewModel();
+    ko.applyBindings(signin, document.getElementById('login-modal'));
+
+    wcglobals = {
+        SignIn: signin,
+        MyCongressionalDistrict:myCongressionalDistrict
+    };
 });

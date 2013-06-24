@@ -39,7 +39,6 @@
 
 		</div><!-- end div#main_wrap, begins in header.html -->
 		@Html.Partial("_Footer")
-		<!-- jQuery We Need -->
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
      @RenderSection("Scripts",false)
      <script type="text/javascript">
@@ -47,5 +46,7 @@
              @RenderSection("AdHocScripts", false)
          });
      </script>
+     @Html.PageScripts();
+
  </body>
 </html>

@@ -48,12 +48,12 @@
                 <h5>Constituent Info @if (!User.Identity.IsAuthenticated)
                                      {<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
                 <input class="span4 livepreview ZipCode" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User().Zip}" /><br />
-                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown'}" />
-                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown'}" /><br />
-                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne}" /><br />
-                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo}" /><br />
-                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City}" />
-                <select data-bind="value:User().State" class="span6 zipautofill-state address" id="state" name="state" placeholder="State" size="1">
+                <input class="span6 livepreview" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
+                <input class="span6 livepreview" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" /><br />
+                <input class="span12 address" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne,enable:User().ValidZip}" /><br />
+                <input class="span12 address" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo,enable:User().ValidZip}" /><br />
+                <input class="span6 address zipautofill-city" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City,enable:User().ValidZip}" />
+                <select data-bind="{value:User().State,enable:User().ValidZip}" class="span6 zipautofill-state address" id="state" name="state" placeholder="State" size="1">
                     <option value="">State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -107,9 +107,9 @@
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
                 </select>
-                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="value:User().Email" />
-                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="value:User().PhoneNumber" /><br />
-                <button id="beInvolved" class="btn btn-large btn-primary"><i class="icon-envelope"></i>Send</button>
+                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
+                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
+                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick}" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send &ndash; Get Involved</button>
             </div>
         </div>
     </div>
@@ -118,6 +118,7 @@
 @Html.Partial("_CreateAccount")
 
 @section scripts{
+
     @if (User.Identity.IsAuthenticated) {
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
@@ -127,84 +128,12 @@
     else {
         <script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>
     }
-
+    <script src="/scripts/Models/User.js"></script>
+    <script src="/scripts/ViewModels/LetterViewModel.js"></script>
     <script type="text/javascript">
-        var User = function(firstname, lastname, address1, address2, city, state, zip, email, phoneNumber) {
-            this.FirstName = ko.observable(firstname);
-            this.LastName = ko.observable(lastname);
-            this.AddressOne = ko.observable(address1);
-            this.AddressTwo = ko.observable(address2);
-            this.City = ko.observable(city);
-            this.State = ko.observable(state);
-            this.previousState = null;
-            
-            this.Zip = ko.observable(zip);
-            this.Email = ko.observable(email);
-            this.PhoneNumber = ko.observable(phoneNumber);
-            this.CongressionalDistrict = ko.observable(-1);            
-        };
-
-        var LetterViewModel = function() {
-            var self = this;
-            var geolocator = new Geolocator();
-
-            self.User = ko.observable(new User(null, null, null, null, null, null, null, null, null));
-            self.Authenticated = ko.observable(false);
-
-
-            self.User().Zip.subscribe(function(zip) {
-                geolocator.GetZipCodeInfo(zip).done(function(data) {
-                    self.User().City(data.City); 
-                    self.User().State(data.StateAbbreviation);
-                    self.User().CongressionalDistrict(data.CongressionalDistrict);
-                });
-            });
-
-            this.Save = function() {
-                localStorage.setItem("user", ko.toJSON(self.User));
-            };
-            
-
-            self.User().State.subscribe(function(state) {
-                if (self.User().previousState != state) {
-                    //update the global variable
-                    myCongressionalDistrict.State(state);                    
-
-                    //the state changed, we're resetting the congressional district
-                    if(self.User().previousState!=null){
-                        self.User().CongressionalDistrict(-1);
-                    }
-
-                    self.User().previousState = state;
-                }
-            });
-            
-            self.User().CongressionalDistrict.subscribe(function(district) {
-                //update the global variable
-                myCongressionalDistrict.CongressionalDistrict(district);
-            });
-
-            var getCongressionalDistrictWithAddress = function() {
-                var user = self.User();
-                if (user.CongressionalDistrict() == -1) {
-                    if (user.AddressOne()!=null && user.AddressOne().length > 4 && user.City().length > 2 && user.State().length == 2 && user.Zip().length == 5) {
-                        geolocator.NormalizeAddress(ko.toJS(user)).done(function(data) {
-                            self.User().CongressionalDistrict(parseInt(data.CongressionalDistrict));
-                        });
-                    }
-                }
-            };
-
-            self.User().AddressOne.subscribe(function() {
-                getCongressionalDistrictWithAddress();
-            });
-            self.User().City.subscribe(function() {
-                getCongressionalDistrictWithAddress();
-            });
-        };
-
         $(function() {
             var vm = new LetterViewModel();
+            wcglobals.Letter = vm;
             ko.applyBindings(vm, document.getElementById('senderInfo'));
             ko.applyBindings(vm, document.getElementById('letter'));
         });

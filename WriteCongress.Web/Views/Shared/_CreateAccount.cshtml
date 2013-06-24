@@ -1,27 +1,26 @@
-﻿
-<div id="createAccount" class="modal hide">
+﻿<div id="createAccount" class="modal hide">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Create an Account</h3>
-        <h6>You're almost there</h6>
+        <h6>You're 2 clicks away &ndash; create an account in 20 seconds</h6>
     </div>
 
     <div class="modal-body">
         <form id="createAccountAndRedirect" method="post" action="/Authentication/CreateAccount" class="form-horizontal">
             <input type="hidden" id="signup-redirect" name="redirect" value="@Request.Url#sendletter" />
-            <input type="hidden" id="signup-firstname" name="firstname" />
-            <input type="hidden" id="signup-lastname" name="lastname" />
-            <input type="hidden" id="signup-address1" name="address1" />
-            <input type="hidden" id="signup-address2" name="address2" />
-            <input type="hidden" id="signup-city" name="city" />
-            <input type="hidden" id="signup-state" name="state" />
-            <input type="hidden" id="signup-zipcode" name="zipcode" />
-            <input type="hidden" id="signup-congressionaldistrict" name="congressionaldistrict" />
-            <input type="hidden" id="signup-phonenumber" name="phonenumber" />
+            <input type="hidden" id="signup-firstname" name="firstname" data-bind="{value:User.FirstName}" />
+            <input type="hidden" id="signup-lastname" name="lastname" data-bind="{value:User.LastName}" />
+            <input type="hidden" id="signup-address1" name="address1" data-bind="{value:User.AddressTwo}"/>
+            <input type="hidden" id="signup-address2" name="address2" data-bind="{value:User.AddressOne}" />
+            <input type="hidden" id="signup-city" name="city" data-bind="{value:User.City}" />
+            <input type="hidden" id="signup-state" name="state" data-bind="{value:User.State}" />
+            <input type="hidden" id="signup-zipcode" name="zipcode" data-bind="{value:User.Zip}" />
+            <input type="hidden" id="signup-congressionaldistrict" name="congressionaldistrict" data-bind="{value:User.CongressionalDistrict}" />
+            <input type="hidden" id="signup-phonenumber" name="phonenumber" data-bind="{value:User.PhoneNumber}" />
             <div class="control-group">
                 <label class="control-label">Email</label>
                 <div class="controls">
-                    <input id="signup-email" type="text" name="email" placeholder="Email">
+                    <input id="signup-email" type="text" name="email" placeholder="Email" data-bind="{value:User.Email}">
                     <i class="icon-info-sign error hide"></i>
                     <div class="hide" id="emailSuggestion"></div>
                 </div>
@@ -58,7 +57,30 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button id="createAccountSendLetter" class="btn btn-primary"> Signup & Send My Letters</button>
+        <button id="createAccountSendLetter" class="btn btn-primary" data-bind="click:Signup"> Signup & Send My Letters</button>
     </div>
-
 </div>
+
+@using (Html.BeginScripts())
+{
+    <script type="text/javascript">
+    $(function () {
+        if (typeof wcglobals.Letter !== "undefined") {
+            var letter = wcglobals.Letter;
+            var SignupViewModel = function(user) {
+                var self = this;
+                this.User = user;
+                this.Signup = function() {
+                    console.log(ko.toJSON(self.User));
+                };
+                this.Show = function() {
+                    $('#createAccount').modal();
+                };
+            };
+            var vm = new SignupViewModel(letter.User());
+            wcglobals.Signup = vm;
+            ko.applyBindings(vm, document.getElementById('createAccount'));
+        }
+    });
+    </script>
+}
