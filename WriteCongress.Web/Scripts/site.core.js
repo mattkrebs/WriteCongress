@@ -14,6 +14,10 @@ $(function () {
             }
         });
     };
+    CongressPerson.Load = function (json) {
+        var p = new CongressPerson(json.FullNameAndTitle, json.OpenCongressId);
+        return p;
+    };
 
     var CongressPersonDisplayViewModel = function (state, district) {
         var emptyPerson = new CongressPerson(null, -1);
@@ -23,6 +27,13 @@ $(function () {
         
         this.Senators = ko.observableArray([emptyPerson,emptyPerson]);
         this.Representative = ko.observable(emptyPerson);
+
+        this.Senators.subscribe(function () {
+            self.Save();
+        });
+        this.Representative.subscribe(function () {
+            self.Save();
+        });
 
         this.DisplayMyCongressPersons = ko.computed(function () {
             return self.Senators()[0].OpenCongressId() != 1 && self.Senators()[1].OpenCongressId() != -1;
@@ -35,7 +46,6 @@ $(function () {
                     self.Senators([new CongressPerson(data[0].FullNameAndTitle, data[0].OpenCongressId), new CongressPerson(data[1].FullNameAndTitle, data[1].OpenCongressId)]);
                 }
             });
-            self.Save();
         });
 
         self.CongressionalDistrict.subscribe(function (district) {
@@ -56,17 +66,20 @@ $(function () {
 
         this.Save = function () {
             window.localStorage.setItem("myCongressionalDistrict", ko.toJSON(self));
-        }
+        };
+    };
+    CongressPersonDisplayViewModel.Load = function (info) {
+        var vm = new CongressPersonDisplayViewModel(info.State, info.CongressionalDistrict);
+        vm.Senators([CongressPerson.Load(info.Senators[0]), CongressPerson.Load(info.Senators[1])]);
+        vm.Representative(CongressPerson.Load(info.Representative));
+        return vm;
     };
 
     myCongressionalDistrict = new CongressPersonDisplayViewModel(null, -1);
     var district = window.localStorage.getItem("myCongressionalDistrict");
     if (district != null) {
         var info = JSON.parse(district);
-        myCongressionalDistrict = new CongressPersonDisplayViewModel(info.State, info.CongressionalDistrict);
-        myCongressionalDistrict.State(info.State);
-        myCongressionalDistrict.CongressionalDistrict(info.CongressionalDistrict);
-        myCongressionalDistrict.Senators(info.Senators);
+        myCongressionalDistrict = CongressPersonDisplayViewModel.Load(info);
     }
     ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
 });
