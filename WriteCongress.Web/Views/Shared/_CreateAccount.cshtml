@@ -64,23 +64,76 @@
 @using (Html.BeginScripts())
 {
     <script type="text/javascript">
-    $(function () {
-        if (typeof wcglobals.Letter !== "undefined") {
-            var letter = wcglobals.Letter;
-            var SignupViewModel = function(user) {
-                var self = this;
-                this.User = user;
-                this.Signup = function() {
-                    console.log(ko.toJSON(self.User));
+        $(function() {
+            if (typeof wcglobals.Letter !== "undefined") {
+                var letter = wcglobals.Letter;
+                var SignupViewModel = function(user) {
+                    var self = this;
+                    this.User = user;
+                    this.Signup = function() {
+                        var button = $('#createAccountSendLetter');
+                        button.css('cursor', 'wait');
+                        button.attr('disabled', 'disabled');
+                        var info = {
+                            email: $('#signup-email').val(),
+                            password: $('#signup-password').val(),
+                            passwordconfirm: $('#signup-passwordconfirm').val(),
+                            tos: ($('#signup-tos:checked').length == 1)
+                        };
+        
+                        self.validate(info, function(errors) {
+                            for (var i = 0; i < errors.length; i++) {
+                                $(errors[i].field).parent().addClass('alert alert-danger');
+                                $(errors[i].field).tooltip({ title: errors[i].message });
+                            }
+                            button.css('cursor', 'default');
+                            button.removeAttr('disabled');
+                            if (errors.length == 0) {
+                                $('#createAccountAndRedirect').submit();
+                            }
+                        });
+                    };
+                    this.Show = function() {
+                        $('#createAccount').modal();
+                    };
+
+                    //this function sucks, but i was moving it from the old code and just didn't have time to MVVMify it
+                    //TODO: KO this
+                    this.validate = function(info, callback) {
+                        var errors = [];
+                        var email = $('#signup-email').val();
+                        $.post('/Authentication/ValidateEmailFormat', { email: email }, function(data) {
+                            if (data.Success === true) {
+                                $.post('/Authentication/CheckEmailAddress', { email: email }, function(inuse) {
+                                    if (inuse.Data === true) {
+                                        errors.push({ field: '#signup-email', message: 'Email is already in use.' });
+                                    }
+                                    callback(errors);
+                                });
+                            } else {
+                                errors.push({ field: '#signup-email', message: 'Invalid email address.' });
+                                callback(errors);
+                            }
+                        });
+
+                        if (info.password.length < 4) {
+                            errors.push({ field: '#signup-password', message: 'Your password MUST be atleast 4 characters' });
+                        }
+
+                        if (info.password !== info.passwordconfirm) {
+                            errors.push({ field: '#signup-passwordconfirm', message: 'Your passwords should match' });
+                        }
+                        if (info.tos !== true) {
+                            errors.push({ field: '#signup-tos', message: 'You must agree to the Terms of Service' });
+                        }
+                    };
                 };
-                this.Show = function() {
-                    $('#createAccount').modal();
-                };
-            };
-            var vm = new SignupViewModel(letter.User());
-            wcglobals.Signup = vm;
-            ko.applyBindings(vm, document.getElementById('createAccount'));
-        }
-    });
+
+
+                var vm = new SignupViewModel(letter.User());
+                wcglobals.Signup = vm;
+                ko.applyBindings(vm, document.getElementById('createAccount'));
+            }
+        });
     </script>
 }
