@@ -47,6 +47,6 @@
     @Scripts.Render("~/js/plugins")
     @Html.Partial("_Analytics")
     @RenderSection("scripts", false)
-    @if (!User.Identity.IsAuthenticated){Html.RenderPartial("_LoginModal");}
-    @Html.PageScripts();
+    @if (!User.Identity.IsAuthenticated) {Html.RenderPartial("_LoginModal");}
+    @Html.PageScripts()
 </body></html>
