@@ -8,15 +8,17 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a> <span class="divider">/</span></li>
+                <li><a href="/Issues">Issues</a> <span class="divider">/</span></li>
+                <li class="active"><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></li>
+            </ul>
             <h1>@Model.Letter.Name</h1>
-            <h2><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></h2>
-            <p>
-                @Model.Letter.Description
-            </p>
+            <p class="letter-description">@Model.Letter.Description</p>
 
             <div id="letter" class="letter">
-                <div id="letterHeader" class="letter-header">
-                    <div>@DateTime.Now.ToString("MMMM d, yyyy")</div>
+                <div id="letterHeader" class="letter-header well">
+                    <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
                     <div><span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span></div>
                     <div>
                         <div data-bind="{text:User().AddressOne}"></div>
@@ -24,20 +26,23 @@
                         <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{text:User().Zip}"></span>
                         <br />
                     </div>
-                    <div data-bind="{text:User().Email}"></div>
-                    <div data-bind="{text:User().PhoneNumber}"></div>
                 </div>
-
-                <div class="letter-recipients">
-                    The Honorable <span id="addressse">[NAME OF REP OR SENATOR]</span>
-                </div>
-                <div class="letter-subject">RE: @Model.Issue.Name</div>
-                <div class="letter-body">
-                    @Html.Raw(Model.Letter.Body)
-                </div>
-                <div class="letter-signature">
-                    Sincerely<br />
-                    <span id="letter-signature"><span data-bind="{text:User.FirstName}"></span><span data-bind="{text:User.LastName}"></span></span>
+                <div class="well">
+                    <div class="letter-recipients">
+                        <p>The Honorable <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span></p>
+                        <div class="letter-subject">RE: @Model.Issue.Name</div>
+                    </div>
+                    <div class="letter-body">
+                        @Html.Raw(Model.Letter.Body)
+                    </div>
+                    <div class="letter-signature">
+                        <h4>Sincerely</h4>
+                        <span id="letter-signature">
+                            <span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span>
+                        </span>
+                        <h5 data-bind="{text:User().Email}"></h5>
+                        <h5 data-bind="{text:User().PhoneNumber}"></h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,6 +155,9 @@
             }
             ko.applyBindings(vm, document.getElementById('senderInfo'));
             ko.applyBindings(vm, document.getElementById('letter'));
+
+
+            $('#addressse').tooltip();
         });
 
     </script>

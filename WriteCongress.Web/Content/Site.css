@@ -210,3 +210,6 @@ ul.statuses .well:hover
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
+.letter-description {
+    font-variant: small-caps;
+}
