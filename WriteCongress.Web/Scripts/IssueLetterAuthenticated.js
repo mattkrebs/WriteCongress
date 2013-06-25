@@ -20,8 +20,8 @@
 CheckoutModalView.prototype = {
     Show: function () {
         var me = this;
-        var senators = congressPersonFinder.Senators;
-        var rep = congressPersonFinder.Representative;
+        var senators = ko.toJS(wcglobals.MyCongressionalDistrict.Senators());
+        var rep = ko.toJS(wcglobals.MyCongressionalDistrict.Representative());
 
         if (this.PaymentInfo != null) {
             $('#card-name').val(this.PaymentInfo.Name);
@@ -128,7 +128,7 @@ CheckoutModalView.prototype = {
         orderpromise.done(function (data) {
             if (data.Success === true) {
                 var order = data.Data;
-                window.location.href = '/Account/OrderDetail' + order;
+                window.location.href = '/Account/OrderDetail/' + order;
             } else {
                 me.showError(data.Message);
             }
