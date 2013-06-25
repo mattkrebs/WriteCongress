@@ -1,7 +1,7 @@
 ﻿<div id="login-modal" class="modal hide">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h2><i class="icon-signin"></i> Sign In</h2>
+        <h2><i class="icon-signin"></i>Sign In</h2>
     </div>
     <div class="modal-body">
         <form id="login-modal-loginform" method="POST" action="/Authentication/Signin" class="form-horizontal">
@@ -9,34 +9,57 @@
             <div class="control-group">
                 <label class="control-label">Email</label>
                 <div class="controls">
-                    <input data-bind="value:Email" id="signin-email" type="text" name="email" placeholder="Email">
+                    <input data-bind="value: Email" id="signin-email" type="text" name="email" placeholder="Email">
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label">Password</label>
                 <div class="controls">
-                    <input data-bind="value:Password" id="signin-password" type="password" name="password" placeholder="Password">
+                    <input data-bind="value: Password" id="signin-password" type="password" name="password" placeholder="Password">
                     <div><a href="/Authentication/PasswordReset">Forgot your password?</a></div>
                 </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <a href="javascript:void(0);" id="login-modal-signin" class="btn btn-primary"><i class="icon-signin"></i> Sign In</a>
+        <a href="javascript:void(0);" id="login-modal-signin" class="btn btn-primary"><i class="icon-signin"></i>Sign In</a>
     </div>
 </div>
-<script type="text/javascript">
-    $('#login-modal-signin').on('click', function() {
-        $('#login-modal-loginform').submit();
-    });
-    $('.login-launcher').click(function() {
-        $('#login-modal').modal();
-        $('#signin-email').focus();
-    });
-    $('#login-modal').keydown(function (e) {
-        if (e.keyCode == '13') {
-            $('#login-modal-signin').click();
-        }
-    });
-</script>
+
+@using (Html.BeginScripts())
+{
+    <script type="text/javascript">
+        var SigninViewModel = function () {
+            var self = this;
+            this.Email = ko.observable(null);
+            this.Password = ko.observable(null);
+
+            this.Show = function () {
+                var loginModal = $('#login-modal');
+                if (loginModal !== null && typeof loginModal !== "undefined") {
+                    loginModal.modal();
+                    if (self.Email().length > 0) {
+                        $('#signin-password').focus();
+                    }
+                }
+            };
+        };
+
+        var signin = new SigninViewModel();
+        ko.applyBindings(signin, document.getElementById('login-modal'));
+        wcglobas.SignIn = signin;
+        $('#login-modal-signin').on('click', function () {
+            $('#login-modal-loginform').submit();
+        });
+        $('.login-launcher').click(function () {
+            $('#login-modal').modal();
+            $('#signin-email').focus();
+        });
+        $('#login-modal').keydown(function (e) {
+            if (e.keyCode == '13') {
+                $('#login-modal-signin').click();
+            }
+        });
+    </script>
+}
