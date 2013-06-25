@@ -5,6 +5,13 @@ $(function () {
     var CongressPerson = function (fullNameAndTitle, openCongressId) {
         var self = this;
         this.FullNameAndTitle = ko.observable(fullNameAndTitle);
+        this.Tooltip = ko.computed(function () {
+            var title = self.FullNameAndTitle();
+            if (title === null) {
+                return "Unable to determine your Congressperson. Sometimes we need your full address (not just your zip)";
+            }
+            return title;
+        });
         this.OpenCongressId = ko.observable(openCongressId);
         this.Photo50 = ko.computed(function () {
             if (self.OpenCongressId() != -1) {
@@ -87,5 +94,14 @@ $(function () {
 
     wcglobals = {
         MyCongressionalDistrict:myCongressionalDistrict
-    };
+    };    
+
+
+    $(document).on('mouseenter', '[data-toggle="tooltip"]', function () {
+        $(this).tooltip({ title: $(this).attr('title') });
+        $(this).tooltip('show');
+    });
+    $(document).on('mouseleave', '[data-toggle="tooltip"]', function () {
+        $(this).tooltip('destroy');
+    });
 });

@@ -29,7 +29,9 @@
                 </div>
                 <div class="well">
                     <div class="letter-recipients">
-                        <p>The Honorable <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span></p>
+                        <p>The Honorable 
+                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
+                        </p>
                         <div class="letter-subject">RE: @Model.Issue.Name</div>
                     </div>
                     <div class="letter-body">
@@ -118,9 +120,9 @@
             </div>
             <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height:65px">
                 <h4>We'll print &amp; mail this to:</h4>
-                <img data-bind="attr:{title: Senators()[0].FullNameAndTitle,src:Senators()[0].Photo50()}" class="img-polaroid"/>
-                <img data-bind="attr:{title: Senators()[1].FullNameAndTitle,src:Senators()[1].Photo50()}" class="img-polaroid"/>
-                <img data-bind="attr:{title: Representative().FullNameAndTitle,src:Representative().Photo50()}" class="img-polaroid"/>
+                <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
+                <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
+                <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
             </div>
         </div>
         
@@ -162,11 +164,8 @@
             }
             ko.applyBindings(vm, document.getElementById('senderInfo'));
             ko.applyBindings(vm, document.getElementById('letter'));
-            
-            ko.applyBindings(wcglobals.MyCongressionalDistrict,document.getElementById('letter-myCongressPersons'))
 
-
-            $('#addressse').tooltip();
+            ko.applyBindings(wcglobals.MyCongressionalDistrict, document.getElementById('letter-myCongressPersons'));
         });
 
     </script>

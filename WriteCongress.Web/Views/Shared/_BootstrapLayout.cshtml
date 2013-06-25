@@ -23,9 +23,9 @@
             <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
                 <div class="pull-right" id="mydistrict">                    
                     <span data-bind="visible:DisplayMyCongressPersons">
-                        <img data-bind="attr:{title: Senators()[0].FullNameAndTitle,src:Senators()[0].Photo50()}" class="img-polaroid"/>
-                        <img data-bind="attr:{title: Senators()[1].FullNameAndTitle,src:Senators()[1].Photo50()}" class="img-polaroid"/>
-                        <img data-bind="attr:{title: Representative().FullNameAndTitle,src:Representative().Photo50()}" class="img-polaroid"/>
+                        <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
+                        <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
+                        <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
                     </span>
                 </div>
                 <div class="pull-right" id="myrep"></div>
