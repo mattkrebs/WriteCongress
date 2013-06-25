@@ -22,7 +22,7 @@
     this.Authenticated = ko.observable(false);
 
     this.Email.subscribe(function(newEmail) {
-        if (!self.Authenticated()) {
+        if (!self.Authenticated() && typeof wcglobals.SignIn!=="undefined") {
             $.post('/Authentication/CheckEmailAddress', { email: newEmail }, function(data) {
                 if (data.Data === true) {
                     wcglobals.SignIn.Email(newEmail);

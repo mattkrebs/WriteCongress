@@ -17,7 +17,7 @@
                 <label class="control-label">Password</label>
                 <div class="controls">
                     <input data-bind="value: Password" id="signin-password" type="password" name="password" placeholder="Password">
-                    <div><a href="/Authentication/PasswordReset">Forgot your password?</a></div>
+                    <div><a href="/Authentication/PasswordReset" class="label">Forget your password?</a></div>
                 </div>
             </div>
         </form>
@@ -45,21 +45,22 @@
                 }
             };
         };
-
-        var signin = new SigninViewModel();
-        ko.applyBindings(signin, document.getElementById('login-modal'));
-        wcglobas.SignIn = signin;
-        $('#login-modal-signin').on('click', function () {
-            $('#login-modal-loginform').submit();
-        });
-        $('.login-launcher').click(function () {
-            $('#login-modal').modal();
-            $('#signin-email').focus();
-        });
-        $('#login-modal').keydown(function (e) {
-            if (e.keyCode == '13') {
-                $('#login-modal-signin').click();
-            }
+        $(function() {
+            var signin = new SigninViewModel();
+            ko.applyBindings(signin, document.getElementById('login-modal'));
+            wcglobals.SignIn = signin;
+            $('#login-modal-signin').on('click', function() {
+                $('#login-modal-loginform').submit();
+            });
+            $('.login-launcher').click(function() {
+                $('#login-modal').modal();
+                $('#signin-email').focus();
+            });
+            $('#login-modal').keydown(function(e) {
+                if (e.keyCode == '13') {
+                    $('#login-modal-signin').click();
+                }
+            });
         });
     </script>
 }
