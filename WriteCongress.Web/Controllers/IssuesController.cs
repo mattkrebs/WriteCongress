@@ -45,6 +45,7 @@ namespace WriteCongress.Web.Controllers
                 model.PhoneNumber = AuthenticatedUser.PhoneNumber;
                 model.Email = AuthenticatedUser.Email;
                 model.ZipCode = AuthenticatedUser.ZipCode;
+                model.CongressionalDistrict = AuthenticatedUser.CongressionalDistrict ?? -1;
             }
             model.Letter = letter;
             model.Issue =Db.Issues.FirstOrDefault(i => i.Slug == issueSlug);

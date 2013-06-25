@@ -123,10 +123,10 @@
         <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
         <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
         <script type="text/javascript"> Stripe.setPublishableKey('@ConfigurationManager.AppSettings["StripePublishableKey"]'); </script>
-        <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
+        @*<script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>*@
     }
     else {
-        <script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>
+        @*<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>*@
     }
     <script src="/scripts/Models/User.js"></script>
     <script src="/scripts/ViewModels/LetterViewModel.js"></script>
@@ -134,6 +134,20 @@
         $(function() {
             var vm = new LetterViewModel();
             wcglobals.Letter = vm;
+            @if (User.Identity.IsAuthenticated) {
+                @:vm.User().Authenticated(true);
+                @:vm.User().CongressionalDistrict(@Model.CongressionalDistrict);
+                @:vm.User().FirstName('@Model.FirstName');
+                @:vm.User().LastName('@Model.LastName');
+                @:vm.User().AddressOne('@Model.Address1');
+                @:vm.User().AddressTwo('@Model.Address2');
+                @:vm.User().City('@Model.City');
+                @:vm.User().State('@Model.State');
+                @:vm.User().Zip('@Model.ZipCode');
+                @:vm.User().Email('@Model.Email');
+                @:vm.User().PhoneNumber('@Model.PhoneNumber');
+
+            }
             ko.applyBindings(vm, document.getElementById('senderInfo'));
             ko.applyBindings(vm, document.getElementById('letter'));
         });

@@ -16,6 +16,7 @@ namespace WriteCongress.Web.Models
         public string ZipCode { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public int CongressionalDistrict { get; set; }
 
         public Letter Letter { get; set; }
         public Issue Issue { get; set; }
