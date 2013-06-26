@@ -19,18 +19,18 @@
             <div id="letter" class="letter">
                 <div id="letterHeader" class="letter-header well">
                     <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
-                    <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name <i class=\'icon-arrow-right\'></i>]'}"></span> <span data-bind="{text:User().LastName}"></span></div>
+                    <div><span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span></div>
                     <div>
-                        <div data-bind="{autoswaptext:User().AddressOne,placeholder:'[Your Address]'}"></div>
+                        <div data-bind="{text:User().AddressOne}"></div>
                         <div data-bind="{text:User().AddressTwo}"></div>
-                        <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State and Zip]'}"></span>
+                        <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{text:User().Zip}"></span>
                         <br />
                     </div>
                 </div>
                 <div class="well">
                     <div class="letter-recipients">
                         <p>The Honorable 
-                            <span data-toggle="tooltip" data-placement="top" id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
+                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
                         </p>
                         <div class="letter-subject">RE: @Model.Issue.Name</div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="letter-signature">
                         <h4>Sincerely</h4>
                         <span id="letter-signature">
-                            <span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Signature]'}"></span> <span data-bind="{text:User().LastName}"></span>
+                            <span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span>
                         </span>
                         <h5 data-bind="{text:User().Email}"></h5>
                         <h5 data-bind="{text:User().PhoneNumber}"></h5>
@@ -50,7 +50,7 @@
         </div>
         <div class="span4">
             <div id="senderInfo" class="well letterinfo">
-                <h4>Step 1: Complete Info</h4>
+                <h4>Send this letter</h4>
                 <hr />
                 <h5>Constituent Info @if (!User.Identity.IsAuthenticated)
                                      {<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
@@ -116,7 +116,7 @@
                 </select> <input class="span3" type="text" id="city" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
-                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick}" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Signup &amp; Send Letter</button>
+                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick}" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send &ndash; Get Involved</button>
             </div>
             <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height:65px">
                 <h4>We'll print &amp; mail this to:</h4>
