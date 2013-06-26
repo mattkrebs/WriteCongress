@@ -15,9 +15,9 @@ $(function () {
         this.OpenCongressId = ko.observable(openCongressId);
         this.Photo50 = ko.computed(function () {
             if (self.OpenCongressId() != -1) {
-                return 'https://writecongress.blob.core.windows.net/congress-photos/' + self.OpenCongressId() + '-50px.jpg';
+                return 'https://az417320.vo.msecnd.net/congress-photos/' + self.OpenCongressId() + '-50px.jpg';
             } else {
-                return 'https://writecongress.blob.core.windows.net/congress-photos/unknown.jpg';
+                return 'https://az417320.vo.msecnd.net/congress-photos/unknown.jpg';
             }
         });
     };
