@@ -313,6 +313,7 @@
     <Content Include="Views\Home\TOS.cshtml" />
     <Content Include="Views\Account\OrderDetail.cshtml" />
     <Content Include="Views\Authentication\SignIn.cshtml" />
+    <Content Include="Views\Shared\_HowThisWorks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

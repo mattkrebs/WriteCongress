@@ -19,6 +19,7 @@
 };
 CheckoutModalView.prototype = {
     Show: function () {
+        mixpanel.track('Checking Out');
         var me = this;
         var senators = ko.toJS(wcglobals.MyCongressionalDistrict.Senators());
         var rep = ko.toJS(wcglobals.MyCongressionalDistrict.Representative());
@@ -34,11 +35,11 @@ CheckoutModalView.prototype = {
 
         var html = '';
         if (senators.length == 2) {
-            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
-            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[1].OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + senators[1].OpenCongressId + '-50px.jpg" /> ' + senators[1].FullNameAndTitle + '</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[0].OpenCongressId + '"><img class="photo-xsmall" src="https://az417320.vo.msecnd.net/congress-photos/' + senators[0].OpenCongressId + '-50px.jpg" /> ' + senators[0].FullNameAndTitle + '</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + senators[1].OpenCongressId + '"><img class="photo-xsmall" src="https://az417320.vo.msecnd.net/congress-photos/' + senators[1].OpenCongressId + '-50px.jpg" /> ' + senators[1].FullNameAndTitle + '</label>';
         }
         if (rep != null) {
-            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + rep.OpenCongressId + '"><img class="photo-xsmall" src="https://writecongress.blob.core.windows.net/congress-photos/' + rep.OpenCongressId + '-50px.jpg" /> ' + rep.FullNameAndTitle + '</label>';
+            html += '<label class="checkbox"><input class="recipientSelector" type="checkbox" checked="checked" value="' + rep.OpenCongressId + '"><img class="photo-xsmall" src="https://az417320.vo.msecnd.net/congress-photos/' + rep.OpenCongressId + '-50px.jpg" /> ' + rep.FullNameAndTitle + '</label>';
         }
 
         $('#congressPersonsToSendTo').html(html);
@@ -127,9 +128,11 @@ CheckoutModalView.prototype = {
         var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug });
         orderpromise.done(function (data) {
             if (data.Success === true) {
+                mixpanel.track('Purchased Letter: Completed');
                 var order = data.Data;
                 window.location.href = '/Account/OrderDetail/' + order;
             } else {
+                mixpanel.track('Purchased Letter: Error', { message: data.Message });
                 me.showError(data.Message);
             }
         });

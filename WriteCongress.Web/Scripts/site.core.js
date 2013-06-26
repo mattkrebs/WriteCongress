@@ -15,9 +15,9 @@ $(function () {
         this.OpenCongressId = ko.observable(openCongressId);
         this.Photo50 = ko.computed(function () {
             if (self.OpenCongressId() != -1) {
-                return 'https://writecongress.blob.core.windows.net/congress-photos/' + self.OpenCongressId() + '-50px.jpg';
+                return 'https://az417320.vo.msecnd.net/congress-photos/' + self.OpenCongressId() + '-50px.jpg';
             } else {
-                return 'https://writecongress.blob.core.windows.net/congress-photos/unknown.jpg';
+                return 'https://az417320.vo.msecnd.net/congress-photos/unknown.jpg';
             }
         });
     };
@@ -46,9 +46,13 @@ $(function () {
             return self.Senators()[0].OpenCongressId() != 1 && self.Senators()[1].OpenCongressId() != -1;
         });
 
-        self.State.subscribe(function () {
+        self.State.subscribe(function (newState) {
+            if (newState == null || newState.length == 0) {
+                return;
+            }
+            mixpanel.register({ State: newState });
             self.CongressionalDistrict(-1);
-            $.get('/Data/SenatorsByState', { state: self.State() }).done(function(data) {
+            $.get('/Data/SenatorsByState', { state: newState }).done(function(data) {
                 if (data.length == 2) {
                     self.Senators([new CongressPerson(data[0].FullNameAndTitle, data[0].OpenCongressId), new CongressPerson(data[1].FullNameAndTitle, data[1].OpenCongressId)]);
                 }
@@ -58,10 +62,12 @@ $(function () {
         self.CongressionalDistrict.subscribe(function (district) {
             //console.log('changing district to ' + district);finan
             if ((district !== -1 && district !== null) && self.State() != null) {
+                mixpanel.register({ District: district });
                 $.get('/Data/RepresentativeByStateAndDistrict', { state: self.State(), district: district }, function (data) {
                     if (data.length == 1) {
                         self.Representative(new CongressPerson(data[0].FullNameAndTitle,data[0].OpenCongressId));
                     } else {
+                        mixpanel.track('Couldn\'t find a Rep for specified district', { District: district });
                         self.Representative(emptyPerson);
                     }
                 });
@@ -104,4 +110,11 @@ $(function () {
     $(document).on('mouseleave', '[data-toggle="tooltip"]', function () {
         $(this).tooltip('destroy');
     });
+    
+    if (window.localStorage.getItem('firstview') == null) {
+        window.localStorage.setItem('firstview', true);
+        mixpanel.track('First View');
+    }
+    mixpanel.register_once({ "referrer":document.referrer,'landing page': window.location.href });
+    
 });

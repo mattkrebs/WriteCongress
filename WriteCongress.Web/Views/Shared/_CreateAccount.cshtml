@@ -89,7 +89,13 @@
                             button.css('cursor', 'default');
                             button.removeAttr('disabled');
                             if (errors.length == 0) {
-                                $('#createAccountAndRedirect').submit();
+                                if (mixpanel.fake) {
+                                    mixpanel.track('Signed Up', function() {
+                                        $('#createAccountAndRedirect').submit();
+                                    });
+                                } else {
+                                    $('#createAccountAndRedirect').submit();
+                                }
                             }
                         });
                     };
