@@ -46,9 +46,12 @@ $(function () {
             return self.Senators()[0].OpenCongressId() != 1 && self.Senators()[1].OpenCongressId() != -1;
         });
 
-        self.State.subscribe(function () {
+        self.State.subscribe(function (newState) {
+            if (newState == null || newState.length == 0) {
+                return;
+            }
             self.CongressionalDistrict(-1);
-            $.get('/Data/SenatorsByState', { state: self.State() }).done(function(data) {
+            $.get('/Data/SenatorsByState', { state: newState }).done(function(data) {
                 if (data.length == 2) {
                     self.Senators([new CongressPerson(data[0].FullNameAndTitle, data[0].OpenCongressId), new CongressPerson(data[1].FullNameAndTitle, data[1].OpenCongressId)]);
                 }
