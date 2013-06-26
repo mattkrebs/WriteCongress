@@ -5,6 +5,14 @@
     //TODO: get this from something on page (like a serialized user object?);
     self.User = ko.observable(new User(null, null, null, null, null, null, null, null, null));
 
+    self.ContinueButtonText = ko.computed(function() {
+        if (self.User().Authenticated()) {
+            return '<i class="icon-lock"></i> Secure Checkout';
+        } else {
+            return '<i class="icon-envelope"></i> Signup &amp; Mail Letter';
+        }
+    });
+
     self.User().Zip.subscribe(function (zip) {
         geolocator.GetZipCodeInfo(zip).done(function (data) {
             if (data === null) {
@@ -30,6 +38,8 @@
             self.User().previousState = state;
         }
     });
+    
+    
 
     self.User().CongressionalDistrict.subscribe(function (district) {
         wcglobals.MyCongressionalDistrict.CongressionalDistrict(district);
@@ -56,6 +66,8 @@
     this.Save = function () {
         localStorage.setItem("user", ko.toJSON(self.User));
     };
+    
+    
 
     this.ContinueWorkflowClick = function () {
         if (!self.User().Authenticated()) {
