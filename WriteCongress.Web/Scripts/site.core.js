@@ -50,6 +50,7 @@ $(function () {
             if (newState == null || newState.length == 0) {
                 return;
             }
+            mixpanel.register({ State: newState });
             self.CongressionalDistrict(-1);
             $.get('/Data/SenatorsByState', { state: newState }).done(function(data) {
                 if (data.length == 2) {
@@ -61,10 +62,12 @@ $(function () {
         self.CongressionalDistrict.subscribe(function (district) {
             //console.log('changing district to ' + district);finan
             if ((district !== -1 && district !== null) && self.State() != null) {
+                mixpanel.register({ District: district });
                 $.get('/Data/RepresentativeByStateAndDistrict', { state: self.State(), district: district }, function (data) {
                     if (data.length == 1) {
                         self.Representative(new CongressPerson(data[0].FullNameAndTitle,data[0].OpenCongressId));
                     } else {
+                        mixpanel.track('Couldn\'t find a Rep for specified district', { District: district });
                         self.Representative(emptyPerson);
                     }
                 });
@@ -107,4 +110,11 @@ $(function () {
     $(document).on('mouseleave', '[data-toggle="tooltip"]', function () {
         $(this).tooltip('destroy');
     });
+    
+    if (window.localStorage.getItem('firstview') == null) {
+        window.localStorage.setItem('firstview', true);
+        mixpanel.track('First View');
+    }
+    mixpanel.register_once({ "referrer":document.referrer,'landing page': window.location.href });
+    
 });

@@ -22,7 +22,8 @@
     this.Authenticated = ko.observable(false);
 
     this.Email.subscribe(function(newEmail) {
-        if (!self.Authenticated() && typeof wcglobals.SignIn!=="undefined") {
+        if (!self.Authenticated() && typeof wcglobals.SignIn !== "undefined") {
+            mixpanel.alias(newEmail);
             $.post('/Authentication/CheckEmailAddress', { email: newEmail }, function(data) {
                 if (data.Data === true) {
                     wcglobals.SignIn.Email(newEmail);

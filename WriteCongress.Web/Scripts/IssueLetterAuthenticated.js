@@ -19,6 +19,7 @@
 };
 CheckoutModalView.prototype = {
     Show: function () {
+        mixpanel.track('Checking Out');
         var me = this;
         var senators = ko.toJS(wcglobals.MyCongressionalDistrict.Senators());
         var rep = ko.toJS(wcglobals.MyCongressionalDistrict.Representative());
@@ -127,9 +128,11 @@ CheckoutModalView.prototype = {
         var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug });
         orderpromise.done(function (data) {
             if (data.Success === true) {
+                mixpanel.track('Purchased Letter: Completed');
                 var order = data.Data;
                 window.location.href = '/Account/OrderDetail/' + order;
             } else {
+                mixpanel.track('Purchased Letter: Error', { message: data.Message });
                 me.showError(data.Message);
             }
         });

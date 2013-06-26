@@ -7,6 +7,9 @@
 
     self.User().Zip.subscribe(function (zip) {
         geolocator.GetZipCodeInfo(zip).done(function (data) {
+            if (data === null) {
+                mixpanel.track('Couldn\'t find info for zipcode', { Zip: zip });
+            }
             self.User().City(data.City);
             self.User().State(data.StateAbbreviation);
             self.User().CongressionalDistrict(data.CongressionalDistrict);
@@ -57,6 +60,7 @@
     this.ContinueWorkflowClick = function () {
         if (!self.User().Authenticated()) {
             if (typeof wcglobals.Signup !== "undefined") {
+                mixpanel.track('Signing Up');
                 wcglobals.Signup.Show();
             }
         }

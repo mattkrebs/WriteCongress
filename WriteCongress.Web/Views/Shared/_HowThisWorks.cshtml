@@ -14,6 +14,7 @@
     <script type="text/javascript">
         $(function () {
             $('#nav-howthisworks').on('click', function () {
+                mixpanel.track('Viewed How This Works');
                 $('#howthisworksshow').html($('#howthisworkstemplate').html());
                 $(".howthisworks").colorbox({ rel: 'howthisworks',open:true,current:"{current}/{total}" });
             });
