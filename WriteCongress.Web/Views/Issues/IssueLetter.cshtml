@@ -30,7 +30,7 @@
                 <div class="well">
                     <div class="letter-recipients">
                         <p>The Honorable 
-                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to.">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
+                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to." data-toggle="tooltip">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
                         </p>
                         <div class="letter-subject">RE: @Model.Issue.Name</div>
                     </div>
@@ -50,10 +50,11 @@
         </div>
         <div class="span4">
             <div id="senderInfo" class="well letterinfo">
-                <h4>Send this letter</h4>
+                <h4>Mail this letter</h4>
                 <hr />
-                <h5>Constituent Info @if (!User.Identity.IsAuthenticated)
-                                     {<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}</h5>
+                <h5>My Account Info
+                    @*@if (!User.Identity.IsAuthenticated){<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}*@
+                </h5>
                 <input class="span4" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User().Zip}" /><br />
                 <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
                 <input class="span6" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" /><br />
@@ -116,10 +117,11 @@
                 </select> <input class="span3" type="text" id="city" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
                 <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
                 <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
-                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick}" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Send &ndash; Get Involved</button>
+                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick}" class="btn btn-large btn-primary"><i class="icon-envelope"></i> Signup &amp; Mail Letter</button>
             </div>
             <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height:65px">
                 <h4>We'll print &amp; mail this to:</h4>
+                <span class="label label-block">(Your choice during checkout)</span><hr />
                 <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
                 <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
                 <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top"/>
