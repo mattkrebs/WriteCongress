@@ -2,6 +2,21 @@
 /// <reference path="knockout-2.2.1.debug.js" />
 /// <reference path="site.CongressPersonFinder.js" />
 $(function () {
+    ko.bindingHandlers.autoswaptext = {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var value = valueAccessor(),
+                allBindings = allBindingsAccessor();
+            var text = ko.utils.unwrapObservable(value);
+            var placeholder = allBindings.placeholder || '';
+            if (text===null || text.length == 0) {
+                $(element).html(placeholder);
+            } else {
+                $(element).text(text);
+            }
+        }
+    };
+
+
     var CongressPerson = function (fullNameAndTitle, openCongressId) {
         var self = this;
         this.FullNameAndTitle = ko.observable(fullNameAndTitle);

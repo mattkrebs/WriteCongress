@@ -19,11 +19,11 @@
             <div id="letter" class="letter">
                 <div id="letterHeader" class="letter-header well">
                     <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
-                    <div><span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span></div>
+                    <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span> <span data-bind="{text:User().LastName}"></span></div>
                     <div>
-                        <div data-bind="{text:User().AddressOne}"></div>
+                        <div data-bind="{autoswaptext:User().AddressOne,placeholder:'[Your Address]'}"></div>
                         <div data-bind="{text:User().AddressTwo}"></div>
-                        <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{text:User().Zip}"></span>
+                        <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State & Zip]'}"></span>
                         <br />
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="letter-signature">
                         <h4>Sincerely</h4>
                         <span id="letter-signature">
-                            <span data-bind="{text:User().FirstName}"></span> <span data-bind="{text:User().LastName}"></span>
+                            <span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Signature]'}"></span> <span data-bind="{text:User().LastName}"></span>
                         </span>
                         <h5 data-bind="{text:User().Email}"></h5>
                         <h5 data-bind="{text:User().PhoneNumber}"></h5>
