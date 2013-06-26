@@ -1,0 +1,22 @@
+﻿<link href="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.3/example1/colorbox.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.3/jquery.colorbox-min.js"></script>
+
+<span id="howthisworksshow" class="hide">
+</span>
+<script id="howthisworkstemplate" type="text/html">
+    <a id="htw" class="howthisworks" href="https://az417320.vo.msecnd.net/assets/images/howthisworks1.jpg" title="Choose an issue & pre-written letter, and checkout. It's that simple."></a>
+    <a class="howthisworks" href="https://az417320.vo.msecnd.net/assets/images/howthisworks2.jpg" title="We'll print & mail your letter on your behalf with your return address and digital signature."></a>
+    <a class="howthisworks" href="https://az417320.vo.msecnd.net/assets/images/howthisworks3.jpg" title="The USPS will drive your letter to Congress"></a>
+    <a class="howthisworks" href="https://az417320.vo.msecnd.net/assets/images/howthisworks4.jpg" title="Your letter arrives on Capitol Hill ready for your congress person to read!"></a>
+</script>
+
+@using (Html.BeginScripts()) {
+    <script type="text/javascript">
+        $(function () {
+            $('#nav-howthisworks').on('click', function () {
+                $('#howthisworksshow').html($('#howthisworkstemplate').html());
+                $(".howthisworks").colorbox({ rel: 'howthisworks',open:true });
+            });
+        });
+    </script>
+}

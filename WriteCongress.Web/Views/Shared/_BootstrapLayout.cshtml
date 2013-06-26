@@ -20,7 +20,7 @@
     <div style="height: 10px; background-color: rgb(35, 95, 167); margin-top: 0px !important; margin-left: 0px!important; width: 100%"></div>
     <div class="container">
         <div class="masthead">
-            <h3 class="muted"><a href="/"><img src="/content/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
+            <h3 class="muted"><a href="/"><img src="https://az417320.vo.msecnd.net/assets/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
                 <div class="pull-right" id="mydistrict">                    
                     <span data-bind="visible:DisplayMyCongressPersons">
                         <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="left"/>
@@ -48,5 +48,6 @@
     @Html.Partial("_Analytics")
     @RenderSection("scripts", false)
     @if (!User.Identity.IsAuthenticated) {Html.RenderPartial("_LoginModal");}
+    @Html.Partial("_HowThisWorks")
     @Html.PageScripts()
 </body></html>
