@@ -15,7 +15,7 @@
         $(function () {
             $('#nav-howthisworks').on('click', function () {
                 $('#howthisworksshow').html($('#howthisworkstemplate').html());
-                $(".howthisworks").colorbox({ rel: 'howthisworks',open:true });
+                $(".howthisworks").colorbox({ rel: 'howthisworks',open:true,current:"{current}/{total}" });
             });
         });
     </script>
