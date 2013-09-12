@@ -90,13 +90,15 @@ line-height: 1.6;
     background: #fafafa;
     padding-top: 7px;
 }
-
+.social > h4,
 .letterinfo > h4 {
     text-transform: uppercase;
-    font-size: 26px;
+    font-size: 19px;
     text-justify: distribute;
 }
-
+.social > h4 {
+    padding-bottom:9px;
+}
 .error {
 }
 
@@ -214,7 +216,9 @@ ul.statuses .well:hover
     font-variant: small-caps;
 }
 
-
+.share-bar {
+    margin-top:25px;
+}   
 
 
 
