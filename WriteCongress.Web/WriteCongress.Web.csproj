@@ -184,6 +184,9 @@
     <Compile Include="Controllers\EmailManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Models\Account.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\IssueLetterViewModel.cs" />
     <Compile Include="Models\JsonServiceResult.cs" />
     <Compile Include="Controllers\LetterController.cs" />
@@ -196,7 +199,6 @@
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\RestSharpExtensions.cs" />
-    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\LetterModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
