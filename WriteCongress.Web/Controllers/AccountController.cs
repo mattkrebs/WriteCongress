@@ -77,7 +77,7 @@ namespace WriteCongress.Web.Controllers
             return price;
         }
 
-        public JsonResult PlaceOrder(string persons,string letterslug) {
+        public JsonResult PlaceOrder(string persons,string letterslug, string firstname, string lastname, string address1, string address2, string city, string state, string zipcode, string email, string phonenumber) {
             //get some pieces so we can charge
             var people = GetPersons(persons);
             var totalPrice = CalculatePrice(people.Count);
@@ -85,6 +85,9 @@ namespace WriteCongress.Web.Controllers
 
             try {
                 var user = AuthenticatedUser;
+
+                ///TODO: check values coming in
+
 
                 Order o = new Order();
                 o.Guid = Guid.NewGuid();
@@ -95,14 +98,20 @@ namespace WriteCongress.Web.Controllers
                 o.UserAgent = Request.UserAgent;
                 o.OrderTotal = 0; //TODO: calculate this
                 o.OrderStatusId = 1;
-                o.Name = String.Format("{0} {1}", user.FirstName, user.LastName);
-                o.AddressLineOne = String.Format("{0}", user.AddressOne);
-                o.AddressLineTwo = String.Format("{0}", user.AddressTwo);
-                o.City = user.City;
-                o.State = user.State;
-                o.ZipCode = user.ZipCode;
-                o.PhoneNumber = user.PhoneNumber;
-                o.Email = user.Email;
+
+                string name = String.Format("{0} {1}", user.FirstName, user.LastName);
+                if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(firstname))
+                {
+                    String.Format("{0} {1}", firstname, lastname);
+                }
+                o.Name = name;
+                o.AddressLineOne = address1 ?? String.Format("{0}", user.AddressOne);
+                o.AddressLineTwo = address2 ?? String.Format("{0}", user.AddressTwo);
+                o.City = city ?? user.City;
+                o.State = state ?? user.State;
+                o.ZipCode = zipcode ?? user.ZipCode;
+                o.PhoneNumber = phonenumber ?? user.PhoneNumber;
+                o.Email = email ?? user.Email;
                 o.OrderTotal = totalPrice;
 
                 int personsReceivingLetter = 0;
