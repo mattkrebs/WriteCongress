@@ -41,7 +41,27 @@ namespace WriteCongress.Web.Controllers
             var order = Db.Orders.Where(o => o.Guid == id).FirstOrDefault();
             return View(order);
         }
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            var u = Db.Users.Find(user.Id);
+            if (ModelState.IsValid)
+            {
+                u.FirstName = user.FirstName;
+                u.LastName = user.LastName;
+                u.AddressOne = user.AddressOne;
+                u.AddressTwo = user.AddressTwo;
+                u.City = user.City;
+                u.State = user.State;
+                u.ZipCode = user.ZipCode;
+                
 
+
+                Db.Entry<User>(u).State = System.Data.EntityState.Modified;
+                Db.SaveChanges();
+            }
+            return View("Index", AuthenticatedUser);
+        }
 
 
         //public ActionResult OrderDetail(string orderId)
