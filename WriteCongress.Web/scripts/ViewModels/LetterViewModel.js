@@ -76,5 +76,6 @@
                 wcglobals.Signup.Show();
             }
         }
+
     };
 };

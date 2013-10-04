@@ -125,7 +125,8 @@ CheckoutModalView.prototype = {
         }
         var letterSlug = $('#letterslug').val();
 
-        var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug });
+        
+        var orderpromise = $.post('/Account/PlaceOrder', { persons: personIds.join(), letterslug: letterSlug, firstname: $("#firstname").val(), lastname: $("#lastname").val(), address1: $("#address1").val(), address2: $("#address2").val(), city: $("#city").val(), state: $("#state").val(), zipcode: $("#zipcode").val(), email: $("#email").val(), phonenumber: $("#phonenumber").val() });
         orderpromise.done(function (data) {
             if (data.Success === true) {
                 mixpanel.track('Purchased Letter: Completed');
