@@ -19,6 +19,9 @@
     /*font-weight:bold;*/
     margin-bottom: 10px;
 }
+.letter-header span {
+padding-left:3px;
+}
 
 .letter-recipients {
     margin-bottom: 10px;

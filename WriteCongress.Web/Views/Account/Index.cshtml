@@ -17,7 +17,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Date</th>
+                                <th>Date</th>   
                                 <th>Count</th>
                                 <th>Status</th>
                                 <th>Total</th>
@@ -46,14 +46,14 @@
                         }
                     </table>
                 </div>
-                @if (User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null)
+               <div class="tab-pane" id="tab2">
+                 @if (User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null)
                 {
+                       
                     WriteCongress.Core.User user = ViewBag.AuthenticatedUser;
                     using (Html.BeginForm("Edit", "Account", FormMethod.Post))
                     {
-                        
-                    <div class="tab-pane" id="tab2">
-                        <div class="row-fluid">
+                           <div class="row-fluid">
                             <div class="span12">
                                 <dl class="dl-horizontal">
                                     <dt>First Name</dt>
@@ -69,8 +69,10 @@
                                     <dt>State</dt>
                                     <dd>@Html.TextBoxFor(model => model.State, new {maxlength = 2})</dd>
                                     <dt>Zip Code</dt>
-                                    <dd>@Html.TextBoxFor(model => model.ZipCode,new {maxlength = 2})</dd>
-
+                                    <dd>@Html.TextBoxFor(model => model.ZipCode,new {maxlength = 5})</dd>
+                                    @Html.HiddenFor(model => model.Id)
+                             
+                                    
                                 </dl>
                                 <p>
                                     <input type="submit" value="Save" />
@@ -83,9 +85,11 @@
                         </div>*@
                         </div>
 
-                    </div>
+                   
                     }
+                    
                 }
+                    </div>
             </div>
         </div>
     </div>
