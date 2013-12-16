@@ -2347,6 +2347,7 @@ header .social li.rss:hover,footer .social li.rss:hover {
 
 .team-member-image img {
     border-radius: 50%;
+    width:100%;
 }
 
 .team-member-links {

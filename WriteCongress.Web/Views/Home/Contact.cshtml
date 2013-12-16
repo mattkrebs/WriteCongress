@@ -1,51 +1,198 @@
 ﻿@{
     ViewBag.Title = "Contact Us";
-    Layout = "~/Views/Shared/_BootstrapLayout.cshtml"; 
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
 @section head{
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 }
+     <!-- Content Start -->
+         <div id="main">
+            <!-- Title, Breadcrumb Start-->
+            <div class="breadcrumb-wrapper">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                        <h2 class="title">Contact Us</h2>
+                     </div>
+                     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                        <div class="breadcrumbs pull-right">
+                           <ul>
+                              <li>You are here:</li>
+                              <li><a href="/">Home</a></li>                             
+                              <li>Contact Us</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Title, Breadcrumb End-->
+            <!-- Main Content start-->
+            <div class="content">
+               <div class="container">
+                                 <div class="row">
+                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" id="contact-form">
+                        <h3 class="title">Send Us an Email</h3>
+                        <p>
+                           Feel free to talk to our online representative at any time you please using our Live Chat system on our website or one of the below instant messaging programs.
+                        </p>
+                        <p>
+                           Please be patient while waiting for response. (24/7 Support!)
+                        </p>
+                        <div class="divider"></div>
+                        <form method="post" class="reply" id="contact">
+                           <fieldset>
+                              <div class="row">
+                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label>Name: <span>*</span></label>
+                                    <input class="form-control" id="name" name="name" type="text" value="" required>
+                                 </div>
+                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label>Email: <span>*</span></label>
+                                    <input class="form-control" type="email" id="email" name="email" value="" required>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Subject: <span>*</span></label>
+                                    <input class="form-control" id="subject" name="subject" type="text" value="" required>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label>Message: <span>*</span></label>
+                                    <textarea class="form-control" id="text" name="text" rows="3" cols="40" required></textarea>
+                                 </div>
+                              </div>
+                           </fieldset>
+                           <button class="btn-normal btn-color submit  bottom-pad" type="submit">Send</button>
+                           <div class="success alert-success alert" style="display:none">Your message has been sent successfully.</div>
+                           <div class="error alert-error alert" style="display:none">E-mail must be valid and message must be longer than 100 characters.</div>
+                           <div class="clearfix">
+                           </div>
+                        </form>
+                     </div>
+                     <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6">
+                        <div class="address widget">
+                           <h3 class="title">writecongress.us</h3>
+                           <ul class="contact-us">
+                              <li>
+                                 <i class="icon-map-marker"></i>
+                                 <p>
+                                    <strong>Address:</strong> 12461 63rd Ave N, <br>
+                                    Maple Grove, MN
+                                 </p>
+                              </li>
+                              <li>
+                                 <i class="icon-phone"></i>
+                                 <p>
+                                    <strong>Phone:</strong> 218-343-4979
+                                 </p>
+                              </li>
+                              <li>
+                                 <i class="icon-envelope"></i>
+                                 <p>
+                                    <strong>Email:</strong><a href="mailto:support@writecongress.us">support@writecongress.us</a>
+                                 </p>
+                              </li>
+                           </ul>
+                        </div>                       
+                        <div class="follow widget">
+                           <h3 class="title">Follow Us</h3>
+                           <div class="member-social dark">
+                              <a class="facebook" href="#"><i class="icon-facebook"></i></a>
+                              <a class="twitter" href="#"><i class="icon-twitter"></i></a>
+                              <a class="dribbble" href="#"><i class="icon-dribbble"></i></a>
+                              <a class="gplus" href="#"><i class="icon-google-plus"></i></a>
+                              <a class="linkedin" href="#"><i class="icon-linkedin"></i></a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="divider"></div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <h1>Contact Us</h1>
-    </div>
-    <div>
-        <h3>Support</h3>
-        <h4><a href="mailto:support@writecongress.us">support@writecongress.us</a></h4>
-        <h3>Send us Mail:</h3>
-        <address>
-            <strong>WriteCongress.us</strong><br>93 S Jackson St #16193<br>Seattle WA 98104<br>
-        </address>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="span4">
-                <img src="/content/images/joseph.png" class="img-circle circle-small" />
-                <div class="contact-info">
-                    <h2>Joseph</h2>
-                    <h3>The Liberal</h3>
-                    <a href="mailto:joseph@writecongress.us">joseph@writecongress.us</a>
-                </div>
+                  <div class="row">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h3 class="title">Our Team</h3>
+                        <div class="row team">
+                           <!-- item 1 -->                         
+                           <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 item animate_afc d2">
+                              <div class="team-member">
+                                 <div class="team-member-holder">
+                                    <div class="team-member-image">
+                                       <img alt="" src="/content/images/joseph.png">
+                                       <div class="team-member-links">
+                                          <div class="team-member-links-list">
+                                             <a target="_blank" class="facebook team-member-links-item" href="#"><i class="icon-facebook"></i></a>
+                                             <a target="_blank" class="twitter team-member-links-item" href="#"><i class="icon-twitter"></i></a>
+                                             <a target="_blank" class="linkedin team-member-links-item" href="#"><i class="icon-linkedin"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="team-member-meta">
+                                       <h4 class="team-member-name">Joseph</h4>
+                                       <div class="team-member-role">The Liberal</div>
+                                       <div class="team-member-description">
+                                          <p><a href="mailto:joseph@writecongress.us">joseph@writecongress.us</a></p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- End -->
+                           <!-- item 3 -->
+                           <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 item animate_afc d3">
+                              <div class="team-member">
+                                 <div class="team-member-holder">
+                                    <div class="team-member-image">
+                                       <img alt="" src="/content/images/george.png">
+                                       <div class="team-member-links">
+                                          <div class="team-member-links-list">
+                                             <a target="_blank" class="facebook team-member-links-item" href="#"><i class="icon-facebook"></i></a>
+                                             <a target="_blank" class="twitter team-member-links-item" href="#"><i class="icon-twitter"></i></a>
+                                             <a target="_blank" class="linkedin team-member-links-item" href="#"><i class="icon-linkedin"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="team-member-meta">
+                                       <h4 class="team-member-name">George</h4>
+                                       <div class="team-member-role">The Independent</div>
+                                       <div class="team-member-description">
+                                          <p><a href="mailto:george@writecongress.us">george@writecongress.us</a></p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- End -->
+                           <!-- item 4 -->
+                           <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 item animate_afc d4">
+                              <div class="team-member">
+                                 <div class="team-member-holder">
+                                    <div class="team-member-image">
+                                       <img alt="" src="/content/images/matt.png">
+                                       <div class="team-member-links">
+                                          <div class="team-member-links-list">
+                                             <a target="_blank" class="facebook team-member-links-item" href="#"><i class="icon-facebook"></i></a>
+                                             <a target="_blank" class="twitter team-member-links-item" href="#"><i class="icon-twitter"></i></a>
+                                             <a target="_blank" class="linkedin team-member-links-item" href="#"><i class="icon-linkedin"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="team-member-meta">
+                                       <h4 class="team-member-name">Matt</h4>
+                                       <div class="team-member-role">The Conservative</div>
+                                       <div class="team-member-description">
+                                          <p><a href="mailto:matt@writecongress.us">matt@writecongress.us</a></p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- End -->
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="span4">
-                <img src="/content/images/george.png" class="img-circle circle-small" />
-                <div class="contact-info">
-                    <h2>George</h2>
-                    <h3>The Independent</h3>
-                    <a href="mailto:george@writecongress.us">george@writecongress.us</a>
-                </div>
-            </div>
-
-            <div class="span4">
-                <img src="/content/images/matt.png" class="img-circle circle-small" />
-                <div class="contact-info">
-                    <h2>Matt <a class="twitter" href="https://www.twitter.com/mattkrebs"><i class="icon-twitter-sign"></i></a></h2>
-                    <h3>The Conservative</h3>
-                    <a href="mailto:matt@writecongress.us">matt@writecongress.us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
