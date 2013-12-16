@@ -6,11 +6,12 @@
                 <li class="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")"><a href="/Issues/">Hot Issues</a></li>
                 <li class="@(Request.Url.AbsolutePath.ToLower().Contains("how-this-works") ? "active" : "")"><a href="javascript:void(0);" id="nav-howthisworks">How this works</a></li>
                 @if (User.Identity.IsAuthenticated == false || ViewBag.AuthenticatedUser == null)
-                {<li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>Sign In</a></li>
+                {
+                    <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>Sign In</a></li>
                 }
                 else
                 {
-                    <li  class="@(Request.Url.AbsolutePath.ToLower().Contains("account") ? "active" : "")"><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName</a></li>
+                    <li class="@(Request.Url.AbsolutePath.ToLower().Contains("account") ? "active" : "")"><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName</a></li>
                     <li><a href="/Authentication/Signout"><i class="icon-signout"></i>Logout</a></li>
                 }
             </ul>

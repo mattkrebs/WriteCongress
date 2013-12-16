@@ -1,52 +1,81 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
-	<head>
-		<title>Campaign HTML Template</title>
-		<meta name="Keywords" content=" " />
-		<meta name="Description" content=" " />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<!-- CSS -->
-		<link rel="stylesheet" href="/content/css/style.css" type="text/css" media="screen" />
+<head>
+    <meta charset="utf-8">
+    <title>Pixma Responsive HTML5/CSS3 Template | FIFO THEMES</title>
+    <meta name="description" content="Pixma Responsive HTML5/CSS3 Template from FIFOTHEMES.COM">
+    <meta name="author" content="FIFOTHEMES.COM">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- Library CSS -->
+    <link rel="stylesheet" href="/Theme/css/bootstrap.css">
+    <link rel="stylesheet" href="/Theme/css/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/Theme/css/animations.css" media="screen">
+    <link rel="stylesheet" href="/Theme/css/superfish.css" media="screen">
+    <link rel="stylesheet" href="/Theme/css/revolution-slider/css/settings.css" media="screen">
+    <link rel="stylesheet" href="/Theme/css/prettyPhoto.css" media="screen">
+          <link rel="stylesheet" href="/Theme/css/nivo-slider.css" media="screen">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/Theme/css/style.css">
+    <!-- Skin -->
+    <link rel="stylesheet" href="/Theme/css/colors/blue.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/Theme/css/theme-responsive.css">
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="/Theme/img/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="/Theme/img/ico/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Theme/img/ico/apple-touch-icon-72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Theme/img/ico/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Theme/img/ico/apple-touch-icon-144.png">
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="/Theme/js/respond.min.js"></script>
+      <![endif]-->
+    <!--[if IE]>
+      <link rel="stylesheet" href="/Theme/css/ie.css">
+      <![endif]-->
+</head>
 
-		<!-- The next line calls the font for the headings. Use it like this: "style-fontname.css". Options are bitter, droidsans, droidserif, franchise, museo, nevis, or rokkitt */ -->
-		<link rel="stylesheet" type="text/css" href="/content/fonts/style-nevis.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="/content/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-		
-		<!-- The Favicon -->
-	    <link rel="shortcut icon" href="/images/favicon.png" />
-	</head>
-
- <body class="content_left bg_linen body_boxed scheme_blue ">
-		<div id="main_wrap">
-			<div class="wrapper" id="header">
-				<div id="pre_header"></div>
-				<div class="container">
-					<div id="logo_wrap">
-						<div id="the_logo">
-							<a href="#" title="Campaign" class="left the_logo">
-								<img src="/images/campaignlogo.png" alt="Campaign" id="logo" />
-							</a>
-						</div>
-			
-						<div class="clear"></div>
-					</div>
-					<div id="clear"></div>
-				</div>
-				
-                @Html.Partial("_TopNav")
-			</div>
-			 @RenderBody()
-
-		</div><!-- end div#main_wrap, begins in header.html -->
-		@Html.Partial("_Footer")
-     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-     @RenderSection("Scripts",false)
-     <script type="text/javascript">
-         $(function () {
+<body class="boxed home">
+    <div class="wrap">
+        @Html.Partial("_Header")
+         <!-- Content Start -->
+         <div id="main">
+@RenderBody() 
+         </div>
+         <!-- Content End -->
+        @Html.Partial("_Footer")
+         <!-- Scroll To Top --> 
+         <a href="#" class="scrollup"><i class="icon-angle-up"></i></a>
+    </div>
+    <script src="/Theme/js/jquery.min.js"></script>
+    <script src="/Theme/js/bootstrap.js"></script>
+    <script src="/Theme/js/jquery.parallax.js"></script>
+    <script src="/Theme/js/modernizr-2.6.2.min.js"></script>
+    <script src="/Theme/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="/Theme/js/jquery.nivo.slider.pack.js"></script>
+    <script src="/Theme/js/jquery.prettyPhoto.js"></script>
+    <script src="/Theme/js/superfish.js"></script>
+    <script src="/Theme/js/tweetMachine.js"></script>
+    <script src="/Theme/js/tytabs.js"></script>
+    <script src="/Theme/js/jquery.gmap.min.js"></script>
+    <script src="/Theme/js/circularnav.js"></script>
+    <script src="/Theme/js/jquery.sticky.js"></script>
+    <script src="/Theme/js/jflickrfeed.js"></script>
+    <script src="/Theme/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/Theme/js/waypoints.min.js"></script>
+    <script src="/Theme/js/custom.js"></script>
+    @RenderSection("Scripts", false)
+    <script type="text/javascript">
+        $(function () {
              @RenderSection("AdHocScripts", false)
          });
-     </script>
-     @Html.PageScripts();
+    </script>
+    @Html.PageScripts();
 
- </body>
+</body>
 </html>

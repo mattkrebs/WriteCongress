@@ -317,9 +317,11 @@
     <Content Include="Views\Authentication\SignIn.cshtml" />
     <Content Include="Views\Shared\_HowThisWorks.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WriteCongress.Core\WriteCongress.Core.csproj">
