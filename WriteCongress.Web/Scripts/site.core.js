@@ -1,6 +1,8 @@
 ﻿/// <reference path="site.Geolocator.js" />
 /// <reference path="knockout-2.2.1.debug.js" />
 /// <reference path="site.CongressPersonFinder.js" />
+
+
 $(function () {
     ko.bindingHandlers.autoswaptext = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
@@ -42,6 +44,7 @@ $(function () {
     };
 
     var CongressPersonDisplayViewModel = function (state, district) {
+        
         var emptyPerson = new CongressPerson(null, -1);
         var self = this;
         this.State = ko.observable(state);
@@ -110,7 +113,10 @@ $(function () {
         var info = JSON.parse(district);
         myCongressionalDistrict = CongressPersonDisplayViewModel.Load(info);
     }
-    ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
+
+    if (document.getElementById('mydistrict') != null) {
+        ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
+    }
 
 
     wcglobals = {

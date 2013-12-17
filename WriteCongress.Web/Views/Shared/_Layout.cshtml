@@ -1,24 +1,36 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title :  "Write A REAL Letter To Congress Without Needing Paper or A Stamp!")</title>
-    <meta name="description" content="We help you write thought out and informed letters to congress (your Senators and Representative) and then actually PRINT and MAIL the letter on your behalf. No need to track down evelopes, stamps, your congress persons address, etc. We want to make it easy to be involved. " />
+    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title : "Write A REAL Letter To Congress Without Needing Paper or A Stamp!")</title>
+    <meta name="description" content="@(!string.IsNullOrEmpty(ViewBag.MetaDescription) ?  ViewBag.MetaDescription : "We help you write thought out and informed letters to congress (your Senators and Representative) and then actually PRINT and MAIL the letter on your behalf. No need to track down evelopes, stamps, your congress persons address, etc. We want to make it easy to be involved.")" />
     <meta name="author" content="Shakr Labs">
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css">
     <!-- Library CSS -->
+
+    @Styles.Render("~/css/site")
+
     <link rel="stylesheet" href="/Theme/css/bootstrap.css">
-    <link rel="stylesheet" href="/Theme/css/fonts/font-awesome/css/font-awesome.css">
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet" />
+    <!--[if lt IE 7]>
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+
+
     <link rel="stylesheet" href="/Theme/css/animations.css" media="screen">
     <link rel="stylesheet" href="/Theme/css/superfish.css" media="screen">
     <link rel="stylesheet" href="/Theme/css/revolution-slider/css/settings.css" media="screen">
     <link rel="stylesheet" href="/Theme/css/team-member.css" media="screen">
     <link rel="stylesheet" href="/Theme/css/prettyPhoto.css" media="screen">
-          <link rel="stylesheet" href="/Theme/css/nivo-slider.css" media="screen">
+    <link rel="stylesheet" href="/Theme/css/nivo-slider.css" media="screen">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/Theme/css/style.css">
     <!-- Skin -->
@@ -39,23 +51,23 @@
     <!--[if IE]>
       <link rel="stylesheet" href="/Theme/css/ie.css">
       <![endif]-->
-
     @RenderSection("head", false)
 </head>
 
 <body class="boxed home">
     <div class="wrap">
         @Html.Partial("_Header")
-         <!-- Content Start -->
-         <div id="main">
-@RenderBody() 
-         </div>
-         <!-- Content End -->
+        <!-- Content Start -->
+        <div id="main">
+            @RenderBody()
+        </div>
+        <!-- Content End -->
         @Html.Partial("_Footer")
-         <!-- Scroll To Top --> 
-         <a href="#" class="scrollup"><i class="icon-angle-up"></i></a>
+        <!-- Scroll To Top -->
+        <a href="#" class="scrollup"><i class="icon-angle-up"></i></a>
     </div>
-    <script src="/Theme/js/jquery.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="/Theme/js/bootstrap.js"></script>
     <script src="/Theme/js/jquery.parallax.js"></script>
     <script src="/Theme/js/modernizr-2.6.2.min.js"></script>
@@ -75,14 +87,21 @@
     @RenderSection("Scripts", false)
     <script type="text/javascript">
         $(function () {
-             @RenderSection("AdHocScripts", false)
-         });
+            @RenderSection("AdHocScripts", false)
+        });
     </script>
 
+    @Html.Partial("_Analytics")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
+    @Scripts.Render("~/js/site")
+    @Scripts.Render("~/js/plugins")
 
+
+    @RenderSection("scripts", false)
     @if (!User.Identity.IsAuthenticated) { Html.RenderPartial("_LoginModal"); }
-    
-    @Html.PageScripts();
-      
+
+    @Html.PageScripts()
+
 </body>
 </html>
+
