@@ -37,5 +37,6 @@ namespace WriteCongress.Core
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

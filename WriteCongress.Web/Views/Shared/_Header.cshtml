@@ -5,22 +5,21 @@
         <div class="slidedown collapse">
             <div class="container">
                 <div class="phone-email pull-left">
-                    <a><i class="icon-phone"></i>Call Us : +880 41 723 272</a>
-                    <a href="mail@example.com"><i class="icon-envelope"></i>Email : mail@example.com</a>
+                    <a href="support@writecongress.us"><i class="icon-envelope"></i>Email : support@writecongress.us</a>
                 </div>
                 <div class="pull-right">
                     <ul class="social pull-left">
                         <li class="facebook"><a href="#"><i class="icon-facebook"></i></a></li>
                         <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li class="dribbble"><a href="#"><i class="icon-dribbble"></i></a></li>
-                        <li class="linkedin"><a href="#"><i class="icon-linkedin"></i></a></li>
-                        <li class="rss"><a href="#"><i class="icon-rss"></i></a></li>
+                        
                     </ul>
+                    <!--
                     <div id="search-form" class="pull-right">
                         <form action="#" method="get">
                             <input type="text" class="search-text-box">
                         </form>
                     </div>
+                    s-->
                 </div>
             </div>
         </div>
@@ -45,86 +44,9 @@
                 </h1>
             </div>
             <!-- Logo End -->
-            <!-- Mobile Menu Start -->
-            <div class="mobile navbar-header">
-                <a class="navbar-toggle" data-toggle="collapse" href=".navbar-collapse">
-                    <i class="icon-reorder icon-2x"></i>
-                </a>
-            </div>
-            <!-- Mobile Menu End -->
-            <!-- Menu Start -->
-            <nav class="collapse navbar-collapse menu">
-                <ul class="nav navbar-nav sf-menu">
-                    <li>
-                        <a id="@(Request.Url.AbsolutePath == "/" ? "current" : "")" href="/">Home
-                          
-                            <span class="sf-sub-indicator">
-                                <i class="icon-angle-down "></i>
-                            </span>
-                        </a>                        
-                    </li>
-                    <li>
-                        <a id="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")" href="/issues" class="sf-with-ul">Hot Issues 
-                          
-                            <span class="sf-sub-indicator">
-                                <i class="icon-angle-down "></i>
-                            </span>
-                        </a>                       
-                    </li>
-                    <li>
-                        <a href="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")"" class="sf-with-ul">Pages
-                          
-                            <span class="sf-sub-indicator">
-                                <i class="icon-angle-down "></i>
-                            </span>
-                        </a>
-                        <ul>
-                            <li><a href="about.html" class="sf-with-ul">About Us</a></li>
-                            <li><a href="services.html" class="sf-with-ul">Services</a></li>
-                            <li><a href="testimonials.html" class="sf-with-ul">Testimonials</a></li>
-                            <li><a href="full-width.html" class="sf-with-ul">Full Width Page</a></li>
-                            <li><a href="page-left-sidebar.html" class="sf-with-ul">Left Sidebar</a></li>
-                            <li><a href="page-right-sidebar.html" class="sf-with-ul">Right Sidebar</a></li>
-                            <li><a href="page-left-navigation.html" class="sf-with-ul">Left Navigation</a></li>
-                            <li><a href="page-right-navigation.html" class="sf-with-ul">Right Navigation</a></li>
-                            <li><a href="faq.html" class="sf-with-ul">FAQ</a></li>
-                            <li><a href="page-404.html" class="sf-with-ul">404 Page</a></li>
-                            <li><a href="sitemap.html" class="sf-with-ul">Sitemap</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="sf-with-ul">Portfolio
-                          
-                            <span class="sf-sub-indicator">
-                                <i class="icon-angle-down "></i>
-                            </span>
-                        </a>
-                        <ul>
-                            <li><a href="portfolio-two.html" class="sf-with-ul">2 Column</a></li>
-                            <li><a href="portfolio-three.html" class="sf-with-ul">3 Column</a></li>
-                            <li><a href="portfolio-four.html" class="sf-with-ul">4 Column</a></li>
-                            <li><a href="portfolio-single.html" class="sf-with-ul">Single Item Page</a></li>
-                            <li><a href="portfolio-single-big.html" class="sf-with-ul">Single Large Item Page</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="sf-with-ul">Blog
-                          
-                            <span class="sf-sub-indicator">
-                                <i class="icon-angle-down "></i>
-                            </span>
-                        </a>
-                        <ul>
-                            <li><a href="blog-left-sidebar.html" class="sf-with-ul">Left Sidebar Blog</a></li>
-                            <li><a href="blog-right-sidebar.html" class="sf-with-ul">Right Sidebar Blog</a></li>
-                            <li><a href="blog-small.html" class="sf-with-ul">Small Blog</a></li>
-                            <li><a href="single-post.html" class="sf-with-ul">Single Post</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- Menu End -->
+
+            @Html.Partial("_TopNav")
+    
         </div>
     </div>
     <!-- Main Header End -->

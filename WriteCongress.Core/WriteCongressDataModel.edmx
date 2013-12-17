@@ -4,71 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WriteCongressModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="WriteCongressModelStoreContainer">
-          <EntitySet Name="Bill" EntityType="WriteCongressModel.Store.Bill" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BillIssue" EntityType="WriteCongressModel.Store.BillIssue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BillLetter" EntityType="WriteCongressModel.Store.BillLetter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Issue" EntityType="WriteCongressModel.Store.Issue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="IssueLetter" EntityType="WriteCongressModel.Store.IssueLetter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Letter" EntityType="WriteCongressModel.Store.Letter" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="OrderDetails" EntityType="WriteCongressModel.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Orders" EntityType="WriteCongressModel.Store.Orders" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="OrderStatus" EntityType="WriteCongressModel.Store.OrderStatus" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PasswordResets" EntityType="WriteCongressModel.Store.PasswordResets" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Person" EntityType="WriteCongressModel.Store.Person" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="WriteCongressModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ZipCodeDistricts" EntityType="WriteCongressModel.Store.ZipCodeDistricts" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ZipCodes" EntityType="WriteCongressModel.Store.ZipCodes" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_BillIssue_Bill" Association="WriteCongressModel.Store.FK_BillIssue_Bill">
-            <End Role="Bill" EntitySet="Bill" />
-            <End Role="BillIssue" EntitySet="BillIssue" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillIssue_Issue" Association="WriteCongressModel.Store.FK_BillIssue_Issue">
-            <End Role="Issue" EntitySet="Issue" />
-            <End Role="BillIssue" EntitySet="BillIssue" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillLetter_Bill" Association="WriteCongressModel.Store.FK_BillLetter_Bill">
-            <End Role="Bill" EntitySet="Bill" />
-            <End Role="BillLetter" EntitySet="BillLetter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillLetter_Letter" Association="WriteCongressModel.Store.FK_BillLetter_Letter">
-            <End Role="Letter" EntitySet="Letter" />
-            <End Role="BillLetter" EntitySet="BillLetter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_IssueLetter_Issue" Association="WriteCongressModel.Store.FK_IssueLetter_Issue">
-            <End Role="Issue" EntitySet="Issue" />
-            <End Role="IssueLetter" EntitySet="IssueLetter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_IssueLetter_Letter" Association="WriteCongressModel.Store.FK_IssueLetter_Letter">
-            <End Role="Letter" EntitySet="Letter" />
-            <End Role="IssueLetter" EntitySet="IssueLetter" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Letter" Association="WriteCongressModel.Store.FK_OrderDetails_Letter">
-            <End Role="Letter" EntitySet="Letter" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Order" Association="WriteCongressModel.Store.FK_OrderDetails_Order">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Person" Association="WriteCongressModel.Store.FK_OrderDetails_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_OrderStatusId" Association="WriteCongressModel.Store.FK_Orders_OrderStatusId">
-            <End Role="OrderStatus" EntitySet="OrderStatus" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_User" Association="WriteCongressModel.Store.FK_Orders_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PasswordResets_Users" Association="WriteCongressModel.Store.FK_PasswordResets_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="PasswordResets" EntitySet="PasswordResets" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="WriteCongressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="BillId" />
@@ -108,19 +44,22 @@
           <Key>
             <PropertyRef Name="IssueId" />
           </Key>
-          <Property Name="IssueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="IssueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="Slug" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Rank" Type="int" />
+          <Property Name="Featured" Type="bit" />
+          <Property Name="FeaturedRank" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="IssueLetter">
           <Key>
             <PropertyRef Name="IssueLetterId" />
           </Key>
-          <Property Name="IssueLetterId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IssueLetterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IssueId" Type="int" Nullable="false" />
           <Property Name="LetterId" Type="int" Nullable="false" />
         </EntityType>
@@ -128,20 +67,34 @@
           <Key>
             <PropertyRef Name="LetterId" />
           </Key>
-          <Property Name="LetterId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="LetterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Against" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="Slug" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Slug" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
+          <Property Name="Level" Type="varchar" MaxLength="10" />
+          <Property Name="Logger" Type="varchar" MaxLength="100" />
+          <Property Name="MachineName" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="varchar(max)" />
+          <Property Name="Callsite" Type="varchar(max)" />
+          <Property Name="Path" Type="varchar(max)" />
+          <Property Name="UserHost" Type="varchar" MaxLength="16" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
@@ -158,11 +111,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CreateDateUtc" Type="datetime" Nullable="false" />
-          <Property Name="Ip" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="Ip" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="UserAgent" Type="varchar" MaxLength="500" />
           <Property Name="OrderTotal" Type="decimal" Precision="10" Scale="2" />
           <Property Name="OrderStatusId" Type="int" Nullable="false" />
@@ -190,18 +143,18 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="DateRequestedUtc" Type="datetime" Nullable="false" />
-          <Property Name="UserHostAddress" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="UserHostAddress" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="DateUsed" Type="datetime" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
-          <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OpenCongressId" Type="varchar" MaxLength="10" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
@@ -224,8 +177,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Identity" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identity" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="CreatedDateUtc" Type="datetime" />
           <Property Name="Email" Type="varchar" MaxLength="80" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
@@ -248,28 +201,28 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PostalCode" Type="varchar" Nullable="false" MaxLength="5" />
-          <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="District" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ZipCodes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="PostalCode" Type="varchar" Nullable="false" MaxLength="5" />
-          <Property Name="City" Type="varchar" Nullable="false" MaxLength="180" />
-          <Property Name="State" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="StateAbbreviation" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="180" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StateAbbreviation" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="County" Type="varchar" MaxLength="100" />
           <Property Name="AdminCode" Type="varchar" MaxLength="20" />
           <Property Name="Latitude" Type="float" Nullable="false" />
           <Property Name="Longitude" Type="float" Nullable="false" />
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_BillIssue_Bill">
-          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="1" />
-          <End Role="BillIssue" Type="WriteCongressModel.Store.BillIssue" Multiplicity="*" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillIssue" Type="Self.BillIssue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bill">
               <PropertyRef Name="BillId" />
@@ -280,8 +233,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillIssue_Issue">
-          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
-          <End Role="BillIssue" Type="WriteCongressModel.Store.BillIssue" Multiplicity="*" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="BillIssue" Type="Self.BillIssue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Issue">
               <PropertyRef Name="IssueId" />
@@ -292,8 +245,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillLetter_Bill">
-          <End Role="Bill" Type="WriteCongressModel.Store.Bill" Multiplicity="1" />
-          <End Role="BillLetter" Type="WriteCongressModel.Store.BillLetter" Multiplicity="*" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillLetter" Type="Self.BillLetter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bill">
               <PropertyRef Name="BillId" />
@@ -304,8 +257,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillLetter_Letter">
-          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="1" />
-          <End Role="BillLetter" Type="WriteCongressModel.Store.BillLetter" Multiplicity="*" />
+          <End Role="Letter" Type="Self.Letter" Multiplicity="1" />
+          <End Role="BillLetter" Type="Self.BillLetter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Letter">
               <PropertyRef Name="LetterId" />
@@ -316,8 +269,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueLetter_Issue">
-          <End Role="Issue" Type="WriteCongressModel.Store.Issue" Multiplicity="1" />
-          <End Role="IssueLetter" Type="WriteCongressModel.Store.IssueLetter" Multiplicity="*" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="IssueLetter" Type="Self.IssueLetter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Issue">
               <PropertyRef Name="IssueId" />
@@ -328,8 +281,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueLetter_Letter">
-          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="1" />
-          <End Role="IssueLetter" Type="WriteCongressModel.Store.IssueLetter" Multiplicity="*" />
+          <End Role="Letter" Type="Self.Letter" Multiplicity="1" />
+          <End Role="IssueLetter" Type="Self.IssueLetter" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Letter">
               <PropertyRef Name="LetterId" />
@@ -340,8 +293,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetails_Letter">
-          <End Role="Letter" Type="WriteCongressModel.Store.Letter" Multiplicity="0..1" />
-          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <End Role="Letter" Type="Self.Letter" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Letter">
               <PropertyRef Name="LetterId" />
@@ -352,8 +305,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetails_Order">
-          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="1" />
-          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
               <PropertyRef Name="Id" />
@@ -364,8 +317,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetails_Person">
-          <End Role="Person" Type="WriteCongressModel.Store.Person" Multiplicity="1" />
-          <End Role="OrderDetails" Type="WriteCongressModel.Store.OrderDetails" Multiplicity="*" />
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="PersonId" />
@@ -376,8 +329,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_OrderStatusId">
-          <End Role="OrderStatus" Type="WriteCongressModel.Store.OrderStatus" Multiplicity="1" />
-          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="*" />
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrderStatus">
               <PropertyRef Name="OrderStatusId" />
@@ -388,8 +341,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_User">
-          <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
-          <End Role="Orders" Type="WriteCongressModel.Store.Orders" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -400,8 +353,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PasswordResets_Users">
-          <End Role="Users" Type="WriteCongressModel.Store.Users" Multiplicity="1" />
-          <End Role="PasswordResets" Type="WriteCongressModel.Store.PasswordResets" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PasswordResets" Type="Self.PasswordResets" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -411,6 +364,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="WriteCongressModelStoreContainer">
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillIssue" EntityType="Self.BillIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillLetter" EntityType="Self.BillLetter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Issue" EntityType="Self.Issue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IssueLetter" EntityType="Self.IssueLetter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Letter" EntityType="Self.Letter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordResets" EntityType="Self.PasswordResets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZipCodeDistricts" EntityType="Self.ZipCodeDistricts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BillIssue_Bill" Association="Self.FK_BillIssue_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillIssue" EntitySet="BillIssue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillIssue_Issue" Association="Self.FK_BillIssue_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="BillIssue" EntitySet="BillIssue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillLetter_Bill" Association="Self.FK_BillLetter_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillLetter" EntitySet="BillLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillLetter_Letter" Association="Self.FK_BillLetter_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="BillLetter" EntitySet="BillLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Issue" Association="Self.FK_IssueLetter_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="IssueLetter" EntitySet="IssueLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IssueLetter_Letter" Association="Self.FK_IssueLetter_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="IssueLetter" EntitySet="IssueLetter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Letter" Association="Self.FK_OrderDetails_Letter">
+            <End Role="Letter" EntitySet="Letter" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Order" Association="Self.FK_OrderDetails_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Person" Association="Self.FK_OrderDetails_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_OrderStatusId" Association="Self.FK_Orders_OrderStatusId">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="Self.FK_Orders_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PasswordResets_Users" Association="Self.FK_PasswordResets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PasswordResets" EntitySet="PasswordResets" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -468,6 +486,7 @@
             <End Role="OrderStatu" EntitySet="OrderStatus" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <EntitySet Name="Logs" EntityType="WriteCongressModel.Log" />
         </EntityContainer>
         <EntityType Name="Issue">
           <Key>
@@ -482,6 +501,9 @@
           <NavigationProperty Name="IssueLetters" Relationship="WriteCongressModel.FK_IssueLetter_Issue" FromRole="Issue" ToRole="IssueLetter" />
           <Property Type="String" Name="Slug" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Bills" Relationship="WriteCongressModel.BillIssue" FromRole="Issue" ToRole="Bill" />
+          <Property Name="Rank" Type="Int32" />
+          <Property Name="Featured" Type="Boolean" />
+          <Property Name="FeaturedRank" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="IssueLetter">
           <Key>
@@ -774,6 +796,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="CreateDateUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Level" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Callsite" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserHost" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -783,6 +819,9 @@
           <EntitySetMapping Name="Issues">
             <EntityTypeMapping TypeName="WriteCongressModel.Issue">
               <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="FeaturedRank" ColumnName="FeaturedRank" />
+                <ScalarProperty Name="Featured" ColumnName="Featured" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="Slug" ColumnName="Slug" />
                 <ScalarProperty Name="IssueId" ColumnName="IssueId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -990,6 +1029,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="WriteCongressModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="UserHost" ColumnName="UserHost" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Callsite" ColumnName="Callsite" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="CreateDateUtc" ColumnName="CreateDateUtc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1007,6 +1061,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
