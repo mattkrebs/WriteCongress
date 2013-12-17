@@ -5,29 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0d3dd18203344a3fa7dba47c43f857ec" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="WriteCongressModel.Issue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="WriteCongressModel.IssueLetter" Width="1.5" PointX="2.375" PointY="5.75" />
-        <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Issue" />
-        <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="WriteCongressModel.IssueLetter" Width="1.5" PointX="2.625" PointY="4.75" />
+        <EntityTypeShape EntityType="WriteCongressModel.Letter" Width="1.5" PointX="6.25" PointY="4.625" />
         <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Letter" />
         <EntityTypeShape EntityType="WriteCongressModel.User" Width="1.5" PointX="3.75" PointY="20.125" />
-        <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="6.875" PointY="5.625" />
+        <EntityTypeShape EntityType="WriteCongressModel.ZipCode" Width="1.5" PointX="8.375" PointY="5.5" />
         <EntityTypeShape EntityType="WriteCongressModel.PasswordReset" Width="1.5" PointX="2.4453012284102389" PointY="29.303516237672191" />
         <AssociationConnector Association="WriteCongressModel.FK_PasswordResets_Users" />
         <EntityTypeShape EntityType="WriteCongressModel.Bill" Width="1.5" PointX="2.3533714983395169" PointY="8.3819642553021971" />
-        <AssociationConnector Association="WriteCongressModel.BillIssue" />
         <EntityTypeShape EntityType="WriteCongressModel.Person" Width="1.5" PointX="12.125" PointY="5.125" />
         <EntityTypeShape EntityType="WriteCongressModel.ZipCodeDistrict" Width="1.5" PointX="9" PointY="10.5" />
-        <EntityTypeShape EntityType="WriteCongressModel.OrderDetail" Width="1.5" PointX="1.3177766210016686" PointY="12.417136302412086" />
+        <EntityTypeShape EntityType="WriteCongressModel.OrderDetail" Width="1.5" PointX="3.125" PointY="13.375" />
         <AssociationConnector Association="WriteCongressModel.BillLetter" />
         <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Letter" />
         <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Person" />
-        <EntityTypeShape EntityType="WriteCongressModel.Order" Width="1.5" PointX="7.9796361736858437" PointY="4.2243710477949916" />
+        <EntityTypeShape EntityType="WriteCongressModel.Order" Width="1.5" PointX="10.5" PointY="2.75" />
         <AssociationConnector Association="WriteCongressModel.FK_OrderDetails_Order" />
         <AssociationConnector Association="WriteCongressModel.FK_Orders_User" />
         <EntityTypeShape EntityType="WriteCongressModel.OrderStatus" Width="1.5" PointX="11.973224278526951" PointY="28.455311803359219" />
         <AssociationConnector Association="WriteCongressModel.FK_Orders_OrderStatusId" />
         <EntityTypeShape EntityType="WriteCongressModel.Log" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WriteCongressModel.Issue" Width="1.5" PointX="0.625" PointY="0.625" />
+        <AssociationConnector Association="WriteCongressModel.FK_IssueLetter_Issue" />
+        <AssociationConnector Association="WriteCongressModel.BillIssue" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

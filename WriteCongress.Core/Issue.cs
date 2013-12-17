@@ -27,9 +27,9 @@ namespace WriteCongress.Core
         public System.DateTime CreatedDate { get; set; }
         public bool Active { get; set; }
         public string Slug { get; set; }
+        public bool Featured { get; set; }
+        public Nullable<int> FeaturedRank { get; set; }
         public Nullable<int> Rank { get; set; }
-        public Nullable<bool> Featured { get; set; }
-        public string FeaturedRank { get; set; }
     
         public virtual ICollection<IssueLetter> IssueLetters { get; set; }
         public virtual ICollection<Bill> Bills { get; set; }

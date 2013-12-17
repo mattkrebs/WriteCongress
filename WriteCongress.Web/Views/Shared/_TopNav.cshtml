@@ -1,4 +1,5 @@
-﻿ <!-- Mobile Menu Start -->
+﻿@using WriteCongress.Web.Models
+<!-- Mobile Menu Start -->
 <div class="mobile navbar-header">
     <a class="navbar-toggle" data-toggle="collapse" href=".navbar-collapse">
         <i class="icon-reorder icon-2x"></i>
@@ -12,15 +13,33 @@
             <a id="@(Request.Url.AbsolutePath == "/" ? "current" : "")" href="/">Home</a>
         </li>
         <li>
-            <a id="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")" href="/issues" class="sf-with-ul">
-                Hot Issues
+            <a id="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "current" : "")" href="/issues" class="sf-with-ul">
+                Issues
                 <span class="sf-sub-indicator">
                     <i class="icon-angle-down "></i>
                 </span>
             </a>
+
+            @{
+                var issues = IssueModel.GetFeaturedTopics();
+            }
+
+            @if (issues != null && issues.Count > 0)
+            {
+                <ul>
+                @foreach(var item in issues)
+                {
+                   <li>@Html.ActionLink(item.Name,item.Url,"Issues")</li>
+                }
+                </ul>
+            }
+
         </li>
-        <li>
-            <a href="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")" class=" sf-with-ul">
+
+
+
+        @*<li>
+            <a href="@(Request.Url.AbsolutePath.ToLower().Contains("/pages") ? "current" : "")" class=" sf-with-ul">
                 Pages
                 <span class="sf-sub-indicator">
                     <i class="icon-angle-down "></i>
@@ -39,8 +58,8 @@
                 <li><a href="page-404.html" class="sf-with-ul">404 Page</a></li>
                 <li><a href="sitemap.html" class="sf-with-ul">Sitemap</a></li>
             </ul>
-        </li>
-        <li>
+        </li>*@
+        @*<li>
             <a href="#" class="sf-with-ul">
                 Portfolio
 
@@ -55,8 +74,8 @@
                 <li><a href="portfolio-single.html" class="sf-with-ul">Single Item Page</a></li>
                 <li><a href="portfolio-single-big.html" class="sf-with-ul">Single Large Item Page</a></li>
             </ul>
-        </li>
-        <li>
+        </li>*@
+        @*<li>
             <a href="#" class="sf-with-ul">
                 Blog
 
@@ -70,8 +89,12 @@
                 <li><a href="blog-small.html" class="sf-with-ul">Small Blog</a></li>
                 <li><a href="single-post.html" class="sf-with-ul">Single Post</a></li>
             </ul>
-        </li>
+        </li>*@
+
         <li><a href="contact.html">Contact</a></li>
+
+        <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>&nbsp;Sign In</a></li>
+
     </ul>
 </nav>
 <!-- Menu End -->
@@ -96,5 +119,4 @@
             </ul>
         </div>
     </div>*@
-</div>
 <!-- /.navbar -->

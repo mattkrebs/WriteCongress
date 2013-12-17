@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
 <head>
     <meta charset="utf-8">
-    <title>Pixma Responsive HTML5/CSS3 Template | FIFO THEMES</title>
-    <meta name="description" content="Pixma Responsive HTML5/CSS3 Template from FIFOTHEMES.COM">
-    <meta name="author" content="FIFOTHEMES.COM">
+    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title :  "Write A REAL Letter To Congress Without Needing Paper or A Stamp!")</title>
+    <meta name="description" content="We help you write thought out and informed letters to congress (your Senators and Representative) and then actually PRINT and MAIL the letter on your behalf. No need to track down evelopes, stamps, your congress persons address, etc. We want to make it easy to be involved. " />
+    <meta name="author" content="Shakr Labs">
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
@@ -22,7 +22,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/Theme/css/style.css">
     <!-- Skin -->
-    <link rel="stylesheet" href="/Theme/css/colors/blue.css">
+    <link rel="stylesheet" href="/Theme/css/colors/green.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="/Theme/css/theme-responsive.css">
     <!-- Favicons -->
@@ -78,6 +78,10 @@
              @RenderSection("AdHocScripts", false)
          });
     </script>
+
+
+    @if (!User.Identity.IsAuthenticated) { Html.RenderPartial("_LoginModal"); }
+    
     @Html.PageScripts();
 
 </body>

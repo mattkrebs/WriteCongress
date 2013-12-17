@@ -18,7 +18,7 @@ namespace WriteCongress.Core
         public int IssueId { get; set; }
         public int LetterId { get; set; }
     
-        public virtual Issue Issue { get; set; }
         public virtual Letter Letter { get; set; }
+        public virtual Issue Issue { get; set; }
     }
 }

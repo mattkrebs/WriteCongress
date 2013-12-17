@@ -25,7 +25,6 @@ namespace WriteCongress.Core
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Issue> Issues { get; set; }
         public DbSet<IssueLetter> IssueLetters { get; set; }
         public DbSet<Letter> Letters { get; set; }
         public DbSet<User> Users { get; set; }
@@ -38,5 +37,6 @@ namespace WriteCongress.Core
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Issue> Issues { get; set; }
     }
 }

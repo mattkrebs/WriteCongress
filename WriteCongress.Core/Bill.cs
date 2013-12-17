@@ -16,8 +16,8 @@ namespace WriteCongress.Core
     {
         public Bill()
         {
-            this.Issues = new HashSet<Issue>();
             this.Letters = new HashSet<Letter>();
+            this.Issues = new HashSet<Issue>();
         }
     
         public int BillId { get; set; }
@@ -35,7 +35,7 @@ namespace WriteCongress.Core
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string Status { get; set; }
     
-        public virtual ICollection<Issue> Issues { get; set; }
         public virtual ICollection<Letter> Letters { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
     }
 }
