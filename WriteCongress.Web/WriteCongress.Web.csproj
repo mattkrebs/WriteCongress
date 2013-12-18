@@ -219,6 +219,7 @@
     <Content Include="Content\images\howthisworks2.jpg" />
     <Content Include="Content\images\howthisworks3.jpg" />
     <Content Include="Content\images\howthisworks4.jpg" />
+    <Content Include="Content\images\write-congress-logo.png" />
     <Content Include="Content\letter.css" />
     <Content Include="Content\Print.css" />
     <Content Include="Content\images\bg_linen.png" />
