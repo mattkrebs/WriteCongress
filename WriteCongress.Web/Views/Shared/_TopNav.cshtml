@@ -91,7 +91,7 @@
             </ul>
         </li>*@
 
-        <li><a href="contact.html">Contact</a></li>
+        <li><a id="@(Request.Url.AbsolutePath.ToLower().Contains("/contact-us") ? "current" : "")" href="/contact-us">Contact</a></li>
 
         <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>&nbsp;Sign In</a></li>
 

@@ -1454,6 +1454,9 @@ span.color {
     color: #A1A1A1;
     padding: 50px 0;
 }
+.footer-top p {
+    color: #A1A1A1;
+}
 
 .footer-bottom {
     background: #25292C;
