@@ -246,6 +246,7 @@
     <None Include="Properties\PublishProfiles\writecongress - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\writecongress - Web Deploy.pubxml" />
+    <Content Include="pinterest-c5435.html" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\knockout-2.2.1.debug.js" />
