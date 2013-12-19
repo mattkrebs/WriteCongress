@@ -1,0 +1,62 @@
+﻿@using WriteCongress.Core
+@model WriteCongress.Web.Models.PrintModel
+@section head{
+    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+}
+
+@{
+    ViewBag.Title = "PrintView";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+<div class="container">
+    <div class="row">
+            <div class="letter">
+                <div class="letter-head">
+
+                <div class="date">@DateTime.Now.ToString("MMMM d, yyyy")</div>
+                    <div class="sender">
+                @(Model.UserName ?? "")<br />
+                @(Model.AddressLineOne ?? "")
+                @if(!String.IsNullOrEmpty(Model.AddressLineTwo))
+                {
+                <br />@(Model.AddressLineTwo)<br />
+                } else {
+                    <br />
+                }
+                @(Model.CityStateZip ?? "")<br />
+                @(Model.Email ?? "")<br />
+                @if(Model.PhoneNumber !=null && !String.IsNullOrWhiteSpace(Model.PhoneNumber)) {
+                         @Model.PhoneNumber<br />
+                 }
+                        </div>
+                 <div class="sender">
+                @(Model.PersonName ?? "")<br />
+                @(Model.PersonAddressLineOne ?? "")
+                @if(!String.IsNullOrEmpty(Model.PersonAddressLineTwo))
+                {
+                <br />@(Model.PersonAddressLineTwo)<br />
+                } 
+                else {
+                <br />
+                }
+
+                 
+                @(Model.PersonCityStateZip ?? "")
+                     </div>
+
+                <div class="re">
+                RE: @(Model.RE ?? "")
+                    </div>
+
+                 @Model.Salutation:
+             </div>
+
+                <p>On a cold December night in 1797 our fore founders met to ratify The Bill of Rights.  The path to the adoption of these ten crucial amendments to the Constitution was hard fought, but those who were fighting for it knew it was crucial to our nascent, but burgeoning Union.  For an entire year leading up to the adoption of the Bill of Rights, courageous anti-Federalists wrote essays, volleying newspaper articles against the opposed Federalists, and vehemently argued their case in person.  Their message was this: that with no written guarantee of personal liberties, the Constitution was simply a list of enumerated powers for the Federal government to lord over its subjects.  The federal government will always have a great deal of power, we need not worry that it won’t, but often it seems that every day brings a new struggle to keep secure our individual freedoms.  So, today I am writing to you, asking that you oppose the passage of s.150 as it directly infringes upon citizens’ Second Amendment rights.</p>
+                <p>Undoubtedly the recent gun-related tragedies in the news have spurred up a great deal of panic and fervor to do something, anything to stop these heartbreaks from occurring.  Indeed, I know if there was one single thing we, as Americans could do to prevent another Newtown, another Aurora, another senseless act of violence we would do it without hesitation, but the banning of assault rifles is not the panacea for which we are seeking.  It is not an act of reprieve, it is an act born of fearfulness, not one of calm, quiet collective thought; the exact type of thought we need present in the creation of legislation.  We must not enact such broad sweeping legislation reactively, we must proactively search for other solutions to prevent these tragedies from occurring.</p>
+                <p>I ask you to not trouble yourself about some calling you an obstructionist for opposing s.150, but instead to remember the hard-won fights of the anti-Federalists for our personal liberties.  By opposing the passage of this bill, you would continue their legacy of standing as protector of and bastion for personal rights.  You would find yourself among such individuals as Patrick Henry, George Clinton and Robert Yates.  No doubt these men received their own share of personal attacks, cries levied against them, but they stood tall and today it is your turn to do the same.  It is not the time to do what is expedient, it is time to do what is right.  Vote no on S. 150.</p>
+                Sincerely<br />
+                <span class="signature" id="letter-signature">George Hilal</span>
+            </div>
+        </div>
+</div>
+

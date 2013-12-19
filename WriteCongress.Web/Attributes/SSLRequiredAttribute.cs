@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Configuration;
 namespace WriteCongress
 {
     public class SSLRequiredAttribute:FilterAttribute,IAuthorizationFilter
@@ -12,7 +12,7 @@ namespace WriteCongress
         {
             var request = filterContext.RequestContext.HttpContext.Request;
             //if this is a HTTP GET in production and isn't over SSL
-            if (request.HttpMethod.Equals("GET",StringComparison.Ordinal) && !request.IsLocal && !request.IsSecureConnection)
+            if (request.HttpMethod.Equals("GET",StringComparison.Ordinal) && !request.IsLocal && !request.IsSecureConnection && ConfigurationManager.AppSettings["ForceSSL"] == "true")
             {
                 string url = "https://" + filterContext.HttpContext.Request.Url.Host + filterContext.HttpContext.Request.RawUrl;
                 filterContext.Result = new RedirectResult(url);

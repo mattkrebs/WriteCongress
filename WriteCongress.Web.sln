@@ -20,24 +20,33 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Staging|Any CPU = Staging|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{575CC345-2BB6-4A30-9AB4-E933F2897BE2}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{F60AF5CF-4CBC-4E25-80D0-94EE36D52D10}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{07372D0F-A541-43F8-86F7-42A356A2D630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07372D0F-A541-43F8-86F7-42A356A2D630}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07372D0F-A541-43F8-86F7-42A356A2D630}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07372D0F-A541-43F8-86F7-42A356A2D630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07372D0F-A541-43F8-86F7-42A356A2D630}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{07372D0F-A541-43F8-86F7-42A356A2D630}.Staging|Any CPU.Build.0 = Staging|Any CPU
 		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
+		{24B639D2-9DFB-4CDF-BA2E-A875DCE44CBD}.Staging|Any CPU.Build.0 = Staging|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

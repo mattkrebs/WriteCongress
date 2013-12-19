@@ -1,0 +1,18 @@
+﻿@model List<WriteCongress.Core.Issue>
+<div id="home_latest_posts">
+    <h4 class="entry-title" id="latest-posts-title">Popular Issues</h4>
+    @foreach (var issue in Model)
+    {
+   
+        <div class="single_latest left">
+            <a href="/Issues" title="Single Issue" class="single_latest_img_link">
+                <img width="170" height="120" src="@Html.Raw(issue.ImageUrl)" alt="Image" />
+            </a>
+            <h5><a href="/Issues/@issue.Slug" title="@issue.Name">@issue.Name</a></h5>
+            <div class="meta">
+                Posted on @issue.CreatedDate.ToShortDateString()
+            </div>
+        </div>
+    }
+    <div class="clear"></div>
+</div>

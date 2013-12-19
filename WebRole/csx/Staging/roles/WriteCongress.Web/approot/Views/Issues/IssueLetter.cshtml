@@ -1,0 +1,229 @@
+﻿@using System.Configuration
+@using WriteCongress.Core
+@using WriteCongress.Web.Models
+@model WriteCongress.Web.Models.IssueLetterViewModel
+@{ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);
+  var pageUrl = "https://www.writecongress.us/Issues/" + @Model.Letter.Slug;
+}
+
+
+@section head{
+    <meta property="og:url" content="@pageUrl" />
+    <meta property="og:site_name" content="Write Crongress" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@Model.Letter.Body.Substring(0, 50)..." />
+    <meta property="fb:app_id" content="419608328133774" />
+    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=419608328133774";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script type="text/javascript">
+    (function(d){
+        var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+        p.type = 'text/javascript';
+        p.async = true;
+        p.src = '//assets.pinterest.com/js/pinit.js';
+        f.parentNode.insertBefore(p, f);
+    }(document));
+</script>
+<input type="hidden" id="letterslug" value="@Model.Letter.Slug" />
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a> <span class="divider">/</span></li>
+                <li><a href="/Issues">Issues</a> <span class="divider">/</span></li>
+                <li class="active"><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></li>
+            </ul>
+
+            <h1>@Model.Letter.Name</h1>
+            <p class="letter-description">@Model.Letter.Description</p>
+
+
+            <div id="letter" class="letter">
+                <div id="letterHeader" class="letter-header well">
+                    <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
+                    <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span><span data-bind="{text:User().LastName}"></span></div>
+                    <div>
+                        <div data-bind="{autoswaptext:User().AddressOne,placeholder:'[Your Address]'}"></div>
+                        <div data-bind="{text:User().AddressTwo}"></div>
+                        <span data-bind="{text:User().City}"></span><span data-bind="{text:User().State}"></span><span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State & Zip]'}"></span>
+                        <br />
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="letter-recipients">
+                        <p>
+                            The Honorable 
+                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to." data-toggle="tooltip">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
+                        </p>
+                        <div class="letter-subject">RE: @Model.Issue.Name</div>
+                    </div>
+                    <div class="letter-body">
+                        @Html.Raw(Model.Letter.Body)
+                    </div>
+                    <div class="letter-signature">
+                        <h4>Sincerely</h4>
+                        <span id="letter-signature">
+                            <span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Signature]'}"></span><span data-bind="{text:User().LastName}"></span>
+                        </span>
+                        <h5 data-bind="{text:User().Email}"></h5>
+                        <h5 data-bind="{text:User().PhoneNumber}"></h5>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <div class="span4">
+            <div class="social well">
+                <h4><i class="icon-share-sign"></i> Share this Letter</h4>                
+                  <div class="row-fluid">
+                <div class="fb-like span4" data-href="@pageUrl" data-width="450" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+                <div class="span4">
+                <a href="https://twitter.com/share?text=@Url.Encode("Take a stance, send your representative a professional letter. " +  pageUrl + " @writecongress")" class="twitter-share-button" data-related="jasoncosta" data-lang="en" data-size="small" data-count="horizontal">Tweet</a>
+                    </div>
+                <div class="span4">
+                <a href="//pinterest.com/pin/create/button/?url=@Url.Encode(pageUrl)&media=https%3A%2F%2Faz417320.vo.msecnd.net%2Fassets%2Fimages%2Flogo.png&description=Take%20a%20stance" data-pin-do="buttonPin" data-pin-config="beside">
+                    <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+                    </div>
+                      </div>
+
+            </div>
+            <div id="senderInfo" class="well letterinfo">
+                <h4><i class="icon-envelope-alt"></i> Mail this letter</h4>
+                <hr />
+                <h5>My Account Info
+                    @*@if (!User.Identity.IsAuthenticated){<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}*@
+                </h5>
+                <input class="span4" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User().Zip}" />
+                <a class="btn btn-small" style="margin-bottom: 10px">Go</a><br />
+                <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
+                <input class="span6" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" /><br />
+                <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne,enable:User().ValidZip}" /><br />
+                <input class="span12" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo,enable:User().ValidZip}" /><br />
+                <input class="span6" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City,enable:User().ValidZip}" />
+                <select data-bind="{value:User().State,enable:User().ValidZip}" class="span3" id="state" name="state" placeholder="State" size="1">
+                    <option value="">ST</option>
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DC">DC</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="IA">IA</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                </select>
+                <input class="span3" type="text" id="city" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
+                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
+                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
+                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick,html:ContinueButtonText}" class="btn btn-large btn-primary"></button>
+            </div>
+            <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height: 65px">
+                <h4>We'll print &amp; mail this to:</h4>
+                <span class="label label-block">(Your choice during checkout)</span><hr />
+                <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+                <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+                <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+            </div>
+        </div>
+
+    </div>
+</div>
+@Html.Partial("_PurchaseLetter")
+@Html.Partial("_CreateAccount")
+
+@section scripts{
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+        <script type="text/javascript" src="/scripts/StripeHelper.js"></script>
+        <script type="text/javascript"> Stripe.setPublishableKey('@ConfigurationManager.AppSettings["StripePublishableKey"]'); </script>
+        <script type="text/javascript" src="/scripts/IssueLetterAuthenticated.js"></script>
+    }
+    else
+    {
+@*<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>*@
+    }
+    <script src="/scripts/Models/User.js"></script>
+    <script src="/scripts/ViewModels/LetterViewModel.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var vm = new LetterViewModel();
+            wcglobals.Letter = vm;
+            @if (User.Identity.IsAuthenticated)
+            {
+                @:vm.User().Authenticated(true);
+                                        @:vm.User().CongressionalDistrict(@Model.CongressionalDistrict);
+                                        @:vm.User().FirstName('@Model.FirstName');
+                                        @:vm.User().LastName('@Model.LastName');
+                                        @:vm.User().AddressOne('@Model.Address1');
+                                        @:vm.User().AddressTwo('@Model.Address2');
+                                        @:vm.User().City('@Model.City');
+                                        @:vm.User().State('@Model.State');
+                                        @:vm.User().Zip('@Model.ZipCode');
+                                        @:vm.User().Email('@Model.Email');
+                                        @:vm.User().PhoneNumber('@Model.PhoneNumber');
+
+            }
+            ko.applyBindings(vm, document.getElementById('senderInfo'));
+            ko.applyBindings(vm, document.getElementById('letter'));
+
+            ko.applyBindings(wcglobals.MyCongressionalDistrict, document.getElementById('letter-myCongressPersons'));
+
+            mixpanel.track('Viewed Letter', { Letter: '@Model.Letter.Slug', Issue: '@Model.Issue.Slug' });
+        });
+
+    </script>
+}

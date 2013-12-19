@@ -1,0 +1,122 @@
+﻿@using WriteCongress.Web.Models
+<!-- Mobile Menu Start -->
+<div class="mobile navbar-header">
+    <a class="navbar-toggle" data-toggle="collapse" href=".navbar-collapse">
+        <i class="icon-reorder icon-2x"></i>
+    </a>
+</div>
+<!-- Mobile Menu End -->
+<!-- Menu Start -->
+<nav class="collapse navbar-collapse menu">
+    <ul class="nav navbar-nav sf-menu">
+        <li>
+            <a id="@(Request.Url.AbsolutePath == "/" ? "current" : "")" href="/">Home</a>
+        </li>
+        <li>
+            <a id="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "current" : "")" href="/issues" class="sf-with-ul">
+                Issues
+                <span class="sf-sub-indicator">
+                    <i class="icon-angle-down "></i>
+                </span>
+            </a>
+
+            @{
+                var issues = IssueModel.GetFeaturedTopics();
+            }
+
+            @if (issues != null && issues.Count > 0)
+            {
+                <ul>
+                @foreach(var item in issues)
+                {
+                   <li>@Html.ActionLink(item.Name,item.Url,"Issues")</li>
+                }
+                </ul>
+            }
+
+        </li>
+
+
+
+        @*<li>
+            <a href="@(Request.Url.AbsolutePath.ToLower().Contains("/pages") ? "current" : "")" class=" sf-with-ul">
+                Pages
+                <span class="sf-sub-indicator">
+                    <i class="icon-angle-down "></i>
+                </span>
+            </a>
+            <ul>
+                <li><a href="about.html" class="sf-with-ul">About Us</a></li>
+                <li><a href="services.html" class="sf-with-ul">Services</a></li>
+                <li><a href="testimonials.html" class="sf-with-ul">Testimonials</a></li>
+                <li><a href="full-width.html" class="sf-with-ul">Full Width Page</a></li>
+                <li><a href="page-left-sidebar.html" class="sf-with-ul">Left Sidebar</a></li>
+                <li><a href="page-right-sidebar.html" class="sf-with-ul">Right Sidebar</a></li>
+                <li><a href="page-left-navigation.html" class="sf-with-ul">Left Navigation</a></li>
+                <li><a href="page-right-navigation.html" class="sf-with-ul">Right Navigation</a></li>
+                <li><a href="faq.html" class="sf-with-ul">FAQ</a></li>
+                <li><a href="page-404.html" class="sf-with-ul">404 Page</a></li>
+                <li><a href="sitemap.html" class="sf-with-ul">Sitemap</a></li>
+            </ul>
+        </li>*@
+        @*<li>
+            <a href="#" class="sf-with-ul">
+                Portfolio
+
+                <span class="sf-sub-indicator">
+                    <i class="icon-angle-down "></i>
+                </span>
+            </a>
+            <ul>
+                <li><a href="portfolio-two.html" class="sf-with-ul">2 Column</a></li>
+                <li><a href="portfolio-three.html" class="sf-with-ul">3 Column</a></li>
+                <li><a href="portfolio-four.html" class="sf-with-ul">4 Column</a></li>
+                <li><a href="portfolio-single.html" class="sf-with-ul">Single Item Page</a></li>
+                <li><a href="portfolio-single-big.html" class="sf-with-ul">Single Large Item Page</a></li>
+            </ul>
+        </li>*@
+        @*<li>
+            <a href="#" class="sf-with-ul">
+                Blog
+
+                <span class="sf-sub-indicator">
+                    <i class="icon-angle-down "></i>
+                </span>
+            </a>
+            <ul>
+                <li><a href="blog-left-sidebar.html" class="sf-with-ul">Left Sidebar Blog</a></li>
+                <li><a href="blog-right-sidebar.html" class="sf-with-ul">Right Sidebar Blog</a></li>
+                <li><a href="blog-small.html" class="sf-with-ul">Small Blog</a></li>
+                <li><a href="single-post.html" class="sf-with-ul">Single Post</a></li>
+            </ul>
+        </li>*@
+
+        <li><a id="@(Request.Url.AbsolutePath.ToLower().Contains("/contact-us") ? "current" : "")" href="/contact-us">Contact</a></li>
+
+        <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>&nbsp;Sign In</a></li>
+
+    </ul>
+</nav>
+<!-- Menu End -->
+
+
+@*<div class="navbar" style="margin-bottom: 0px; margin-top: 15px">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <li class="@(Request.Url.AbsolutePath == "/" ? "active" : "")"><a href="/">Home</a></li>
+                <li class="@(Request.Url.AbsolutePath.ToLower().Contains("/issues") ? "active" : "")"><a href="/Issues/">Hot Issues</a></li>
+                <li class="@(Request.Url.AbsolutePath.ToLower().Contains("how-this-works") ? "active" : "")"><a href="javascript:void(0);" id="nav-howthisworks">How this works</a></li>
+                @if (User.Identity.IsAuthenticated == false || ViewBag.AuthenticatedUser == null)
+                {
+                    <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>Sign In</a></li>
+                }
+                else
+                {
+                    <li class="@(Request.Url.AbsolutePath.ToLower().Contains("account") ? "active" : "")"><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName</a></li>
+                    <li><a href="/Authentication/Signout"><i class="icon-signout"></i>Logout</a></li>
+                }
+            </ul>
+        </div>
+    </div>*@
+<!-- /.navbar -->

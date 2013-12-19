@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using NLog;
 using WriteCongress.Core;
+using System.Configuration;
 
 namespace WriteCongress.Web.Controllers
 {
@@ -41,7 +42,7 @@ namespace WriteCongress.Web.Controllers
         protected override void OnAuthorization(AuthorizationContext filterContext) {
             var request = filterContext.RequestContext.HttpContext.Request;
             //redirect to https://wwww. as needed
-            if (!request.IsLocal)
+            if (!request.IsLocal && ConfigurationManager.AppSettings["ForceSSL"] == "true")
             {
                 bool canonicalizeRedirect = false;
                 string host = request.Url.Host;

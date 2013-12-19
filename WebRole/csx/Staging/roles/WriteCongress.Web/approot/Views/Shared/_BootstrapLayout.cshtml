@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@ViewBag.MetaDescription">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    @Styles.Render("~/css/site")
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+    <!--[if lt IE 7]>
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <![endif]-->
+    @RenderSection("head", false)
+</head>
+<body>
+    <div style="height: 10px; background-color: rgb(35, 95, 167); margin-top: 0px !important; margin-left: 0px!important; width: 100%"></div>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="/"><img src="https://az417320.vo.msecnd.net/assets/images/logo.png" alt="Send a real letter to congress" id="logo" /></a>
+                <div class="pull-right" id="mydistrict">                    
+                    <span data-bind="visible:DisplayMyCongressPersons">
+                        <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="left"/>
+                        <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="left"/>
+                        <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="left"/>
+                    </span>
+                </div>
+                <div class="pull-right" id="myrep"></div>
+                <div class="pull-right" style="margin-right: 5px;" id="mysenators"></div>
+            </h3>
+            @Html.Partial("_TopNav")
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+        <hr>
+        @Html.Partial("_Footer")
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    @Html.Partial("_Analytics")
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
+    @Scripts.Render("~/js/site")
+    @Scripts.Render("~/js/plugins")
+    
+    @RenderSection("scripts", false)
+    @if (!User.Identity.IsAuthenticated) {Html.RenderPartial("_LoginModal");}
+    @Html.Partial("_HowThisWorks")
+    @Html.PageScripts()
+</body></html>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<serviceContract xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" dslVersion="1.0.0.0" name="WebRoleContract" xmlns="http://schemas.microsoft.com/dsltools/Contracts">
+  <elements>
+    <interface name="WriteCongress.Web:HTTP" url="http://*:80" />
+    <interface name="WriteCongress.Web:HTTPS" url="https://*:443" />
+    <interface name="WriteCongress.Web:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" url="tcp://*:3389" />
+  </elements>
+</serviceContract>

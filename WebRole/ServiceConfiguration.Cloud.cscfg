@@ -4,9 +4,15 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=writecongress;AccountKey=Ee7ipevOgV0rMemuFdVEp9IKP8eBdVQmNvWrdQm14iqm0IcPvybXzqlsW427rSqXmQ48q26pYJcctHKsWRESMg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCECQEvXUGRFW6TZpbUfW5urYwDQYJKoZIhvcNAQEBBQAEggEAwWhB3tH9CA+JE1ejPzHABXqmWkhaNF7rUS4smzPnrU4ivCD+uDz2loaV5xCtnF+xRuOeQxhBVwec5arinMVEJgy6S3BdGNRT9jVJE4q1jy5fncvY1DEpd7dGq3yuZBH2tC/V5ohjQB+FTo2scwRyHxX7olpOQzzMnqusYt7Glg6HBxrzbWFpk5tNGPfEht5zwMElnent5ivX21nAt/eE5lm8ncpr/ED8oadJAA8U5HrSNi3njUx3kI9OUgaJFgRUBcW0+de1v3tABjt7f/btSFys36JRrXn/njOhFlZQ9WipVV63+q7NA2kUolQpcOX5/HwNKqgtiPvSNgqV/VGz4jAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECIr/BT+f4SspgBA5Bt08psf9iL1DtBqogNxB" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-12-19T23:59:59.0000000-06:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="SSL" thumbprint="320719B4A38AB90AAB918E7BEEDC1F994359862F" thumbprintAlgorithm="sha1" />
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="2BAAF140E67B9E2C727EC1ECC7FD52F8182AB21E" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>

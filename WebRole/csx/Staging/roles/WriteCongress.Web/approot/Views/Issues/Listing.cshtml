@@ -1,0 +1,21 @@
+﻿@model List<WriteCongress.Core.Issue>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+<ul class="unstyled">
+    @foreach (var issue in Model)
+    {
+        <li>
+            <div class="third_wide">
+                <strong>@issue.Name</strong>
+                <p>@issue.Description</p>
+                <a class="button buttonleft button_gray" href="/Issues/Issue/@issue.IssueId">Send Letter</a>
+            </div>
+        </li>
+    }
+
+</ul>
+>

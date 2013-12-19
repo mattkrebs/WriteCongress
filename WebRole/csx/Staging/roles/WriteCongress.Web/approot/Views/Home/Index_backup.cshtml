@@ -1,0 +1,119 @@
+﻿@model WriteCongress.Web.Models.HomeModel
+@{
+    ViewBag.Title = "Write Congress, Send Your Message to Local and National Representatives";
+}
+<div class="wrapper" id="content"> <!-- #content ends in footer.html -->
+				<div class="container">
+					<div id="slides_wrap">
+						<div id="slides">
+							<div class="slidearea slides_container">
+								<div>
+									<div class="slide_image_wrap">
+										<a href="#" title="Campaign Slide">
+											<img width="600" height="300" src="images/_demo//htmlslide1.png" alt="Campaign Slide" />
+										</a>
+									</div>
+								</div>
+								<div>
+									<iframe src="http://player.vimeo.com/video/7449107?portrait=0" width="600" height="300" frameborder="0"></iframe>
+								</div>
+								<div>
+									<div class="slide_image_wrap">
+										<div class="slide_text_overlay">
+											This slide has a little bit of text overlaid on the bottom.
+										</div>
+										<a href="#" title="Campaign Slide">
+											<img width="600" height="300" src="images/_demo/htmlslide2.png" alt="Campaign Slide" />
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="slide_widget" class="campaign_email_slide">
+							<div id="slide_widget_inner">
+								<div class="widget campaign_email_capture_wrap">
+									<h3 class="widgettitle">Get involved!</h3>
+									<span>Enter your zip below and we'll help you get started with sending a real letter to your public servants in Congress!</span>
+									<div id="campaign_email_capture">
+										<form action="#" method="post">
+											<div>
+												<input type="text" class="campaign-email-capture-email campaign-email-capture-email-active" placeholder="Zip Code" name="campaign-email-capture-email" title="Your Zip Code" />
+												<input type="submit" class="campaign-email-capture-submit" value="Subscribe To Updates" name="Submit" />
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div id="home_widgets">
+						<div id="home_widget_wrap">
+							<div class="widget">
+								<h3 class="widgettitle">Pick an issue</h3>
+								<div>Whether its the economy, healthcare, education, foreign policy or the environment, learn about the issues and what other people are saying.</div>
+								<a href="#" class="button button_gray">Contribute</a>
+							</div>
+							<div class="widget">
+								<h3 class="widgettitle">Take a stance</h3>
+								<div>Don't just stand on the sidelines, take a stance and have your opinion read by your public servants</div>
+								<a href="#" class="button button_gray">Get In Touch</a>
+							</div>
+							<div class="widget">
+								<h3 class="widgettitle">Mail a real letter!</h3>
+								<div>Did you know that your Senators and Representative have a formula that counts a mailed letter <strong>10 times</strong> more than a phone call and <strong>30 times</strong> more than an email?</div>
+								<a href="#" class="button button_gray">Sign Me Up</a>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="posts-wrap">
+						<div id="home_video_wrap">
+							<div id="home_video">
+								<iframe src="http://player.vimeo.com/video/31241445?portrait=0" width="380" height="223" frameborder="0"></iframe>
+							</div>
+							<div id="home_video_desc">
+								<h4>Video Title</h4>
+								<p>This is a short description of the video. Simply put in the embed code for whatever video you want here. This is an HTML template, so whatever you want put here will work just fine.<br /><br />
+									Get your point across with video <em>and</em> a little bit of text.
+								</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+						@Html.Partial("_TopIssues", Model.TopIssues);
+					</div>
+					<div id="sidebar">
+						<div class="widget"><h4 class="widgettitle">Upcoming Events</h4>
+							<ul class="upcoming">
+								<li class="event_list_item">
+									<div class="when">
+										July 23, 2012 <small>(All Day)</small>
+									</div>
+									<div class="event">
+										<a href="page-event.html">Campaign Party Event</a>
+									</div>
+								</li>
+								<li class="event_list_item">
+									<div class="when">
+										November 6, 2012 8:00 am -<br/>November 6, 2012 5:00 pm
+									</div>
+									<div class="event">
+										<a href="page-event.html">Election Day</a>
+									</div>
+								</li>
+							</ul>
+							<div class="dig-in"><a href="page-event.html">View All Events</a></div>
+						</div>
+						<div class="widget_testimonial widget"><h4 class="widgettitle">Testimonial Card</h4>
+							<div class="the_testimonial">I support Campaign because it keeps me working. It's time to get out and vote!</div>
+							<div class="the_testimonial_author">
+								<strong>- Jake Caputo</strong>
+								<span><a href="http://themeforest.net/user/designcrumbs/portfolio?ref=designcrumbs" title="Design Crumbs">Design Crumbs</a>
+								</span>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div><!-- end div.container, begins in header.html -->
+			</div><!-- end div.wrapper, begins in header.html -->

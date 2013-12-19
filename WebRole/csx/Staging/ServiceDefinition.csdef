@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WebRole" schemaVersion="2013-10.2.2" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="WriteCongress.Web" vmsize="ExtraSmall">
+    <LocalResources>
+      <LocalStorage name="DiagnosticStore" sizeInMB="4096" cleanOnRoleRecycle="false" />
+    </LocalResources>
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" />
+    </ConfigurationSettings>
+    <Endpoints>
+      <InputEndpoint name="HTTP" protocol="http" port="80" localPort="80" />
+      <InputEndpoint name="HTTPS" protocol="https" port="443" certificate="SSL" localPort="443" />
+      <InputEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" protocol="tcp" port="3389" localPort="*" ignoreRoleInstanceStatus="true" />
+      <InternalEndpoint name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Rdp" protocol="tcp">
+        <FixedPortRange min="3389" max="3389" />
+      </InternalEndpoint>
+    </Endpoints>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="SSL" storeLocation="LocalMachine" storeName="My" />
+    </Certificates>
+  </WebRole>
+</ServiceDefinition>

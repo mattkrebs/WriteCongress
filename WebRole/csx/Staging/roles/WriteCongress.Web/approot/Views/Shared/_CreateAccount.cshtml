@@ -1,0 +1,145 @@
+﻿<div id="createAccount" class="modal hide">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Create an Account</h3>
+        <h6>You're 2 clicks away &ndash; create an account in 20 seconds</h6>
+    </div>
+
+    <div class="modal-body">
+        <form id="createAccountAndRedirect" method="post" action="/Authentication/CreateAccount" class="form-horizontal">
+            <input type="hidden" id="signup-redirect" name="redirect" value="@Request.Url#sendletter" />
+            <input type="hidden" id="signup-firstname" name="firstname" data-bind="{value:User.FirstName}" />
+            <input type="hidden" id="signup-lastname" name="lastname" data-bind="{value:User.LastName}" />
+            <input type="hidden" id="signup-address1" name="address1" data-bind="{value:User.AddressOne}"/>
+            <input type="hidden" id="signup-address2" name="address2" data-bind="{value:User.AddressTwo}" />
+            <input type="hidden" id="signup-city" name="city" data-bind="{value:User.City}" />
+            <input type="hidden" id="signup-state" name="state" data-bind="{value:User.State}" />
+            <input type="hidden" id="signup-zipcode" name="zipcode" data-bind="{value:User.Zip}" />
+            <input type="hidden" id="signup-congressionaldistrict" name="congressionaldistrict" data-bind="{value:User.CongressionalDistrict}" />
+            <input type="hidden" id="signup-phonenumber" name="phonenumber" data-bind="{value:User.PhoneNumber}" />
+            <div class="control-group">
+                <label class="control-label">Email</label>
+                <div class="controls">
+                    <input id="signup-email" type="text" name="email" placeholder="Email" data-bind="{value:User.Email}">
+                    <i class="icon-info-sign error hide"></i>
+                    <div class="hide" id="emailSuggestion"></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <div class="controls">
+                    <input id="signup-password" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password Confirm</label>
+                <div class="controls">
+                    <input id="signup-passwordconfirm" type="password" placeholder="Confirm your password">
+                    <i class="icon-info-sign error hide"></i>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">I agree to:</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input name="tos" id="signup-tos" type="checkbox" value="tos">
+                        <a href="/TOS" class="label" target="_blank"><i class="icon-external-link"></i> Terms of Service </a> &amp; <a href="/privacy/" class="label" target="_blank"> <i class="icon-external-link"></i> Privacy Policy</a>
+                        <i class="icon-info-sign error hide"></i>
+                    </label>
+                    <label class="checkbox">
+                        <input name="newsletter" type="checkbox" value="newsletter">Receive "Monitoring Democracy" Email Newsletter
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="createAccountSendLetter" class="btn btn-primary" data-bind="click:Signup"> Signup & Send My Letters</button>
+    </div>
+</div>
+
+@using (Html.BeginScripts())
+{
+    <script type="text/javascript">
+        $(function() {
+            if (typeof wcglobals.Letter !== "undefined") {
+                var letter = wcglobals.Letter;
+                var SignupViewModel = function(user) {
+                    var self = this;
+                    this.User = user;
+                    this.Signup = function() {
+                        var button = $('#createAccountSendLetter');
+                        button.css('cursor', 'wait');
+                        button.attr('disabled', 'disabled');
+                        var info = {
+                            email: $('#signup-email').val(),
+                            password: $('#signup-password').val(),
+                            passwordconfirm: $('#signup-passwordconfirm').val(),
+                            tos: ($('#signup-tos:checked').length == 1)
+                        };
+        
+                        self.validate(info, function(errors) {
+                            for (var i = 0; i < errors.length; i++) {
+                                $(errors[i].field).parent().addClass('alert alert-danger');
+                                $(errors[i].field).tooltip({ title: errors[i].message });
+                            }
+                            button.css('cursor', 'default');
+                            button.removeAttr('disabled');
+                            if (errors.length == 0) {
+                                if (mixpanel.fake) {
+                                    mixpanel.track('Signed Up', function() {
+                                        $('#createAccountAndRedirect').submit();
+                                    });
+                                } else {
+                                    $('#createAccountAndRedirect').submit();
+                                }
+                            }
+                        });
+                    };
+                    this.Show = function() {
+                        $('#createAccount').modal();
+                    };
+
+                    //this function sucks, but i was moving it from the old code and just didn't have time to MVVMify it
+                    //TODO: KO this
+                    this.validate = function(info, callback) {
+                        var errors = [];
+                        var email = $('#signup-email').val();
+                        $.post('/Authentication/ValidateEmailFormat', { email: email }, function(data) {
+                            if (data.Success === true) {
+                                $.post('/Authentication/CheckEmailAddress', { email: email }, function(inuse) {
+                                    if (inuse.Data === true) {
+                                        errors.push({ field: '#signup-email', message: 'Email is already in use.' });
+                                    }
+                                    callback(errors);
+                                });
+                            } else {
+                                errors.push({ field: '#signup-email', message: 'Invalid email address.' });
+                                callback(errors);
+                            }
+                        });
+
+                        if (info.password.length < 4) {
+                            errors.push({ field: '#signup-password', message: 'Your password MUST be atleast 4 characters' });
+                        }
+
+                        if (info.password !== info.passwordconfirm) {
+                            errors.push({ field: '#signup-passwordconfirm', message: 'Your passwords should match' });
+                        }
+                        if (info.tos !== true) {
+                            errors.push({ field: '#signup-tos', message: 'You must agree to the Terms of Service' });
+                        }
+                    };
+                };
+
+
+                var vm = new SignupViewModel(letter.User());
+                wcglobals.Signup = vm;
+                ko.applyBindings(vm, document.getElementById('createAccount'));
+            }
+        });
+    </script>
+}

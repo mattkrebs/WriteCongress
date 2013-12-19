@@ -1,0 +1,64 @@
+﻿@model List<WriteCongress.Core.Issue>
+
+@{
+    ViewBag.Title = "Send mail to congress about issues including gun control, abortion, immigration, and more!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Title, Breadcrumb Start-->
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                <h2 class="title">Services</h2>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                <div class="breadcrumbs pull-right">
+                    <ul>
+                        <li>You are here:</li>
+                        <li><a href="/">Home</a></li>
+                        <li>Issues</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Title, Breadcrumb End-->
+<!-- 3 Column Big Services -->
+<div class="divider"></div>
+<div class="services-big">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="title">Our Issues</h3>
+            </div>
+            <div class="clearfix"></div>
+            @foreach (var issue in Model)
+            {
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="content-box">
+                        <div class="content-box-icon">
+                            <img src="@Html.Raw(issue.ImageUrl)" alt=" "/>
+                        </div>
+                        <div class="content-box-info">
+                            <h4>@issue.Name</h4>
+                            <p style="height: 65px; text-overflow: ellipsis; white-space: normal; overflow: hidden;">@issue.Description</p>
+                            <p>
+                                <a class="btn btn-primary" href="/Issues/@issue.Slug/">Take Action!</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- 3 Column Services End-->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="divider"></div>
+
+
+
+

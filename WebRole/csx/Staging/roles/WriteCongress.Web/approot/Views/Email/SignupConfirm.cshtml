@@ -1,0 +1,19 @@
+﻿@using System.Drawing
+@model WriteCongress.Core.User
+@{
+    Layout = "~/Views/Email/_Layout.cshtml";
+}
+<h2>WriteCongress.us Signup Confirmation</h2>
+
+<p>Thanks for signing up! Your account is good to go!</p>
+@Html.EmailButton("1) Get involved, send a real letter in the mail to congress", "http://www.writecongress.us", System.Drawing.Color.SeaGreen)
+
+<p>That's all :)</p>
+
+<p>Happy mailing! If you need anything, don't hesitate to reach out to support via support@@writecongress.us</p>
+
+<p>
+Sincerely,<br />
+Matt, George and Joseph - WriteCongress.us Team<br />
+<a href="mailto:team@writecongress.us">team@writecongress.us</a>
+</p>
