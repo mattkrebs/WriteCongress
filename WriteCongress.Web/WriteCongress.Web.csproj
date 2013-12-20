@@ -575,7 +575,8 @@
     <Content Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Shared\RepBar.cshtml" />
+    <Content Include="Views\Shared\_RepBar.cshtml" />
+    <Content Include="Views\Authentication\SignOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

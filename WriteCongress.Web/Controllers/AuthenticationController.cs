@@ -36,7 +36,7 @@ namespace WriteCongress.Web.Controllers
       
         public ActionResult Signout() {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpPost]
