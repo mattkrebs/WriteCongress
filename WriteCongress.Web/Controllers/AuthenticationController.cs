@@ -76,6 +76,7 @@ namespace WriteCongress.Web.Controllers
                     user.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays", StringEncodingFormat.Base64).Left(128);
                     FormsAuthentication.SetAuthCookie(user.SessionId, true);
                     Db.SaveChanges();
+                    redirect = "/Account";
                     Logger.Info("login: successfull login for userid: {0}", user.Id);
                     return Redirect(redirect ?? Request.UrlReferrer.ToString());
                 }

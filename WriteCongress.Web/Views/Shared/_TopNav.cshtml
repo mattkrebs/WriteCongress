@@ -93,7 +93,17 @@
 
         <li><a id="@(Request.Url.AbsolutePath.ToLower().Contains("/contact-us") ? "current" : "")" href="/contact-us">Contact</a></li>
 
-        <li><a href="javascript:void(0);" class="login-launcher"><i class="icon-signin"></i>&nbsp;Sign In</a></li>
+        @if (User.Identity.IsAuthenticated == false || ViewBag.AuthenticatedUser == null)
+        {
+                <li><a href="/Authentication/Signin"><i class="icon-signin"></i>&nbsp;Sign In</a></li>
+        }
+        else
+        {
+            <li class="@(Request.Url.AbsolutePath.ToLower().Contains("account") ? "active" : "")"><a href="/Account">Welcome @ViewBag.AuthenticatedUser.FirstName</a></li>
+            <li><a href="/Authentication/Signout"><i class="icon-signout"></i>Logout</a></li>
+        }
+
+        
 
     </ul>
 </nav>

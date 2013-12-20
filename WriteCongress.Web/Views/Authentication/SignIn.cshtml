@@ -1,41 +1,70 @@
 ﻿@{
     ViewBag.Title = "WriteCongress.us Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <h2>Sign In</h2>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span7">
-            @if(ViewBag.FailedLogin){<div class="alert alert-danger">Your email/password were incorrect. Please try again.</div>}
-            <div class="well">
-                <form id="login-modal-loginform" method="POST" action="/Authentication/Signin" class="form-horizontal">
-                    <input type="hidden" name="redirect" value="@ViewBag.Redirect" />
-                    <div class="control-group">
-                        <label class="control-label">Email</label>
-                        <div class="controls">
-                            <input id="signin-email" type="text" name="email" placeholder="Email" value="@ViewBag.Email">
-                        </div>
-                    </div>
+<div id="main">
+    <!-- Title, Breadcrumb Start-->
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                    <h2 class="title">Sign In</h2>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
 
-                    <div class="control-group">
-                        <label class="control-label">Password</label>
-                        <div class="controls">
-                            <input id="signin-password" type="password" name="password" placeholder="Password">
-                            <div><a href="/Authentication/PasswordReset">Forgot your password?</a></div>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="controls">
-                            <button class="btn btn-primary btn-large">Sign In</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+    <!-- Main Content start-->
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" id="contact-form">
+
+                    <p>
+                        Login with your email and password below. If you need any assistance please <a href="/contact-us">Contact Us</a>.
+                    </p>
+                    
+                    <form method="post" class="reply" action="/Authentication/Signin">
+                        <input type="hidden" name="redirect" value="@ViewBag.Redirect" />
+
+                        @if (ViewBag.FailedLogin)
+                        {<div class="alert alert-danger">Your email/password were incorrect. Please try again.</div>}
+                                                                                                                    
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                                    <label>Email: <span>*</span></label>
+                                    <input class="form-control" id="signin-email" type="text" name="email" placeholder="Email" value="@ViewBag.Email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label>Pasword: <span>*</span></label>
+                                    <input class="form-control" id="signin-password" type="password" name="password" placeholder="Password" required>
+                                    <div><a href="/Authentication/PasswordReset">Forgot your password?</a></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <input type="submit" class="btn-normal btn-color submit  bottom-pad" value="Sign In">
+                        
+                        <div class="clearfix">
+                        </div>
+                    </form>
+                </div>
+                
+        </div>
+    </div>
+    <!-- Main Content end-->
 </div>
+<!-- Content End -->
+
+
+
+
+
+
+    

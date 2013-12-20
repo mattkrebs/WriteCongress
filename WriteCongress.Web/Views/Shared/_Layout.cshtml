@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/theme/css/superfish.css" media="screen">   
     <link rel="stylesheet" href="/theme/css/revolution-slider/css/settings.css" media="screen">
     <link rel="stylesheet" href="/theme/css/prettyPhoto.css" media="screen">
+
     <!-- Theme CSS -->
     <link rel="stylesheet" href="/theme/css/style.css">
     <!-- Skin -->
@@ -90,6 +91,9 @@
 
     @RenderSection("scripts", false)
     @if (!User.Identity.IsAuthenticated) { Html.RenderPartial("_LoginModal"); }
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.3/example1/colorbox.min.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.3/jquery.colorbox-min.js"></script>
 
     @Html.PageScripts()
 
