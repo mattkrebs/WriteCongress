@@ -90,9 +90,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
     @Scripts.Render("~/js/site")
     @Scripts.Render("~/js/plugins")
-
-
-    @RenderSection("scripts", false)
+    
     @if (!User.Identity.IsAuthenticated) { Html.RenderPartial("_LoginModal"); }
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.3/example1/colorbox.min.css" rel="stylesheet" />

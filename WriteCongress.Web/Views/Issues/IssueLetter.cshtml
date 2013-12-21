@@ -4,6 +4,7 @@
 @model WriteCongress.Web.Models.IssueLetterViewModel
 @{ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);
   var pageUrl = "https://www.writecongress.us/Issues/" + @Model.Letter.Slug;
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -36,12 +37,72 @@
     }(document));
 </script>
 <input type="hidden" id="letterslug" value="@Model.Letter.Slug" />
+
+
+
+
+<!-- Title, Breadcrumb Start-->
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                <h2 class="title">@Model.Issue.Name</h2>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                <div class="breadcrumb pull-right">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/Issues">Issues</a></li>
+                        <li class="active"><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="posts-block col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                <h1>@Model.Letter.Name</h1>
+                <p class="letter-description">@Model.Letter.Description</p>
+
+            </div>
+            <!-- Left Section End -->
+            <div class="sidebar col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                <!-- Search Widget Start -->
+                <div class="widget search-form">
+                    <div class="input-group">
+                        <input type="text" value="Search..." onfocus="if(this.value=='Search...')this.value='';" onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
+                        <span class="input-group-btn">
+                            <button type="submit" class="subscribe-btn btn"><i class="icon-search"></i></button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+                <!-- Search Widget End -->
+                
+                
+                
+            </div>
+            <!-- Sidebar End -->
+        </div>
+    </div>
+</div>
+<!-- Main Content end-->
+
+
+
+
+
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span8">
             <ul class="breadcrumb">
-                <li><a href="/">Home</a> <span class="divider">/</span></li>
-                <li><a href="/Issues">Issues</a> <span class="divider">/</span></li>
+                <li><a href="/">Home</a> </li>
+                <li><a href="/Issues">Issues</a></li>
                 <li class="active"><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></li>
             </ul>
 
