@@ -65,6 +65,8 @@
     </div>
 
     <script src="/Theme/js/jquery.min.js"></script>
+
+
     <script src="/Theme/js/bootstrap.js"></script>
     <script src="/Theme/js/jquery.parallax.js"></script>
     <script src="/Theme/js/modernizr-2.6.2.min.js"></script>
@@ -79,16 +81,20 @@
     <script src="/Theme/js/imagesloaded.pkgd.min.js"></script>
     <script src="/Theme/js/waypoints.min.js"></script>
     <script src="/Theme/js/custom.js"></script>
+
+    @Scripts.Render("~/js/site")
+
     @RenderSection("Scripts", false)
     <script type="text/javascript">
                 $(function () {
                     @RenderSection("AdHocScripts", false)
                 });
     </script>
+   
 
     @Html.Partial("_Analytics")
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
-    @Scripts.Render("~/js/site")
+    
     @Scripts.Render("~/js/plugins")
     
     @if (!User.Identity.IsAuthenticated) { Html.RenderPartial("_LoginModal"); }

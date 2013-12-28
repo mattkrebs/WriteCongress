@@ -42,7 +42,7 @@
 
 
 <!-- Title, Breadcrumb Start-->
-<div class="breadcrumb-wrapper">
+@*<div class="breadcrumb-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
@@ -59,31 +59,236 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
+<style>
+    .offset-0 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .offset-sm {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    .offset-nol {
+        padding-left: 0;
+    }
+    .offset-nor {
+        padding-right: 0;
+    }
+
+    .offset-vpadding-sm {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+</style>
 
 <div class="content">
     <div class="container">
         <div class="row">
-            <div class="posts-block col-lg-9 col-md-9 col-sm-8 col-xs-12">
+            <div class="posts-block col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <h1>@Model.Letter.Name</h1>
                 <p class="letter-description">@Model.Letter.Description</p>
 
+
+                <div id="letter" class="letter">
+                    <div id="letterHeader" class="letter-header well">
+                        <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
+                        <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span><span data-bind="{text:User().LastName}"></span></div>
+                        <div>
+                            <div data-bind="{autoswaptext:User().AddressOne,placeholder:'[Your Address]'}"></div>
+                            <div data-bind="{text:User().AddressTwo}"></div>
+                            <span data-bind="{text:User().City}"></span><span data-bind="{text:User().State}"></span><span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State & Zip]'}"></span>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="letter-recipients">
+                            <p>
+                                The Honorable
+                                <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to." data-toggle="tooltip">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
+                            </p>
+                            <div class="letter-subject">RE: @Model.Issue.Name</div>
+                        </div>
+                        <div class="letter-body">
+                            @Html.Raw(Model.Letter.Body)
+                        </div>
+                        <div class="letter-signature">
+                            <h4>Sincerely</h4>
+                            <span id="letter-signature">
+                                <span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Signature]'}"></span><span data-bind="{text:User().LastName}"></span>
+                            </span>
+                            <h5 data-bind="{text:User().Email}"></h5>
+                            <h5 data-bind="{text:User().PhoneNumber}"></h5>
+                        </div>
+                    </div>
+                </div>    
+
             </div>
             <!-- Left Section End -->
-            <div class="sidebar col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                <!-- Search Widget Start -->
-                <div class="widget search-form">
-                    <div class="input-group">
-                        <input type="text" value="Search..." onfocus="if(this.value=='Search...')this.value='';" onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
-                        <span class="input-group-btn">
-                            <button type="submit" class="subscribe-btn btn"><i class="icon-search"></i></button>
-                        </span>
-                    </div>
-                    <!-- /input-group -->
-                </div>
-                <!-- Search Widget End -->
+            <div class="sidebar col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div id="senderInfo" class="well letterinfo">
+                    <h2><i class="icon-envelope-alt"></i> Mail this letter</h2>
+                    
+                    <h3 class="title">
+                        Find Your Congress
+                    </h3>
+                    <p>Enter zip code code to get senators and representative. (May need to full address to get all three)</p>
+
+
                 
+
+                    
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="widget search-form">
+                                <div class="input-group">
+                                    <input type="text" maxlength="10" placeholder="Zip..." onfocus="if(this.value=='Search...')this.value='';" onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="subscribe-btn btn"><i class="icon-search"></i></button>
+                                    </span>
+                                </div>
+
+                                
+
+                                <!-- /input-group -->
+                            </div>
+
+                            <a class="btn btn-small" style="margin-bottom: 10px">Go</a>
+
+                        </div>
+                    </div>
+                    
+                    
+                        <h3 class="title">
+                            Your Info
+                        </h3>
+                    
+                    
+
+                    <div class="row">
+                        <div class="col-md-6 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
+                        </div>
+                        <div class="col-md-6 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
+                        </div>                    
+                      </div>
+
+                    <div class="row">
+                        <div class="col-md-12 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne,enable:User().ValidZip}" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo,enable:User().ValidZip}" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-4 offset-nor offset-vpadding-sm">
+                            <input class="form-control" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City,enable:User().ValidZip}" />
+                        </div>
+
+                        <div class="col-md-4 offset-sm offset-vpadding-sm">
+                            <select data-bind="{value:User().State,enable:User().ValidZip}" class="form-control " id="state" name="state" placeholder="State" size="1">
+                                <option value="">State</option>
+                                <option value="AK">AK</option>
+                                <option value="AL">AL</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="ND">ND</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VA">VA</option>
+                                <option value="VT">VT</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 offset-nol offset-vpadding-sm">
+                            <input class="form-control" type="text" id="zip" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 offset-vpadding-sm">
+                            <input class="form-control" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
+                        </div>
+                    </div>
+
+                        
+                        <button id="beInvolved" data-bind="{click:ContinueWorkflowClick,html:ContinueButtonText}" class="btn btn-large btn-primary"></button>
+                    </div>
+
+                <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height: 65px">
+                    <h4>We'll print &amp; mail this to:</h4>
+                    <span class="label label-block">(Your choice during checkout)</span><hr />
+                    <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+                    <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+                    <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
+                </div>
+            
+
+
                 
                 
             </div>
@@ -144,7 +349,7 @@
             </div>           
         </div>
         <div class="span4">
-            <div class="social well">
+            @*<div class="social well">
                 <h4><i class="icon-share-sign"></i> Share this Letter</h4>                
                   <div class="row-fluid">
                 <div class="fb-like span4" data-href="@pageUrl" data-width="450" data-layout="button_count" data-show-faces="false" data-send="false"></div>
@@ -157,87 +362,8 @@
                     </div>
                       </div>
 
-            </div>
-            <div id="senderInfo" class="well letterinfo">
-                <h4><i class="icon-envelope-alt"></i> Mail this letter</h4>
-                <hr />
-                <h5>My Account Info
-                    @*@if (!User.Identity.IsAuthenticated){<a href="javascript:void(0);" class="login-label login-launcher"><span class="label label-info"><i class="icon-signin"></i>Sign In</span></a>}*@
-                </h5>
-                <input class="span4" type="text" id="zipcode" maxlength="5" placeholder="Zip Code" data-bind="{value:User().Zip}" />
-                <a class="btn btn-small" style="margin-bottom: 10px">Go</a><br />
-                <input class="span6" type="text" id="firstname" maxlength="11" placeholder="First Name" data-bind="{value:User().FirstName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
-                <input class="span6" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" /><br />
-                <input class="span12" type="text" id="address1" maxlength="60" placeholder="Address 1" data-bind="{value:User().AddressOne,enable:User().ValidZip}" /><br />
-                <input class="span12" type="text" id="address2" maxlength="60" placeholder="Address 2" data-bind="{value:User().AddressTwo,enable:User().ValidZip}" /><br />
-                <input class="span6" type="text" id="city" maxlength="20" placeholder="City" data-bind="{value:User().City,enable:User().ValidZip}" />
-                <select data-bind="{value:User().State,enable:User().ValidZip}" class="span3" id="state" name="state" placeholder="State" size="1">
-                    <option value="">ST</option>
-                    <option value="AK">AK</option>
-                    <option value="AL">AL</option>
-                    <option value="AR">AR</option>
-                    <option value="AZ">AZ</option>
-                    <option value="CA">CA</option>
-                    <option value="CO">CO</option>
-                    <option value="CT">CT</option>
-                    <option value="DC">DC</option>
-                    <option value="DE">DE</option>
-                    <option value="FL">FL</option>
-                    <option value="GA">GA</option>
-                    <option value="HI">HI</option>
-                    <option value="IA">IA</option>
-                    <option value="ID">ID</option>
-                    <option value="IL">IL</option>
-                    <option value="IN">IN</option>
-                    <option value="KS">KS</option>
-                    <option value="KY">KY</option>
-                    <option value="LA">LA</option>
-                    <option value="MA">MA</option>
-                    <option value="MD">MD</option>
-                    <option value="ME">ME</option>
-                    <option value="MI">MI</option>
-                    <option value="MN">MN</option>
-                    <option value="MO">MO</option>
-                    <option value="MS">MS</option>
-                    <option value="MT">MT</option>
-                    <option value="NC">NC</option>
-                    <option value="ND">ND</option>
-                    <option value="NE">NE</option>
-                    <option value="NH">NH</option>
-                    <option value="NJ">NJ</option>
-                    <option value="NM">NM</option>
-                    <option value="NV">NV</option>
-                    <option value="NY">NY</option>
-                    <option value="OH">OH</option>
-                    <option value="OK">OK</option>
-                    <option value="OR">OR</option>
-                    <option value="PA">PA</option>
-                    <option value="RI">RI</option>
-                    <option value="SC">SC</option>
-                    <option value="SD">SD</option>
-                    <option value="TN">TN</option>
-                    <option value="TX">TX</option>
-                    <option value="UT">UT</option>
-                    <option value="VA">VA</option>
-                    <option value="VT">VT</option>
-                    <option value="WA">WA</option>
-                    <option value="WI">WI</option>
-                    <option value="WV">WV</option>
-                    <option value="WY">WY</option>
-                </select>
-                <input class="span3" type="text" id="city" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
-                <input class="span12" type="text" id="email" maxlength="55" placeholder="Email" data-bind="{value:User().Email,enable:User().ValidZip}" />
-                <input class="span8" type="text" id="phonenumber" maxlength="17" placeholder="Phone Number (Optional)" data-bind="{value:User().PhoneNumber,enable:User().ValidZip}" /><br />
-                <button id="beInvolved" data-bind="{click:ContinueWorkflowClick,html:ContinueButtonText}" class="btn btn-large btn-primary"></button>
-            </div>
-            <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height: 65px">
-                <h4>We'll print &amp; mail this to:</h4>
-                <span class="label label-block">(Your choice during checkout)</span><hr />
-                <img data-bind="attr:{title: Senators()[0].Tooltip,src:Senators()[0].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
-                <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
-                <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
-            </div>
-        </div>
+            </div>*@
+            
 
     </div>
 </div>

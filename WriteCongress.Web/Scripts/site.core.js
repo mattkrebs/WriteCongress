@@ -118,7 +118,8 @@ $(function () {
         ko.applyBindings(myCongressionalDistrict, document.getElementById('mydistrict'));
     }
 
-
+    
+    
     wcglobals = {
         MyCongressionalDistrict:myCongressionalDistrict
     };    
