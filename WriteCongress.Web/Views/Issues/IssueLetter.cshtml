@@ -91,11 +91,14 @@
     <div class="container">
         <div class="row">
             <div class="posts-block col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
                 <h1>@Model.Letter.Name</h1>
                 <p class="letter-description">@Model.Letter.Description</p>
 
 
                 <div id="letter" class="letter">
+
+
                     <div id="letterHeader" class="letter-header well">
                         <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
                         <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span><span data-bind="{text:User().LastName}"></span></div>
@@ -137,7 +140,7 @@
                     <h3 class="title">
                         Find Your Congress
                     </h3>
-                    <p>Enter zip code code to get senators and representative. (May need to full address to get all three)</p>
+                    <p>Enter zip code code to get senators and representative. To get congress person may need to enter full address below</p>
 
 
                 
@@ -149,7 +152,8 @@
                         <div class="col-md-12">
                             <div class="widget search-form">
                                 <div class="input-group">
-                                    <input type="text" maxlength="10" placeholder="Zip..." onfocus="if(this.value=='Search...')this.value='';" onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
+                                    
+                                    <input type="text" maxlength="5" id="zipcode" data-bind="{value:User().Zip}"   placeholder="Zip Code" onfocus="if(this.value=='Zip Code')this.value='';" onblur="if(this.value=='')this.value='Search...';" class="search-input form-control">
                                     <span class="input-group-btn">
                                         <button type="submit" class="subscribe-btn btn"><i class="icon-search"></i></button>
                                     </span>
@@ -159,8 +163,6 @@
 
                                 <!-- /input-group -->
                             </div>
-
-                            <a class="btn btn-small" style="margin-bottom: 10px">Go</a>
 
                         </div>
                     </div>
@@ -279,6 +281,9 @@
                         <button id="beInvolved" data-bind="{click:ContinueWorkflowClick,html:ContinueButtonText}" class="btn btn-large btn-primary"></button>
                     </div>
 
+            
+
+
                 <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height: 65px">
                     <h4>We'll print &amp; mail this to:</h4>
                     <span class="label label-block">(Your choice during checkout)</span><hr />
@@ -286,9 +291,6 @@
                     <img data-bind="attr:{title: Senators()[1].Tooltip,src:Senators()[1].Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
                     <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
                 </div>
-            
-
-
                 
                 
             </div>
@@ -302,52 +304,6 @@
 
 
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span8">
-            <ul class="breadcrumb">
-                <li><a href="/">Home</a> </li>
-                <li><a href="/Issues">Issues</a></li>
-                <li class="active"><a href="/Issues/@Model.Issue.Slug">@Model.Issue.Name</a></li>
-            </ul>
-
-            <h1>@Model.Letter.Name</h1>
-            <p class="letter-description">@Model.Letter.Description</p>
-
-
-            <div id="letter" class="letter">
-                <div id="letterHeader" class="letter-header well">
-                    <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
-                    <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span><span data-bind="{text:User().LastName}"></span></div>
-                    <div>
-                        <div data-bind="{autoswaptext:User().AddressOne,placeholder:'[Your Address]'}"></div>
-                        <div data-bind="{text:User().AddressTwo}"></div>
-                        <span data-bind="{text:User().City}"></span><span data-bind="{text:User().State}"></span><span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State & Zip]'}"></span>
-                        <br />
-                    </div>
-                </div>
-                <div class="well">
-                    <div class="letter-recipients">
-                        <p>
-                            The Honorable 
-                            <span id="addressse" class="label" title="We'll replace on each letter this with the name of the Senator/Rep this letter is sent to." data-toggle="tooltip">[NAME OF REP OR SENATOR] <i class="icon-info-sign"></i></span>
-                        </p>
-                        <div class="letter-subject">RE: @Model.Issue.Name</div>
-                    </div>
-                    <div class="letter-body">
-                        @Html.Raw(Model.Letter.Body)
-                    </div>
-                    <div class="letter-signature">
-                        <h4>Sincerely</h4>
-                        <span id="letter-signature">
-                            <span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Signature]'}"></span><span data-bind="{text:User().LastName}"></span>
-                        </span>
-                        <h5 data-bind="{text:User().Email}"></h5>
-                        <h5 data-bind="{text:User().PhoneNumber}"></h5>
-                    </div>
-                </div>
-            </div>           
-        </div>
         <div class="span4">
             @*<div class="social well">
                 <h4><i class="icon-share-sign"></i> Share this Letter</h4>                
@@ -366,7 +322,7 @@
             
 
     </div>
-</div>
+
 @Html.Partial("_PurchaseLetter")
 @Html.Partial("_CreateAccount")
 

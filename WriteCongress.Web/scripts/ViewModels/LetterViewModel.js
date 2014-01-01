@@ -14,6 +14,7 @@
     });
 
     self.User().Zip.subscribe(function (zip) {
+        alert("hi")
         geolocator.GetZipCodeInfo(zip).done(function (data) {
             if (data === null) {
                 mixpanel.track('Couldn\'t find info for zipcode', { Zip: zip });
