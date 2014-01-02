@@ -215,6 +215,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CustomTheme.css" />
     <Content Include="Content\images\howthisworks1.jpg" />
     <Content Include="Content\images\howthisworks2.jpg" />
     <Content Include="Content\images\howthisworks3.jpg" />

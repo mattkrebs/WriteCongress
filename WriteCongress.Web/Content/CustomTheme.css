@@ -1,0 +1,26 @@
+﻿    .offset-0 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .offset-sm {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    .offset-nol {
+        padding-left: 0;
+    }
+    .offset-nor {
+        padding-right: 0;
+    }
+
+    .offset-vpadding-sm {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .label.dark {
+        background-color:#999999;
+        }
