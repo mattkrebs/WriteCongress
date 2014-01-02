@@ -199,7 +199,7 @@
     </div>
     <!-- Slogan End-->
     <!-- Main Content start-->
-    <div class="main-content">
+    @*<div class="main-content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -213,11 +213,8 @@
                             </div>
                         </div>
                         <div class="content-box-info">
-                            <h3>Responsive Layout</h3>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                            </p>
-                            <a href="#">Read More <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a>
+                            <h2>Select the issue that matters most to you.</h2>
+                            
                         </div>
                     </div>
                 </div>
@@ -261,29 +258,78 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!-- Main Content end-->
     <!-- Recent works start-->
     <div class="recentworks bottom-pad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 animate_afl d1">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12  d1">
                     <div class="portfolio-desc">
-                        <h3 class="title">Recent Works</h3>
-                        <p>There are many variations passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even highly believable. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <h3 class="title">Hot Issues</h3>
+                        <p>Select from the current hot issue facing  our nation today or view all of the available <a href="/issues">issues</a>.</p>
+
+                        @{
+                            List<WriteCongress.Web.Models.IssueModel> issues = WriteCongress.Web.Models.IssueModel.GetFeaturedTopics();
+                            
+                        }
+                        @if (issues != null && issues.Count > 3)
+                        { 
                         <div class="carousel-controls">
                             <a class="prev" href="#portfolio-carousel" data-slide="prev"><i class="icon-angle-left"></i></a>
                             <a class="next" href="#portfolio-carousel" data-slide="next"><i class="icon-angle-right"></i></a>
                             <div class="clearfix"></div>
                         </div>
+                        }
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-xs-12">
                     <div class="row">
                         <div id="portfolio-carousel" class="portfolio-carousel slide">
                             <div class="carousel-inner">
+
+
                                 <div class="item active">
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d2">
+
+                                    @if (issues != null && issues.Count > 0)
+                                    {
+                                    for(int i= 0; i < issues.Count; i++)
+                                    {
+                                     WriteCongress.Web.Models.IssueModel item = issues[i];
+                                     string stylePH = "d";
+                                     if (i > 2)
+                                     {
+                                         stylePH = "";
+                                     }
+                                     else
+                                     {
+                                         stylePH = "d" + (2 + i);
+                                     }
+                                        
+                                        
+                                     if (i == 3)
+                                     {
+                                         @Html.Raw("</div><div class=\"item\">");
+                                     }
+                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item @stylePH">
+                                        <div class="portfolio-item">
+                                            <a href="/issues/@item.Url" class="portfolio-item-link">
+                                                <span class="portfolio-item-hover"></span>
+                                                <span class="fullscreen"><i class="icon-search"></i></span><img src="@item.IssueItem.ImageUrl" alt="" />
+                                            </a>
+                                            <div class="portfolio-item-title">
+                                                <a href="single-project.html">@item.Name</a>
+                                                <p>
+                                                </p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    }
+                                    }
+                                    </div>
+                                    @*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d2">
                                         <div class="portfolio-item">
                                             <a href="img/portfolio/img-portfolio.jpg" class="portfolio-item-link" data-rel="prettyPhoto">
                                                 <span class="portfolio-item-hover"></span>
@@ -298,6 +344,8 @@
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
+
+                                   
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item animate_afc d3">
                                         <div class="portfolio-item">
                                             <a href="img/portfolio/img-portfolio.jpg" class="portfolio-item-link" data-rel="prettyPhoto">
@@ -369,7 +417,7 @@
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
