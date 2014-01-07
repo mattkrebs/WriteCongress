@@ -139,10 +139,7 @@ body.boxed {
     margin: 25px 0 10px;
 }
 
-.navbar-fixed-top {
-    position: relative !important;
-    top: auto;
-}
+
 
 header .top-bar {
     min-height: 0;
