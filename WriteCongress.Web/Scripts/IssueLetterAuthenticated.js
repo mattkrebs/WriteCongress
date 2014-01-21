@@ -50,7 +50,7 @@ CheckoutModalView.prototype = {
             me.showPrice(me.calculatePrice());
         });
 
-        $('#purchaseLetter').modal();
+        $('#purchaseLetter').modal("show");
     },
     UseDifferentCard: function () {
         $('#cardOnFile').hide();

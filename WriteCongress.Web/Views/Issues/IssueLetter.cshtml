@@ -3,8 +3,8 @@
 @using WriteCongress.Web.Models
 @model WriteCongress.Web.Models.IssueLetterViewModel
 @{ViewBag.Title = String.Format("Letter {0} {1} ({2})", Model.Letter.Against ? "opposing" : "supporting", Model.Issue.Name, Model.Letter.Name);
-  var pageUrl = "https://www.writecongress.us/Issues/" + @Model.Letter.Slug;
-  Layout = "~/Views/Shared/_Layout.cshtml";
+var pageUrl = "https://www.writecongress.us/Issues/" + @Model.Letter.Slug;
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -22,7 +22,8 @@
 }
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
@@ -72,33 +73,15 @@
 </style>
 
 <div class="content">
-
-
-
     <div class="container">
-
-
-
-
-
         <div class="row">
             <div class="posts-block col-lg-8 col-md-8 col-sm-8 col-xs-12">
-
-      
-
-
                 <div id="letter" class="letter">
-
-
                     <div id="letterHeader" class="letter-header well">
-
                         <h1>@Model.Letter.Name</h1>
                         <h4 class="letter-description">@Model.Letter.Description</h4>
-
-                        
                     </div>
                     <div class="well">
-
                         <h5>@DateTime.Now.ToString("MMMM d, yyyy")</h5>
                         <div><span data-bind="{autoswaptext:User().FirstName,placeholder:'[Your Name]'}"></span>&nbsp;<span data-bind="{text:User().LastName}"></span></div>
                         <div>
@@ -107,8 +90,6 @@
                             <span data-bind="{text:User().City}"></span> <span data-bind="{text:User().State}"></span> <span data-bind="{autoswaptext:User().Zip,placeholder:'[Your City, State & Zip]'}"></span>
                             <br />
                         </div>
-
-
                         <div class="letter-recipients">
                             <p>
                                 The Honorable
@@ -128,21 +109,21 @@
                             <h5 data-bind="{text:User().PhoneNumber}"></h5>
                         </div>
                     </div>
-                </div>    
+                </div>
 
             </div>
             <!-- Left Section End -->
             <div class="sidebar col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div id="senderInfo" class="well letterinfo">
                     <h2><i class="icon-envelope-alt"></i> Mail this letter</h2>
-                    
-       
-                    <p>Please enter your info below</p>
-                           <h3 class="title">
-                            Your Info
-                        </h3>
 
-                    
+
+                    <p>Please enter your info below</p>
+                    <h3 class="title">
+                        Your Info
+                    </h3>
+
+
                     <div class="row">
                         <div class="col-md-8">
                             <div class="search-form">
@@ -151,9 +132,9 @@
                                     <span class="input-group-btn">
                                         <button type="submit" class="subscribe-btn btn"><i class="icon-search"></i></button>
                                     </span>
-                                    
+
                                 </div>
-                                
+
                                 <!-- /input-group -->
                             </div>
 
@@ -172,8 +153,8 @@
                         </div>
                         <div class="col-md-6 offset-vpadding-sm">
                             <input class="form-control" type="text" id="lastname" maxlength="20" placeholder="Last Name" data-bind="{value:User().LastName, valueUpdate: 'afterkeydown',enable:User().ValidZip}" />
-                        </div>                    
-                      </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-12 offset-vpadding-sm">
@@ -250,11 +231,11 @@
                                 <option value="WY">WY</option>
                             </select>
                         </div>
-                        
+
                         @*<div class="col-md-4 offset-nol offset-vpadding-sm">
-                            <input class="form-control" type="text" id="zip" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
-                        </div>*@
-                        
+                                <input class="form-control" type="text" id="zip" maxlength="20" placeholder="Zip" data-bind="{value:User().Zip}" disabled="disabled" />
+                            </div>*@
+
                     </div>
 
                     <div class="row">
@@ -269,13 +250,8 @@
                         </div>
                     </div>
 
-                        
                     <button id="beInvolved" data-bind="{click:ContinueWorkflowClick,html:ContinueButtonText}" class="btn btn-large btn-color btn-primary"></button>
-                    </div>
-
-            
-
-
+                </div>
                 <div id="letter-myCongressPersons" data-bind="visible:DisplayMyCongressPersons" class="well" style="min-height: 65px">
                     <h3 class="title">We'll print &amp; mail this to:</h3>
                     <span class="label label-block dark">(Your choice during checkout)</span><hr />
@@ -284,8 +260,8 @@
                     <img data-bind="attr:{title: Representative().Tooltip,src:Representative().Photo50()}" class="img-polaroid" data-toggle="tooltip" data-placement="top" />
                 </div>
 
-                
-                
+
+
             </div>
             <!-- Sidebar End -->
         </div>
@@ -297,24 +273,24 @@
 
 
 
-        <div class="span4">
-            @*<div class="social well">
-                <h4><i class="icon-share-sign"></i> Share this Letter</h4>                
-                  <div class="row-fluid">
-                <div class="fb-like span4" data-href="@pageUrl" data-width="450" data-layout="button_count" data-show-faces="false" data-send="false"></div>
-                <div class="span4">
-                <a href="https://twitter.com/share?text=@Url.Encode("Take a stance, send your representative a professional letter. " +  pageUrl + " @writecongress")" class="twitter-share-button" data-related="jasoncosta" data-lang="en" data-size="small" data-count="horizontal">Tweet</a>
-                    </div>
-                <div class="span4">
-                <a href="//pinterest.com/pin/create/button/?url=@Url.Encode(pageUrl)&media=https%3A%2F%2Faz417320.vo.msecnd.net%2Fassets%2Fimages%2Flogo.png&description=Take%20a%20stance" data-pin-do="buttonPin" data-pin-config="beside">
-                    <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
-                    </div>
-                      </div>
+<div class="span4">
+    @*<div class="social well">
+            <h4><i class="icon-share-sign"></i> Share this Letter</h4>
+              <div class="row-fluid">
+            <div class="fb-like span4" data-href="@pageUrl" data-width="450" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+            <div class="span4">
+            <a href="https://twitter.com/share?text=@Url.Encode("Take a stance, send your representative a professional letter. " +  pageUrl + " @writecongress")" class="twitter-share-button" data-related="jasoncosta" data-lang="en" data-size="small" data-count="horizontal">Tweet</a>
+                </div>
+            <div class="span4">
+            <a href="//pinterest.com/pin/create/button/?url=@Url.Encode(pageUrl)&media=https%3A%2F%2Faz417320.vo.msecnd.net%2Fassets%2Fimages%2Flogo.png&description=Take%20a%20stance" data-pin-do="buttonPin" data-pin-config="beside">
+                <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+                </div>
+                  </div>
 
-            </div>*@
-            
+        </div>*@
 
-    </div>
+
+</div>
 
 
 
@@ -333,7 +309,7 @@
     }
     else
     {
-@*<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>*@
+        @*<script type="text/javascript" src="/scripts/IssueLetterNonAuthenticated.js"></script>*@
     }
     <script src="/scripts/Models/User.js"></script>
     <script src="/scripts/ViewModels/LetterViewModel.js"></script>
@@ -344,16 +320,16 @@
             @if (User.Identity.IsAuthenticated)
             {
                 @:vm.User().Authenticated(true);
-                                        @:vm.User().CongressionalDistrict(@Model.CongressionalDistrict);
-                                        @:vm.User().FirstName('@Model.FirstName');
-                                        @:vm.User().LastName('@Model.LastName');
-                                        @:vm.User().AddressOne('@Model.Address1');
-                                        @:vm.User().AddressTwo('@Model.Address2');
-                                        @:vm.User().City('@Model.City');
-                                        @:vm.User().State('@Model.State');
-                                        @:vm.User().Zip('@Model.ZipCode');
-                                        @:vm.User().Email('@Model.Email');
-                                        @:vm.User().PhoneNumber('@Model.PhoneNumber');
+                                                    @:vm.User().CongressionalDistrict(@Model.CongressionalDistrict);
+                                                    @:vm.User().FirstName('@Model.FirstName');
+                                                    @:vm.User().LastName('@Model.LastName');
+                                                    @:vm.User().AddressOne('@Model.Address1');
+                                                    @:vm.User().AddressTwo('@Model.Address2');
+                                                    @:vm.User().City('@Model.City');
+                                                    @:vm.User().State('@Model.State');
+                                                    @:vm.User().Zip('@Model.ZipCode');
+                                                    @:vm.User().Email('@Model.Email');
+                                                    @:vm.User().PhoneNumber('@Model.PhoneNumber');
 
             }
             ko.applyBindings(vm, document.getElementById('senderInfo'));

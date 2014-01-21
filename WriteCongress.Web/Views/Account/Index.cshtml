@@ -1,11 +1,12 @@
-﻿@model WriteCongress.Core.User
+﻿@model WriteCongress.Web.Models.Account
 @{
     ViewBag.Title = "Account Detail";
-    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container-fluid">
-    <div class="row-fluid">
-        <h3>My Account</h3>
+<div class="container">
+    <div class="divider"></div>
+    <div class="row">
+        <h3 class="title">My Account</h3>
         <div class="tabbable">
             <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
@@ -17,7 +18,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Date</th>   
+                                <th>Date</th>
                                 <th>Count</th>
                                 <th>Status</th>
                                 <th>Total</th>
@@ -27,14 +28,14 @@
                         @if (Model.Orders.Count > 0)
                         {
                             foreach (var order in Model.Orders)
-                            {                            
-                            <tr class="@order.OrderStatus.Name">
-                                <td>@order.CreateDateUtc</td>
-                                <td>@order.OrderDetails.Count</td>
-                                <td>@order.OrderStatus.Name</td>
-                                <td>$@order.OrderTotal</td>
-                                <td><a href="/Account/OrderDetail/@order.Guid">Details</a></td>
-                            </tr>    
+                            {
+                                <tr class="@order.OrderStatus.Name">
+                                    <td>@order.CreateDateUtc</td>
+                                    <td>@order.OrderDetails.Count</td>
+                                    <td>@order.OrderStatus.Name</td>
+                                    <td>$@order.OrderTotal</td>
+                                    <td><a href="/Account/OrderDetail/@order.Guid">Details</a></td>
+                                </tr>
                             }
 
                         }
@@ -42,55 +43,92 @@
                         {
                             <tr class="success">
                                 <td colspan="5">No Orders</td>
-                            </tr>  
+                            </tr>
                         }
                     </table>
                 </div>
-               <div class="tab-pane" id="tab2">
-                 @if (User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null)
-                {
-                       
-                    WriteCongress.Core.User user = ViewBag.AuthenticatedUser;
-                    using (Html.BeginForm("Edit", "Account", FormMethod.Post))
-                    {
-                           <div class="row-fluid">
-                            <div class="span12">
-                                <dl class="dl-horizontal">
-                                    <dt>First Name</dt>
-                                    <dd>@Html.TextBoxFor(model => model.FirstName,  new {maxlength = 50})</dd>
-                                    <dt>Last Name</dt>
-                                    <dd>@Html.TextBoxFor(model => model.LastName, new {maxlength = 50})</dd>
-                                    <dt>Address 1</dt>
-                                    <dd>@Html.TextBoxFor(model => model.AddressOne, new {maxlength = 50})</dd>
-                                    <dt>Address 2</dt>
-                                    <dd>@Html.TextBoxFor(model => model.AddressTwo, new {maxlength = 50})</dd>
-                                    <dt>City</dt>
-                                    <dd>@Html.TextBoxFor(model => model.City,  new {maxlength = 50})</dd>
-                                    <dt>State</dt>
-                                    <dd>@Html.TextBoxFor(model => model.State, new {maxlength = 2})</dd>
-                                    <dt>Zip Code</dt>
-                                    <dd>@Html.TextBoxFor(model => model.ZipCode,new {maxlength = 5})</dd>
-                                    @Html.HiddenFor(model => model.Id)
-                             
-                                    
-                                </dl>
-                                <p>
-                                    <input type="submit" value="Save" />
-                                </p>
-                            </div>
-                            @*  <div class="span5">
-                            <div>
-                                <iframe width="325" height="280" frameborder="0" src="http://www.bing.com/maps/embed/viewer.aspx?v=3&cp=45.063981~-93.440125&lvl=11&w=325&h=280&sty=r&typ=d&pp=~~45.069168~-93.438065&ps=&dir=0&mkt=en-us&form=BMEMJS"></iframe>
-                            </div>
-                        </div>*@
-                        </div>
+                <div class="tab-pane" id="tab2">
+                    @if (User.Identity.IsAuthenticated && ViewBag.AuthenticatedUser != null)
+{
 
-                   
-                    }
-                    
-                }
+    WriteCongress.Core.User user = ViewBag.AuthenticatedUser;
+    using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+    {
+        <fieldset>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.TextBoxFor(model => model.FirstName, new { maxlength = 50, @class = "form-control" })
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.TextBoxFor(model => model.LastName, new { maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.AddressOne)
+                    @Html.TextBoxFor(model => model.AddressOne, new { maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.AddressTwo)
+                    @Html.TextBoxFor(model => model.AddressTwo, new { maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    @Html.LabelFor(model => model.City)
+                    @Html.TextBoxFor(model => model.City, new { maxlength = 50, @class = "form-control" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    @Html.LabelFor(model => model.State)
+                    @Html.TextBoxFor(model => model.State, new { maxlength = 50, @class = "form-control" })
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    @Html.LabelFor(model => model.ZipCode)
+                    @Html.TextBoxFor(model => model.ZipCode, new { maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email, new { maxlength = 50, @class = "form-control" })
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { maxlength = 50, @class = "form-control" })
                     </div>
+                </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    @Html.LabelFor(model => model.ResetPassword)
+                    @Html.PasswordFor(model => model.ResetPassword, new { maxlength = 50, @class = "form-control" })
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Id)
+        </fieldset>
+
+                                                <button class="btn-normal btn-color submit bottom-pad top-pad" type="submit">Save</button>
+
+                            @*  <div class="span5">
+                        <div>
+                            <iframe width="325" height="280" frameborder="0" src="http://www.bing.com/maps/embed/viewer.aspx?v=3&cp=45.063981~-93.440125&lvl=11&w=325&h=280&sty=r&typ=d&pp=~~45.069168~-93.438065&ps=&dir=0&mkt=en-us&form=BMEMJS"></iframe>
+                        </div>
+                    </div>*@
+
+
+
+    }
+
+                    }
+                </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+

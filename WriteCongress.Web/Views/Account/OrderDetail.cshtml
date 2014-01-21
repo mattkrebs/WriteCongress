@@ -1,18 +1,21 @@
 ﻿@model WriteCongress.Core.Order
 @{
     ViewBag.Title = "Order Detail - " + Model.OrderDetails.First().Letter.Name;
-    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span5">
-            <h3>Order Detail</h3>
+<div class="container">
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-lg-5 col-md-5">
+            <h3 class="title">Order Detail</h3>
             <h4>Order Date: <small>@Model.CreateDateUtc</small></h4>
             @foreach (var od in Model.OrderDetails)
             {
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="img-polaroid" src="https://az417320.vo.msecnd.net/congress-photos/@od.Person.OpenCongressId-50px.jpg">
+                        <div class="portfolio-item">
+                            <img class="img-polaroid" src="https://az417320.vo.msecnd.net/congress-photos/@od.Person.OpenCongressId-50px.jpg">
+                        </div>
                     </a>
                     <div class="media-body">
                         <h5 class="media-heading">@od.Person.FullNameAndTitle</h5>
@@ -23,8 +26,8 @@
             }
             <h4>Total: <small>$@Model.OrderTotal</small></h4>
         </div>
-        <div class="span7">
-            <h3>Order Status</h3>
+        <div class="col-lg-7 col-md-7">
+            <h3 class="title">Order Status</h3>
             <ul class="statuses unstyled">
                 <li>
                     <div id="status-1" class="@if (Model.OrderStatusId == 1) {<text>alert alert-success</text>

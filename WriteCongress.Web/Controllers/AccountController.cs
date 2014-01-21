@@ -23,7 +23,7 @@ namespace WriteCongress.Web.Controllers
         public ActionResult Index(string f)
         {
             //User user = AuthenticatedUser.Orders
-            return View(AuthenticatedUser);
+            return View(new Account(AuthenticatedUser));
         }
 
 
@@ -42,7 +42,7 @@ namespace WriteCongress.Web.Controllers
             return View(order);
         }
         [HttpPost]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(Account user)
         {
             var u = Db.Users.Find(user.Id);
             if (ModelState.IsValid)
@@ -54,11 +54,37 @@ namespace WriteCongress.Web.Controllers
                 u.City = user.City;
                 u.State = user.State;
                 u.ZipCode = user.ZipCode;
-                
 
+                if (u.Email.ToLower() == user.Email.Trim().ToLower())
+                {
+                    u.Email = user.Email;
+                }
+
+                if (user.Password == user.ResetPassword)
+                {
+
+                    var salt = CryptoHelper.GenerateRandomString();
+                    u.Salt = salt;
+                    u.Password = CryptoHelper.HashAndSalt(user.Password, salt);
+                    u.SessionId = CryptoHelper.HMACObject(CryptoHelper.GenerateRandomString(64), "TacoBellFridays", StringEncodingFormat.Base64).Left(128);
+
+
+                    
+                }
 
                 Db.Entry<User>(u).State = System.Data.EntityState.Modified;
-                Db.SaveChanges();
+
+                try
+                {
+                    Db.SaveChanges();
+                }
+                catch (System.Exception ex)
+                {
+                    var errors = Db.GetValidationErrors();
+                    errors.ToString();
+                    Logger.Error(errors.ToString());
+                    ModelState.AddModelError("UpdateUser", ex);
+                }
             }
             return View("Index", AuthenticatedUser);
         }
